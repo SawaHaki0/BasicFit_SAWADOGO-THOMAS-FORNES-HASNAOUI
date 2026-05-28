@@ -23,6 +23,7 @@ namespace SAE2._01_Application_WPF
         public Interface_ResponsableDuClub()
         {
             InitializeComponent();
+
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
