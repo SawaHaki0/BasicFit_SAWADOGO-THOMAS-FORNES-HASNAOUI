@@ -36,9 +36,9 @@
             <Button Content="Supprimer une catégorie" Margin="0,12"/>
         </StackPanel>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Height="270" Width="400" Margin="50,0,0,25">
-            <TabControl Height="270">
+            <DataGrid Height="270">
                 
-            </TabControl>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </UserControl>
