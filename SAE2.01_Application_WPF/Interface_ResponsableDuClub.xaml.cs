@@ -50,8 +50,6 @@ namespace SAE2._01_Application_WPF
             clickedButton.Background = (Brush)new BrushConverter().ConvertFromString("#CCDFFF");
             clickedButton.BorderThickness = new Thickness(5, 0, 0, 0);
             clickedButton.BorderBrush = (Brush)new BrushConverter().ConvertFromString("#9E4300"); ;
-
-
         }
     }
 }
