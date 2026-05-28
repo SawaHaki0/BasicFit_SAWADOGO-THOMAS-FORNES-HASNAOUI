@@ -16,9 +16,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="img\EmojiBiceps.png" />
-    <Resource Include="img\Logo.png" />
-    <Resource Include="img\LogoVide.png" />
+    <Resource Include="img\EmojiBiceps.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\LogoVide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

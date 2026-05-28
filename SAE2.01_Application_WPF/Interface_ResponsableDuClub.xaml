@@ -24,7 +24,7 @@
 
             <Border Grid.Row="0" Padding="25" BorderBrush="#FFD9A7" BorderThickness="0,0,0,1">
                 <Border.Background>
-                    <ImageBrush ImageSource="/images/Logo.png"/>
+                    <ImageBrush ImageSource="/img/Logo.png"/>
                 </Border.Background>
 
 
