@@ -16,9 +16,11 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        Interface_ResponsableDuClub interface_responsable = new Interface_ResponsableDuClub();
         public MainWindow()
         {
             InitializeComponent();
+            MainContainer.Children.Add(interface_responsable); 
         }
     }
 }
