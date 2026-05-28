@@ -10,21 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\EmojiBiceps.png" />
-    <None Remove="Images\Logo.png" />
-    <None Remove="Images\LogoVide.png" />
+    <None Remove="img\EmojiBiceps.png" />
+    <None Remove="img\Logo.png" />
+    <None Remove="img\LogoVide.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\EmojiBiceps.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\Logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\LogoVide.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="img\EmojiBiceps.png" />
+    <Resource Include="img\Logo.png" />
+    <Resource Include="img\LogoVide.png" />
   </ItemGroup>
 
 </Project>
