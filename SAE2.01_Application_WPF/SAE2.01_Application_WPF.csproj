@@ -9,4 +9,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="img\EmojiBiceps.png" />
+    <None Remove="img\Logo.png" />
+    <None Remove="img\LogoVide.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\EmojiBiceps.png" />
+    <Resource Include="img\Logo.png" />
+    <Resource Include="img\LogoVide.png" />
+  </ItemGroup>
+
 </Project>
