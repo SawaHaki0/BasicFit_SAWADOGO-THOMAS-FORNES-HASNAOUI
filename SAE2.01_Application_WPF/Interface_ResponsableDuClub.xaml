@@ -18,7 +18,7 @@
 
         <Grid Grid.Column="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="170"/>
+                <RowDefinition Height="Auto" MinHeight="193"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -41,7 +41,7 @@
                     <StackPanel Orientation="Vertical" Grid.Column="1">
 
                         <!-- Planning jour -->
-                        <Button x:Name="menuPlanningJour" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" Margin="0,20,0,0" HorizontalContentAlignment="Left" Height="60">
+                        <Button x:Name="menuPlanningJour" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" Margin="0,20,-1,0" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE787;"  FontSize="18" Margin="0,0,10,0"/>
                                 <TextBlock Text="Planning du jour" VerticalAlignment="Center"/>
@@ -111,6 +111,8 @@
                 <Grid>
                 </Grid>
             </Border>
+            <Label Content="Je suis Responsable Du club" HorizontalAlignment="Left" Height="27" Margin="392,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="169" Foreground="#FFDE8400" FontWeight="Bold"/>
+            <Label Content="Bienvenu" HorizontalAlignment="Left" Height="27" Margin="704,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="68" Foreground="#FFDE8400" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </UserControl>

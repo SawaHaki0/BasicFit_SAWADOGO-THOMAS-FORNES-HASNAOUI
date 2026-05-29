@@ -24,5 +24,32 @@ namespace SAE2._01_Application_WPF
         {
             InitializeComponent();
         }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            Button clickedButton = (Button)sender;
+            StackPanel parentPanel = (StackPanel)clickedButton.Parent;
+
+            foreach (var child in parentPanel.Children)
+            {
+                if (child is Button btn)
+                {
+                    btn.FontWeight = FontWeights.Normal;
+                    btn.Foreground = (Brush)new BrushConverter().ConvertFromString("#000000");
+                    btn.Background = (Brush)new BrushConverter().ConvertFromString("#EBF3FF");
+
+                    btn.BorderThickness = new Thickness(0);
+                    btn.BorderBrush = Brushes.Transparent;
+
+                }
+            }
+
+            clickedButton.FontWeight = FontWeights.Bold;
+            clickedButton.Foreground = (Brush)new BrushConverter().ConvertFromString("#9E4300");
+            clickedButton.Background = (Brush)new BrushConverter().ConvertFromString("#CCDFFF");
+            clickedButton.BorderThickness = new Thickness(5, 0, 0, 0);
+            clickedButton.BorderBrush = (Brush)new BrushConverter().ConvertFromString("#9E4300"); ;
+        }
     }
 }

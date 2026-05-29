@@ -16,11 +16,11 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        Interface_ResponsableDuClub interface_responsable = new Interface_ResponsableDuClub();
+        Interface_Employe uc = new Interface_Employe();
         public MainWindow()
         {
             InitializeComponent();
-            MainContainer.Children.Add(interface_responsable); 
+            MainContainer.Children.Add(uc); 
         }
     }
 }

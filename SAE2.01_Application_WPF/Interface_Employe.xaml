@@ -7,6 +7,105 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="28*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="43*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="193"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Padding="25" BorderBrush="#FFD9A7" BorderThickness="0,0,0,1">
+                <Border.Background>
+                    <ImageBrush ImageSource="/img/Logo.png"/>
+                </Border.Background>
+
+
+            </Border>
+
+            <Border Grid.Row="1" Background="#EBF3FF" BorderBrush="#FFD9A7" BorderThickness="0,0,0,1">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="133*"/>
+                        <RowDefinition Height="22*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+
+                        <!-- Planning jour -->
+                        <Button x:Name="menuPlanningJour" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" Margin="0,20,-1,0" HorizontalContentAlignment="Left" Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE787;"  FontSize="18" Margin="0,0,10,0"/>
+                                <TextBlock Text="Planning du jour" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Cours -->
+                        <Button x:Name="menuCours" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;"  FontSize="18" Margin="0,0,10,0"/>
+                                <TextBlock Text="Cours" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Participants -->
+                        <Button x:Name="menuParticipants" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE716;"  FontSize="18" Margin="0,0,10,0"/>
+                                <TextBlock Text="Participants" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        
+
+                        <!-- Gérer entraineurs -->
+                        <Button x:Name="menuGererEntraineurs" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE13D;"  FontSize="18" Margin="0,0,10,0"/>
+                                <TextBlock Text="Gérer entraineurs" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="1">
+                        <Button x:Name="menuLogout" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" Margin="0,10,0,0" HorizontalContentAlignment="Left" Height="40">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7E8;"  FontSize="18" Margin="0,0,10,0"/>
+                                <TextBlock Text="Logout" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="47"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="White" BorderBrush="#FFD9A7" BorderThickness="0,0,0,1" Padding="20,0" Grid.RowSpan="2">
+                <TextBlock Text="Système de gestion" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" Margin="0,0,405,0"/>
+            </Border>
+
+            <Border Grid.Row="2" Background="#F8FAFC" Padding="30">
+                <Grid>
+                </Grid>
+            </Border>
+            <Label Content="Je suis Employe" HorizontalAlignment="Left" Height="27" Margin="392,6,0,0" Grid.Row="1" VerticalAlignment="Top" Width="169" Foreground="#FFDE8400" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </UserControl>
