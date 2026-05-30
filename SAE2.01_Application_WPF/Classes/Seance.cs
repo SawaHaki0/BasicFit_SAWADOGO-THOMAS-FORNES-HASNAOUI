@@ -1,12 +1,160 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SAE2._01_Application_WPF.Classes
 {
-    internal class Seance
+    public class Seance
     {
+        private int idSeance;
+        private Cours unCours;
+        private Entraineur unEntraineur;
+        private Salle uneSalle;
+        private DateTime jourSeance;
+        private TimeSpan heureDebut, heureFin;
+        private int nbPlaces;
+
+        public Seance()
+        {
+        }
+
+        public Seance(int idSeance, int idCours, int idEntraineur, int idSalle, DateTime jourSeance, TimeSpan heureDebut, TimeSpan heureFin, int nbPlaces)
+        {
+            this.IdSeance = idSeance;
+            this.JourSeance = jourSeance;
+            this.HeureDebut = heureDebut;
+            this.HeureFin = heureFin;
+            this.NbPlaces = nbPlaces;
+        }
+
+        public int IdSeance
+        {
+            get
+            {
+                return this.idSeance;
+            }
+
+            set
+            {
+                this.idSeance = value;
+            }
+        }
+
+        public DateTime JourSeance
+        {
+            get
+            {
+                return this.jourSeance;
+            }
+
+            set
+            {
+                this.jourSeance = value;
+            }
+        }
+
+        public TimeSpan HeureDebut
+        {
+            get
+            {
+                return this.heureDebut;
+            }
+
+            set
+            {
+                this.heureDebut = value;
+            }
+        }
+
+        public TimeSpan HeureFin
+        {
+            get
+            {
+                return this.heureFin;
+            }
+
+            set
+            {
+                this.heureFin = value;
+            }
+        }
+
+        public int NbPlaces
+        {
+            get
+            {
+                return this.nbPlaces;
+            }
+
+            set
+            {
+                this.nbPlaces = value;
+            }
+        }
+
+        public Cours UnCours
+        {
+            get
+            {
+                return this.unCours;
+            }
+
+            set
+            {
+                this.unCours = value;
+            }
+        }
+
+        public Entraineur UnEntraineur
+        {
+            get
+            {
+                return this.unEntraineur;
+            }
+
+            set
+            {
+                this.unEntraineur = value;
+            }
+        }
+
+        public Salle UneSalle
+        {
+            get
+            {
+                return this.uneSalle;
+            }
+
+            set
+            {
+                this.uneSalle = value;
+            }
+        }
+
+        public List<Seance> FindAll()
+        {
+            List<Seance> lesSeances = new List<Seance>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from SEANCE ;"))
+            {
+                DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesSeances.Add(new Seance(
+                        (int)dr["SEANCE_ID"],
+                        (int)dr["COURS_ID"],
+                        (int)dr["ENTRAINEUR_ID"],
+                        (int)dr["SALLE_ID"],
+                        ((DateOnly)dr["JOUR"]).ToDateTime(TimeOnly.MinValue),
+                        (TimeSpan)dr["HEURE_DEBUT"],
+                        (TimeSpan)dr["HEURE_FIN"],
+                        (int)dr["NB_PLACES"]        
+                    ));
+
+            }
+            return lesSeances;
+        }
     }
 }
