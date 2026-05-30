@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace SAE2._01_Application_WPF
+namespace SAE2._01_Application_WPF.Classes
 {
     public class LogError
     {
