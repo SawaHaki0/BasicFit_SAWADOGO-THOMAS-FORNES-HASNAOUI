@@ -10,6 +10,8 @@ namespace SAE2._01_Application_WPF.Classes
 {
     public class Salle
     {
+        private static Dictionary<int, Salle> cacheSalle = new Dictionary<int, Salle>();
+
         private int idSalle, nbPlaces;
         private String nomSalle;
 
@@ -78,6 +80,35 @@ namespace SAE2._01_Application_WPF.Classes
 
             }
             return lesSalles;
+        }
+
+        public Salle FindByID(int id)
+        {
+            if (cacheSalle.TryGetValue(id, out Salle enCache))
+                return enCache;
+
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from COURS where SALLE = @id;"))
+            {
+                cmdSelect.Parameters.AddWithValue("@id", id);
+
+                using (DataTable dt = DataAccess.ExecuteSelect(cmdSelect))
+                {
+                    if (dt.Rows.Count == 0)
+                        return null;
+
+                    else
+                    {
+                        DataRow dr = dt.Rows[0];
+                        Salle salle = new Salle(
+                            (int)dr["SALLE_ID"],
+                            (int)dr["SALLE_NOM"],
+                            (string)dr["SALLE_NB_PLACES"]);
+
+                        cacheSalle[id] = salle;
+                        return salle;
+                    }
+                }
+            }
         }
     }
 }

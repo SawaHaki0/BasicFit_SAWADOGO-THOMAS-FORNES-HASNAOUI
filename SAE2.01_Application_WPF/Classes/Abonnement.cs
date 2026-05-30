@@ -10,7 +10,7 @@ namespace SAE2._01_Application_WPF.Classes
 {
     public class Abonnement
     {
-        private static Dictionary<int, Abonnement> cache = new Dictionary<int, Abonnement>();
+        private static Dictionary<int, Abonnement> cacheAbonnements = new Dictionary<int, Abonnement>();
 
         private int idAbonnement;
         private String descriptionAbonnement;
@@ -83,29 +83,31 @@ namespace SAE2._01_Application_WPF.Classes
 
         public Abonnement FindByID(int id)
         {
-            if (cache.TryGetValue(id, out Abonnement enCache))
+            if (cacheAbonnements.TryGetValue(id, out Abonnement enCache))
                 return enCache;
 
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from ABONNEMENT where ABONNEMENT_ID = @id;"))
-            using (DataTable dt = DataAccess.ExecuteSelect(cmdSelect))
             {
                 cmdSelect.Parameters.AddWithValue("@id", id);
-                if (dt.Rows.Count == 0)
-                    return null;
 
-                else
-                {
-                    DataRow dr = dt.Rows[0];
-                    Abonnement abonnement = new Abonnement(
-                        (int)dr["ABONNEMENT_ID"],
-                        (string)dr["ABONNEMENT_DESCRIPTION"],
-                        (decimal)dr["TARIF"]);
+                using (DataTable dt = DataAccess.ExecuteSelect(cmdSelect))
+                {  
+                    if (dt.Rows.Count == 0)
+                        return null;
 
-                    cache[id] = abonnement;
-                    return abonnement;
+                    else
+                    {
+                        DataRow dr = dt.Rows[0];
+                        Abonnement abonnement = new Abonnement(
+                            (int)dr["ABONNEMENT_ID"],
+                            (string)dr["ABONNEMENT_DESCRIPTION"],
+                            (decimal)dr["TARIF"]);
+
+                        cacheAbonnements[id] = abonnement;
+                        return abonnement;
+                    }
                 }
             }
-
         }
     }
 }

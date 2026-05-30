@@ -10,6 +10,8 @@ namespace SAE2._01_Application_WPF.Classes
 {
     public class Cours
     {
+        private static Dictionary<int, Cours> cacheCours = new Dictionary<int, Cours>();
+
         private int idCours;
         private Categorie uneCategorie;
         private String nomCours, descriptionCours;
@@ -23,6 +25,7 @@ namespace SAE2._01_Application_WPF.Classes
             this.IdCours = idCours;
             this.NomCours = nomCours;
             this.DescriptionCours = descriptionCours;
+            this.UneCategorie = new Categorie().FindByID(idCategorie);
         }
 
         public int IdCours
@@ -93,6 +96,36 @@ namespace SAE2._01_Application_WPF.Classes
 
             }
             return lesCours;
+        }
+
+        public Cours FindByID(int id)
+        {
+            if (cacheCours.TryGetValue(id, out Cours enCache))
+                return enCache;
+
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from COURS where COURS_ID = @id;"))
+            {
+                cmdSelect.Parameters.AddWithValue("@id", id);
+
+                using (DataTable dt = DataAccess.ExecuteSelect(cmdSelect))
+                {
+                    if (dt.Rows.Count == 0)
+                        return null;
+
+                    else
+                    {
+                        DataRow dr = dt.Rows[0];
+                        Cours cours = new Cours(
+                            (int)dr["COURS_ID"],
+                            (int)dr["CATEGORIE_ID"],
+                            (string)dr["COURS_NOM"],
+                            (string)dr["COURS_DESCRIPTION"]);
+
+                        cacheCours[id] = cours;
+                        return cours;
+                    }
+                }
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ namespace SAE2._01_Application_WPF.Classes
             this.CodePostal = codePostal;
             this.Ville = ville;
             this.DateNaissance = dateNaissance;
+            this.UnAbonnement = new Abonnement().FindByID(idAbonnement);
         }
 
         public int IdClient
@@ -176,9 +177,9 @@ namespace SAE2._01_Application_WPF.Classes
                         (string)dr["PRENOM"],
                         (string)dr["MAIL"],
                         (string)dr["TELEPHONE"],
-                        (string)dr["ADRESSE"],
-                        (string)dr["CODE_POSTAL"],
-                        (string)dr["VILLE"],
+                        (string)dr["ADRESSE"] as string,
+                        (string)dr["CODE_POSTAL"] as string,
+                        (string)dr["VILLE"] as string,
                         ((DateOnly)dr["DATE_NAISSANCE"]).ToDateTime(TimeOnly.MinValue)
                     ));
                 

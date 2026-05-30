@@ -17,6 +17,7 @@ namespace SAE2._01_Application_WPF.Classes
         private DateTime jourSeance;
         private TimeSpan heureDebut, heureFin;
         private int nbPlaces;
+        private List<Client> participantsSeance = new List<Client>();
 
         public Seance()
         {
@@ -29,6 +30,9 @@ namespace SAE2._01_Application_WPF.Classes
             this.HeureDebut = heureDebut;
             this.HeureFin = heureFin;
             this.NbPlaces = nbPlaces;
+            this.UnCours = new Cours().FindByID(idCours);
+            this.UnEntraineur = new Entraineur().FindByID(idEntraineur);
+            this.UneSalle = new Salle().FindByID(idSalle);
         }
 
         public int IdSeance
@@ -132,6 +136,19 @@ namespace SAE2._01_Application_WPF.Classes
             set
             {
                 this.uneSalle = value;
+            }
+        }
+
+        public List<Client> ParticipantsSeance
+        {
+            get
+            {
+                return this.participantsSeance;
+            }
+
+            set
+            {
+                this.participantsSeance = value;
             }
         }
 

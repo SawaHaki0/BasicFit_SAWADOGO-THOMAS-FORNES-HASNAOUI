@@ -10,6 +10,8 @@ namespace SAE2._01_Application_WPF.Classes
 {
     public class Entraineur
     {
+        private static Dictionary<int, Entraineur> cacheEntraineur = new Dictionary<int, Entraineur>();
+
         private int idEntraineur;
         private String nomEntraineur, prenomEntraineur;
 
@@ -78,6 +80,35 @@ namespace SAE2._01_Application_WPF.Classes
 
             }
             return lesEntraineurs;
+        }
+
+        public Entraineur FindByID(int id)
+        {
+            if (cacheEntraineur.TryGetValue(id, out Entraineur enCache))
+                return enCache;
+
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from COURS where ENTRAINEUR = @id;"))
+            {
+                cmdSelect.Parameters.AddWithValue("@id", id);
+
+                using (DataTable dt = DataAccess.ExecuteSelect(cmdSelect))
+                {;
+                    if (dt.Rows.Count == 0)
+                        return null;
+
+                    else
+                    {
+                        DataRow dr = dt.Rows[0];
+                        Entraineur cours = new Entraineur(
+                            (int)dr["ENTRAINEUR_ID"],
+                            (string)dr["ENTRAINEUR_NOM"],
+                            (string)dr["ENTRAINEUR_PRENOM"]);
+
+                        cacheEntraineur[id] = cours;
+                        return cours;
+                    }
+                }
+            }
         }
     }
 }

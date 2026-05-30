@@ -10,6 +10,8 @@ namespace SAE2._01_Application_WPF.Classes
 {
     public class Categorie
     {
+        private static Dictionary<int, Categorie> cacheCategories = new Dictionary<int, Categorie>();
+
         private int idCategorie;
         private String nomCategorie, descriptionCategorie;
 
@@ -74,6 +76,37 @@ namespace SAE2._01_Application_WPF.Classes
                    (String)dr["CATEGORIE_DESCRIPTION"]));
             }
             return lesCategories;
+        }
+
+        public Categorie FindByID(int id)
+        {
+            if (cacheCategories.TryGetValue(id, out Categorie enCache))
+                return enCache;
+
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from CATEGORIE where CATEGORIE_ID = @id;"))
+            {
+                cmdSelect.Parameters.AddWithValue("@id", id);
+
+                using (DataTable dt = DataAccess.ExecuteSelect(cmdSelect))
+                {
+                    if (dt.Rows.Count == 0)
+                        return null;
+
+                    else
+                    {
+                        DataRow dr = dt.Rows[0];
+                        Categorie categorie = new Categorie(
+                            (int)dr["CATEGORIE_ID"],
+                            (string)dr["CATEGORIE_NOM"],
+                            (string)dr["CATEGORIE_DESCRIPTION"]);
+
+                        cacheCategories[id] = categorie;
+                        return categorie;
+                    }
+                }
+            }
+            
+
         }
     }
 }
