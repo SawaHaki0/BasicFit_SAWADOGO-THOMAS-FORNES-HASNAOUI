@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,12 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class Interface_Categorie : UserControl
     {
+        
         public Interface_Categorie()
         {
             InitializeComponent();
         }
+
+        
     }
 }

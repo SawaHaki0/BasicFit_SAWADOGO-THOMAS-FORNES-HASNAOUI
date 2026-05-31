@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using SAE2._01_Application_WPF.Classes;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,7 +21,18 @@ namespace SAE2._01_Application_WPF
         public MainWindow()
         {
             InitializeComponent();
-            MainContainer.Children.Add(uc); 
+            MainContainer.Children.Add(uc);
+
+            if (DataAccess.TestConnection())
+            {
+                MessageBox.Show("Connexion réussie !", "DB", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Impossible de se connecter à la base de données.\nVérifiez votre VPN.",
+                                "Erreur de connexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown(); // optional: close app if no DB
+            }
         }
     }
 }

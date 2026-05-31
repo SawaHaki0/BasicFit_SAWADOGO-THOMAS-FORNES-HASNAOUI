@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SAE2._01_Application_WPF.Classes
 {
@@ -12,6 +13,7 @@ namespace SAE2._01_Application_WPF.Classes
     {
 
         private static readonly string connectionString;
+        private static readonly string home_connectionString;
         private static NpgsqlConnection connection;
 
 
@@ -19,7 +21,8 @@ namespace SAE2._01_Application_WPF.Classes
 
         static DataAccess()
         {
-            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=fornesv_BasicFit;Options='-c search_path=SAE201_BF'";
+            home_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=Ncxkk3pxfd6@;Database=SAE201";
+            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=BasicFIt_Schema'";
             try
             {
                 connection = new NpgsqlConnection(connectionString);
@@ -51,7 +54,21 @@ namespace SAE2._01_Application_WPF.Classes
             return connection;
         }
 
-
+        public static bool TestConnection()
+        {
+            try
+            {
+                NpgsqlConnection testConn = new NpgsqlConnection(connectionString);
+                testConn.Open();
+                testConn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erreur détaillée", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
         public static DataTable ExecuteSelect(NpgsqlCommand cmd)
         {
             DataTable dataTable = new DataTable();
