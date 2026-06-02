@@ -1,7 +1,5 @@
-﻿using SAE2._01_Application_WPF.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SAE2._01_Application_WPF
+namespace SAE2._01_Application_WPF.UsersControls
 {
     /// <summary>
-    /// Logique d'interaction pour Interface_Categorie.xaml
+    /// Logique d'interaction pour UCEntraineurs.xaml
     /// </summary>
-    public partial class Interface_Categorie : UserControl
+    public partial class UCEntraineurs : UserControl
     {
-        
-        public Interface_Categorie()
+        public UCEntraineurs()
         {
             InitializeComponent();
         }
-
-        
     }
 }
