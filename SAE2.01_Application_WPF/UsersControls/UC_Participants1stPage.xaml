@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Background="White">
+    <Grid>
 
         <Grid>
             <TextBlock x:Name="tbTitrePage1" TextWrapping="Wrap" Margin="69,56,426,0" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
 
-    <Grid Background="White">
+    <Grid>
 
         <Grid.Resources>
             <Style TargetType="TextBox">
