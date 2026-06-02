@@ -31,7 +31,7 @@ namespace SAE2._01_Application_WPF.Classes
             connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=basicfit_schema'";
             try
             {
-                connection = new NpgsqlConnection(connectionString);
+                connection = new NpgsqlConnection(hakim_connectionString);
             }
             catch (Exception ex)
             {
