@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SAE2._01_Application_WPF
+namespace SAE2._01_Application_WPF.UsersControls
 {
     /// <summary>
-    /// Logique d'interaction pour Interface_Entraineurs.xaml
+    /// Logique d'interaction pour UCCategorie.xaml
     /// </summary>
-    public partial class Interface_Entraineurs : UserControl
+    public partial class UCCategorie : UserControl
     {
-        public Interface_Entraineurs()
+        public UCCategorie()
         {
             InitializeComponent();
         }
