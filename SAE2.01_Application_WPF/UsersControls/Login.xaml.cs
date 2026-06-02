@@ -24,5 +24,30 @@ namespace SAE2._01_Application_WPF
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void butQuiter_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void butConfirmer_Click(object sender, RoutedEventArgs e)
+        {
+            string username = textboxUsername.Text;
+            string password = textBoxPassword.Password;   
+            
+            if (username == "admin" && password == "1234")
+            {
+                MainWindow fenetreSuivante = new MainWindow();
+                fenetreSuivante.Show();
+                Application.Current.Shutdown();          
+            }
+            else
+            {
+                MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.",
+                                "Erreur de connexion",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }
+        }
+    }
 }

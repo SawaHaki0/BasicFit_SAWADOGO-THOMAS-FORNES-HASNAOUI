@@ -79,7 +79,7 @@
 				<Button x:Name="butConfirmer" Content="Confirmer"
                     Height="35" FontSize="24" FontWeight="Bold"
                     Background="#FFFE911B" Foreground="White"
-                    Margin="0,0,0,12">
+                    Margin="0,0,0,12" Click="butConfirmer_Click">
 					<Button.Resources>
 						<Style TargetType="Border">
 							<Setter Property="CornerRadius" Value="12"/>
@@ -89,7 +89,7 @@
 
 				<Button x:Name="butQuiter" Content="Quitter"
                     Height="35" FontSize="24" FontWeight="Bold"
-                    Background="#FFFE911B" Foreground="White">
+                    Background="#FFFE911B" Foreground="White" Click="butQuiter_Click">
 					<Button.Resources>
 						<Style TargetType="Border">
 							<Setter Property="CornerRadius" Value="12"/>
