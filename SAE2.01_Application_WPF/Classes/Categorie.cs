@@ -72,8 +72,10 @@ namespace SAE2._01_Application_WPF.Classes
             {
                 DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
-                    lesCategories.Add(new Categorie((int)dr["CATEGORIE_ID"], (String)dr["CATEGORIE_NOM"],
-                   (String)dr["CATEGORIE_DESCRIPTION"]));
+                    lesCategories.Add(new Categorie(
+                        (int)dr["CATEGORIE_ID"], 
+                        (String)dr["CATEGORIE_NOM"],
+                        (String)dr["CATEGORIE_DESCRIPTION"]));
             }
             return lesCategories;
         }

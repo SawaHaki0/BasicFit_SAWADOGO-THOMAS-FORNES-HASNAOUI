@@ -22,7 +22,7 @@ namespace SAE2._01_Application_WPF.Classes
         static DataAccess()
         {
             home_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=Ncxkk3pxfd6@;Database=SAE201";
-            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=BasicFIt_Schema'";
+            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=basicfit_schema'";
             try
             {
                 connection = new NpgsqlConnection(connectionString);

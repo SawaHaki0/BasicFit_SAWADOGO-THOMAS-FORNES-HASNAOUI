@@ -87,7 +87,7 @@ namespace SAE2._01_Application_WPF.Classes
             if (cacheEntraineur.TryGetValue(id, out Entraineur enCache))
                 return enCache;
 
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from COURS where ENTRAINEUR = @id;"))
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from ENTRAINEUR where ENTRAINEUR_ID = @id;"))
             {
                 cmdSelect.Parameters.AddWithValue("@id", id);
 

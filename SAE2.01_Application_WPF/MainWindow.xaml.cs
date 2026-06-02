@@ -1,4 +1,5 @@
 ﻿using SAE2._01_Application_WPF.Classes;
+using SAE2._01_Application_WPF.UsersControls;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,22 +18,11 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        Interface_Employe uc = new Interface_Employe();
+        UCCategorie uc = new UCCategorie();
         public MainWindow()
         {
             InitializeComponent();
             MainContainer.Children.Add(uc);
-
-            if (DataAccess.TestConnection())
-            {
-                MessageBox.Show("Connexion réussie !", "DB", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("Impossible de se connecter à la base de données.\nVérifiez votre VPN.",
-                                "Erreur de connexion", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown(); // optional: close app if no DB
-            }
         }
     }
 }

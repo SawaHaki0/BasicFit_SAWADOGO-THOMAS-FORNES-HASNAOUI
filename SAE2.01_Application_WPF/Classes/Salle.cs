@@ -74,8 +74,8 @@ namespace SAE2._01_Application_WPF.Classes
                 foreach (DataRow dr in dt.Rows)
                     lesSalles.Add(new Salle(
                         (int)dr["SALLE_ID"],
-                        (int)dr["SALLE_NOM"],
-                        (string)dr["SALLE_NB_PLACES"]
+                        (int)dr["SALLE_NB_PLACES"],
+                        (string)dr["SALLE_NOM"]
                     ));
 
             }
@@ -87,7 +87,7 @@ namespace SAE2._01_Application_WPF.Classes
             if (cacheSalle.TryGetValue(id, out Salle enCache))
                 return enCache;
 
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from COURS where SALLE = @id;"))
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand($"select * from SALLE where SALLE_ID = @id;"))
             {
                 cmdSelect.Parameters.AddWithValue("@id", id);
 
@@ -101,8 +101,8 @@ namespace SAE2._01_Application_WPF.Classes
                         DataRow dr = dt.Rows[0];
                         Salle salle = new Salle(
                             (int)dr["SALLE_ID"],
-                            (int)dr["SALLE_NOM"],
-                            (string)dr["SALLE_NB_PLACES"]);
+                            (int)dr["SALLE_NB_PLACES"],
+                            (string)dr["SALLE_NOM"]);
 
                         cacheSalle[id] = salle;
                         return salle;

@@ -14,8 +14,8 @@ namespace SAE2._01_Application_WPF.Classes
         private Cours unCours;
         private Entraineur unEntraineur;
         private Salle uneSalle;
-        private DateTime jourSeance;
-        private TimeSpan heureDebut, heureFin;
+        private int jourSeance;
+        private TimeOnly heureDebut, heureFin;
         private int nbPlaces;
         private List<Client> participantsSeance = new List<Client>();
 
@@ -23,7 +23,7 @@ namespace SAE2._01_Application_WPF.Classes
         {
         }
 
-        public Seance(int idSeance, int idCours, int idEntraineur, int idSalle, DateTime jourSeance, TimeSpan heureDebut, TimeSpan heureFin, int nbPlaces)
+        public Seance(int idSeance, int idCours, int idEntraineur, int idSalle, int jourSeance, TimeOnly heureDebut, TimeOnly heureFin, int nbPlaces)
         {
             this.IdSeance = idSeance;
             this.JourSeance = jourSeance;
@@ -48,7 +48,7 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
-        public DateTime JourSeance
+        public int JourSeance
         {
             get
             {
@@ -61,7 +61,7 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
-        public TimeSpan HeureDebut
+        public TimeOnly HeureDebut
         {
             get
             {
@@ -74,7 +74,7 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
-        public TimeSpan HeureFin
+        public TimeOnly HeureFin
         {
             get
             {
@@ -164,9 +164,9 @@ namespace SAE2._01_Application_WPF.Classes
                         (int)dr["COURS_ID"],
                         (int)dr["ENTRAINEUR_ID"],
                         (int)dr["SALLE_ID"],
-                        ((DateOnly)dr["JOUR"]).ToDateTime(TimeOnly.MinValue),
-                        (TimeSpan)dr["HEURE_DEBUT"],
-                        (TimeSpan)dr["HEURE_FIN"],
+                        (int)dr["JOUR"],
+                        (TimeOnly)dr["HEURE_DEBUT"],
+                        (TimeOnly)dr["HEURE_FIN"],
                         (int)dr["NB_PLACES"]        
                     ));
 
