@@ -18,7 +18,7 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        UCCategorie uc = new UCCategorie();
+        UC_Participants1stPage uc = new UC_Participants1stPage();
         public MainWindow()
         {
             InitializeComponent();
