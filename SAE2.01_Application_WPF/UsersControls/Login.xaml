@@ -7,49 +7,97 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 	<Grid>
-		<Rectangle HorizontalAlignment="Left" Height="450" Stroke="#FFE68E0C" VerticalAlignment="Center" Width="400" Fill="#FFFE911B"/>
-		<Rectangle HorizontalAlignment="Left" Height="450" Margin="400,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="400" Fill="White"/>
-		<Image Margin="-46,6,432,71" Source="/img/LogoVide.png" Stretch="Fill" RenderTransformOrigin="0.479,0.48">
-			<Image.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform/>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+
+		<Grid Grid.Column="0" Background="#FFFE911B">
+			<Border BorderBrush="#FFE68E0C" BorderThickness="1"/>
+
+			<Image Source="/img/LogoVide.png" Stretch="Uniform"
+               Width="275" Height="264"
+               HorizontalAlignment="Left" VerticalAlignment="Top"
+               Margin="41,36,0,0" RenderTransformOrigin="0.5,0.5">
+				<Image.RenderTransform>
 					<RotateTransform Angle="-27.518"/>
-					<TranslateTransform X="-2.464" Y="4.86"/>
-				</TransformGroup>
-			</Image.RenderTransform>
-		</Image>
-		<Image Margin="214,51,308,123" Source="/img/EmojiBiceps.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
-			<Image.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform ScaleX="-1"/>
-					<SkewTransform/>
-					<RotateTransform Angle="-24.668"/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</Image.RenderTransform>
-		</Image>
-		<Label Content="SE CONNECTER" HorizontalAlignment="Left" Margin="508,50,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
-		<TextBox x:Name="textboxUsername" HorizontalAlignment="Left" Margin="551,106,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="141" FontSize="24"/>
-		<PasswordBox x:Name="textBoxPassword" HorizontalAlignment="Left" Margin="551,145,0,0"  VerticalAlignment="Top" Width="141" FontSize="24"/>
-		<Button x:Name="butConfirmer" Content="Confirmer" HorizontalAlignment="Left" Margin="508,318,0,0" VerticalAlignment="Top" Width="184" Height="35" FontSize="24" FontWeight="Bold" Background="#FFFE911B" Foreground="White">
-			<Button.Resources>
-				<Style TargetType="Border">
-					<Setter Property="CornerRadius" Value="12"/>
-				</Style>
-			</Button.Resources>
-		</Button>
-		<Button x:Name="butQuiter" Content="Quitter" HorizontalAlignment="Left" Margin="508,369,0,0" VerticalAlignment="Top" Width="184" Height="35" FontSize="24" FontWeight="Bold" Background="#FFFE911B" Foreground="White">
-			<Button.Resources>
-				<Style TargetType="Border">
-					<Setter Property="CornerRadius" Value="12"/>
-				</Style>
-			</Button.Resources>
-		</Button>
-		<Label Content="🔒" HorizontalAlignment="Left" Margin="508,140,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24" RenderTransformOrigin="0.576,1.694"/>
-		<Label Content="👤" HorizontalAlignment="Left" Margin="508,102,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
+				</Image.RenderTransform>
+			</Image>
+
+			<Image Source="/img/EmojiBiceps.png" Stretch="Uniform"
+               Width="294" Height="214"
+               HorizontalAlignment="Right" VerticalAlignment="Top"
+               Margin="0,196,33,0" RenderTransformOrigin="0.5,0.5">
+				<Image.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleX="-1"/>
+						<RotateTransform Angle="-24.668"/>
+					</TransformGroup>
+				</Image.RenderTransform>
+			</Image>
+		</Grid>
 
 
+		<Grid Grid.Column="1" Background="White">
+			<Border BorderBrush="Black" BorderThickness="1"/>
 
+
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="220">
+
+				<Label Content="SE CONNECTER"
+                   FontWeight="Bold" FontSize="24"
+                   HorizontalAlignment="Center" Margin="0,0,0,24"/>
+
+
+				<Grid Margin="0,0,0,12">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0" Content="👤" FontSize="24"
+                       VerticalAlignment="Center"/>
+					<TextBox Grid.Column="1" x:Name="textboxUsername"
+                         Text="Username" FontSize="24"
+                         TextWrapping="Wrap" VerticalAlignment="Center"/>
+				</Grid>
+
+
+				<Grid Margin="0,0,0,32">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0" Content="🔒" FontSize="24"
+                       VerticalAlignment="Center"/>
+					<PasswordBox Grid.Column="1" x:Name="textBoxPassword"
+                             FontSize="24" VerticalAlignment="Center"/>
+				</Grid>
+
+				<Button x:Name="butConfirmer" Content="Confirmer"
+                    Height="35" FontSize="24" FontWeight="Bold"
+                    Background="#FFFE911B" Foreground="White"
+                    Margin="0,0,0,12">
+					<Button.Resources>
+						<Style TargetType="Border">
+							<Setter Property="CornerRadius" Value="12"/>
+						</Style>
+					</Button.Resources>
+				</Button>
+
+				<Button x:Name="butQuiter" Content="Quitter"
+                    Height="35" FontSize="24" FontWeight="Bold"
+                    Background="#FFFE911B" Foreground="White">
+					<Button.Resources>
+						<Style TargetType="Border">
+							<Setter Property="CornerRadius" Value="12"/>
+						</Style>
+					</Button.Resources>
+				</Button>
+
+			</StackPanel>
+		</Grid>
 	</Grid>
 </UserControl>
