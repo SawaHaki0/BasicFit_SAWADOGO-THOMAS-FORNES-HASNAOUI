@@ -20,10 +20,26 @@ namespace SAE2._01_Application_WPF
 	/// </summary>
 	public partial class Login : UserControl
 	{
-		public Login()
-		{
-			InitializeComponent();
-		}
+        private MainWindow window;
+
+        public MainWindow Window
+        {
+            get
+            {
+                return this.window;
+            }
+
+            set
+            {
+                this.window = value;
+            }
+        }
+
+        public Login(MainWindow window)
+        {
+            InitializeComponent();
+            this.Window = window;
+        }
 
         private void butQuiter_Click(object sender, RoutedEventArgs e)
         {
@@ -37,9 +53,10 @@ namespace SAE2._01_Application_WPF
             
             if (username == "responsable" && password == "1234")
             {
-                MainWindow fenetreSuivante = new MainWindow();
+                MainWindow fenetreSuivante = new MainWindow(true);
+                this.Window.Close();
                 fenetreSuivante.Show();
-                Application.Current.Shutdown();          
+                
             }
             else if (username == "employée" && password == "4321")
             {
