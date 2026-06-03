@@ -27,7 +27,7 @@ namespace SAE2._01_Application_WPF.Classes
             hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201_BasiFit";
             soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
-            hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
+            hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=azerty1;Database= Databases (1)";
             connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=basicfit_schema'";
             try
             {

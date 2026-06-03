@@ -49,6 +49,7 @@ namespace SAE2._01_Application_WPF.UsersControls
         private void btnOuvrirCreation_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Bouton opérationnel !");
+
         }
     }
 }

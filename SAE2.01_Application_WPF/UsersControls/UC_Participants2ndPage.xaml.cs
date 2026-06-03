@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Npgsql;
+using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,11 +59,73 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             MessageBox.Show("Retour à la page 1");
         }
-
         // Gère le clic sur le bouton orange de validation
         private void btnValiderCreation_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Validation réussie !");
+            // 1. Récupération directe des textes des champs
+            string nom = txtSaisieNom.Text.Trim();
+            string prenom = txtSaisiePrenom.Text.Trim();
+            string mail = txtSaisieMail.Text.Trim();
+            string telephone = txtSaisieTelephone.Text.Trim();
+            string adresse = txtSaisieAdresse.Text.Trim();
+
+            // 2. Validation simple avec des 'if' classiques
+            if (nom == "" || prenom == "")
+            {
+                MessageBox.Show("Le Nom et le Prénom sont obligatoires !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return; // On arrête tout ici
+            }
+
+            // 3. Préparation de la requête SQL
+            string requete = "INSERT INTO Client (nom, prenom, mail, telephone, adresse) " +
+                             "VALUES (@nom, @prenom, @mail, @telephone, @adresse);";
+
+            try
+            {
+                // On récupère la connexion de votre classe DataAccess
+                var connexion = DataAccess.GetConnection();
+
+                // Création de la commande SQL
+                NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
+
+                // Association des paramètres (très lisible, ligne par ligne)
+                commande.Parameters.AddWithValue("@nom", nom);
+                commande.Parameters.AddWithValue("@prenom", prenom);
+                commande.Parameters.AddWithValue("@mail", mail);
+                commande.Parameters.AddWithValue("@telephone", telephone);
+                commande.Parameters.AddWithValue("@adresse", adresse);
+
+                // Exécution de la requête sur la base de données
+                int lignesModifiees = commande.ExecuteNonQuery();
+
+                // Si la ligne a bien été ajoutée
+                if (lignesModifiees > 0)
+                {
+                    MessageBox.Show("Le participant a bien été ajouté !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // On vide les champs du formulaire proprement
+                    txtSaisieNom.Text = "";
+                    txtSaisiePrenom.Text = "";
+                    txtSaisieMail.Text = "";
+                    txtSaisieTelephone.Text = "";
+                    txtSaisieAdresse.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                // En cas de problème informatique, on affiche juste l'erreur
+                MessageBox.Show("Erreur BDD : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ReinitialiserFormulaire()
+        {
+            txtSaisieNom.Text = "Nom"; txtSaisieNom.Foreground = Brushes.Gray;
+            txtSaisiePrenom.Text = "Prenom"; txtSaisiePrenom.Foreground = Brushes.Gray;
+            txtSaisieMail.Text = "Mail"; txtSaisieMail.Foreground = Brushes.Gray;
+            txtSaisieTelephone.Text = "Téléphone"; txtSaisieTelephone.Foreground = Brushes.Gray;
+            txtSaisieNaissance.Text = "📅 Date de Naissance"; txtSaisieNaissance.Foreground = Brushes.Gray;
+            txtSaisieAdresse.Text = "Adresse"; txtSaisieAdresse.Foreground = Brushes.Gray;
         }
     }
 }
