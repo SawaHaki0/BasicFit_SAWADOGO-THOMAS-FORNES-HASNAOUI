@@ -49,6 +49,16 @@ namespace SAE2._01_Application_WPF.UsersControls
         private void btnOuvrirCreation_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Bouton opérationnel !");
+            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
+
+            if (fenetrePrincipale != null)
+            {
+                // 2. On instancie le deuxième UC
+                UC_Participants2ndPage nouvellePage = new UC_Participants2ndPage();
+
+                // 3. On injecte le nouvel UC dans le ContentControl de la MainWindow
+                fenetrePrincipale.MenuContainer.Content = nouvellePage;
+            }
 
         }
     }
