@@ -41,7 +41,7 @@ namespace SAE2._01_Application_WPF
                 MenuContainer.Content = new Interface_Employe();
             }
 
-            MainContainer.Content = new UCCategorie();
+            MainContainer.Content = new PlanningDuJour();
         }
 
         public bool LoggedInTantQueResponsable
