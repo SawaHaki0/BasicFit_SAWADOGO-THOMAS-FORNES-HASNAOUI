@@ -18,27 +18,7 @@ namespace SAE2._01_Application_WPF.Classes
         private string password;
         private string role;
 
-        public string Login
-        {
-<<<<<<< HEAD
-            hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201_BasiFit";
-            soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
-            vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
-            hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=azerty1;Database= Databases (1)";
-            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=basicfit_schema'";
-            try
-=======
-            get
->>>>>>> b92dda988029db962a122f6cbda003f860f368cc
-            {
-                return login;
-            }
-
-            set
-            {
-                login = value;
-            }
-        }
+        
 
         public string Password
         {
@@ -63,6 +43,19 @@ namespace SAE2._01_Application_WPF.Classes
             set
             {
                 this.role = value;
+            }
+        }
+
+        public string Login
+        {
+            get
+            {
+                return this.login;
+            }
+
+            set
+            {
+                this.login = value;
             }
         }
 
