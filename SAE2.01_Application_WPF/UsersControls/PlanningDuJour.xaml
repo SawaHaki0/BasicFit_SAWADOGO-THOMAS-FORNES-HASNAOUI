@@ -77,17 +77,17 @@
 						<Setter Property="HorizontalAlignment" Value="Stretch"/>
 						<Setter Property="HorizontalContentAlignment" Value="Center"/>
 						<Setter Property="VerticalContentAlignment" Value="Center"/>
-						<Setter Property="FontSize" Value="10"/>
+						<Setter Property="FontSize" Value="14"/>
 						<Setter Property="Foreground" Value="#0E2235"/>
 						<Setter Property="Padding" Value="4"/>
 					</Style>
 				</DataGrid.CellStyle>
 
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="DESCRIPTION" Width="*"/>
-					<DataGridTextColumn Header="SALLE" Width="*"/>
-					<DataGridTextColumn Header="ENTREINEUR" Width="*"/>
-					<DataGridTextColumn Header="PLACES" Width="*"/>
+					<DataGridTextColumn Header="DESCRIPTION" Width="*" Binding="{Binding Description}"/>
+					<DataGridTextColumn Header="SALLE"       Width="*" Binding="{Binding Salle}"/>
+					<DataGridTextColumn Header="ENTREINEUR"  Width="*" Binding="{Binding Entraineur}"/>
+					<DataGridTextColumn Header="PLACES"      Width="*" Binding="{Binding Places}"/>
 				</DataGrid.Columns>
 			</DataGrid>
 		</Border>

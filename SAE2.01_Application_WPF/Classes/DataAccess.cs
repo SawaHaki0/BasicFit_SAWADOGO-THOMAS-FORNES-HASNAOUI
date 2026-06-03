@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,33 +12,78 @@ namespace SAE2._01_Application_WPF.Classes
 {
     public class DataAccess
     {
-
-        private static readonly string connectionString;
-        private static readonly string hakim_connectionString;
-        private static readonly string soren_connectionString;
-        private static readonly string vincent_connectionString;
-        private static readonly string hasnaoui_connectionString;
         private static NpgsqlConnection connection;
 
+        private string login;
+        private string password;
+        private string role;
 
-
-
-        static DataAccess()
+        public string Login
         {
+<<<<<<< HEAD
             hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201_BasiFit";
             soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=azerty1;Database= Databases (1)";
             connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=SAE201_BasicFit_TD4;Options='-c search_path=basicfit_schema'";
             try
+=======
+            get
+>>>>>>> b92dda988029db962a122f6cbda003f860f368cc
             {
-                connection = new NpgsqlConnection(soren_connectionString);
+                return login;
             }
-            catch (Exception ex)
+
+            set
             {
-                LogError.Log(ex, "Pb à la connexion  \n");
-                throw;
+                login = value;
             }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
+
+            set
+            {
+                password = value;
+            }
+        }
+
+        public string Role
+        {
+            get
+            {
+                return this.role;
+            }
+
+            set
+            {
+                this.role = value;
+            }
+        }
+
+        public DataAccess(string login, string password)
+        {
+            this.Login = login;
+            this.Password = password;
+
+            string ConnectionString = $"Host=127.0.0.1;Port=5432;Username={login};Password={password};Database=SAE201_BasiFit";
+            connection = new NpgsqlConnection(ConnectionString);
+
+            connection.Open();
+            using (var cmd = new NpgsqlCommand("SELECT current_user", connection))
+            {
+                string user = cmd.ExecuteScalar().ToString();
+                if (user.StartsWith("responsable"))
+                    role = "responsable_club";
+                else if (user.StartsWith("employe"))
+                    role = "employe";
+            }
+            connection.Close();
         }
 
 
@@ -60,21 +106,6 @@ namespace SAE2._01_Application_WPF.Classes
             return connection;
         }
 
-        public static bool TestConnection()
-        {
-            try
-            {
-                NpgsqlConnection testConn = new NpgsqlConnection(connectionString);
-                testConn.Open();
-                testConn.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Erreur détaillée", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-        }
         public static DataTable ExecuteSelect(NpgsqlCommand cmd)
         {
             DataTable dataTable = new DataTable();
@@ -162,5 +193,7 @@ namespace SAE2._01_Application_WPF.Classes
                 connection.Close();
             }
         }
+
+        
     }
 }
