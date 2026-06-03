@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,27 +52,31 @@ namespace SAE2._01_Application_WPF
             string username = textboxUsername.Text;
             string password = textBoxPassword.Password;
 
-            if (username == "responsable" && password == "1234")
+            try
             {
-                OuvrirApplication(true);   // true = responsable
+                DataAccess da = new DataAccess(username, password);
+                DataAccess.GetConnection();
+
+                if (da.Role == "responsable_club")
+                    OuvrirApplication(true);
+                else
+                    OuvrirApplication(false);
             }
-            else if (username == "employée" && password == "4321")
-            {
-                OuvrirApplication(false);  // false = employé
-            }
-            else
+            catch (Exception ex)
             {
                 MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.",
-                                "Erreur de connexion",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                                 "Erreur de connexion",
+                                 MessageBoxButton.OK,
+                                 MessageBoxImage.Error);
             }
+
+            
         }
 
         private void OuvrirApplication(bool estResponsable)
         {
             MainWindow fenetreSuivante = new MainWindow(estResponsable);
-            Application.Current.MainWindow = fenetreSuivante; // évite que l'app se ferme
+            Application.Current.MainWindow = fenetreSuivante;
             fenetreSuivante.Show();
             this.Window.Close();
         }
