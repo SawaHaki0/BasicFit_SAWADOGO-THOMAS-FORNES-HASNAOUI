@@ -18,11 +18,35 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        UC_Participants1stPage uc = new UC_Participants1stPage();
+        private bool loggedInTantQueResponsable;
         public MainWindow()
         {
+            Login uc = new Login(this);
             InitializeComponent();
-            MainContainer.Children.Add(uc);
+            MainGrid.Children.Add(uc);
         }
+
+        public MainWindow(bool loggedInTantQueResponsable)
+        {
+            InitializeComponent();
+            this.LoggedInTantQueResponsable = loggedInTantQueResponsable;
+            MenuContainer.Content = new Interface_ResponsableDuClub();
+            MainContainer.Content = new PlanningDuJour();
+        }
+
+        public bool LoggedInTantQueResponsable
+        {
+            get
+            {
+                return this.loggedInTantQueResponsable;
+            }
+
+            set
+            {
+                this.loggedInTantQueResponsable = value;
+            }
+        }
+
+
     }
 }
