@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="SAE2._01_Application_WPF.UsersControls.UC_StatsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="800">
+
+    <Grid>
+
+        <Grid.Resources>
+            <Style x:Key="CategoryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Foreground" Value="#334155"/>
+                <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="12,6"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Margin" Value="0,0,8,8"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ActiveCategoryButtonStyle" TargetType="Button" BasedOn="{StaticResource CategoryButtonStyle}">
+                <Setter Property="Background" Value="#FF6B00"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+        </Grid.Resources>
+
+        <TextBlock Text="Consulter les stats" HorizontalAlignment="Left" Margin="45,35,0,0" VerticalAlignment="Top" FontSize="26" FontWeight="Bold" Foreground="#0F172A"/>
+
+        <TextBox x:Name="txtFiltrePeriode" HorizontalAlignment="Left" Margin="380,38,0,0" VerticalAlignment="Top" Width="180" Height="32" Text="📅 Periode :" Foreground="Gray" VerticalContentAlignment="Center" Padding="10,0,0,0" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus">
+            <TextBox.Template>
+                <ControlTemplate TargetType="TextBox">
+                    <Border CornerRadius="5" BorderBrush="#CBD5E1" BorderThickness="1" Background="White">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false"/>
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+
+        <WrapPanel Margin="45,95,45,0" VerticalAlignment="Top">
+            <Button Content="Toutes les Catégories" Style="{StaticResource ActiveCategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Cardio &amp; Endurance" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Renforcement musculaire" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Bien-être &amp; Stretching" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="HIIT" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Danse &amp; Fitness rythmique" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Cycling" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Pilates &amp; Core" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+            <Button Content="Yoga &amp; Méditation" Style="{StaticResource CategoryButtonStyle}" Click="CategoryButton_Click"/>
+        </WrapPanel>
+
+        <Grid x:Name="gridFuturTableau" Margin="45,185,45,30" Background="#F8FAFC">
+            <TextBlock Text="[ Emplacement du futur tableau des statistiques ]" Foreground="#94A3B8" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontStyle="Italic"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

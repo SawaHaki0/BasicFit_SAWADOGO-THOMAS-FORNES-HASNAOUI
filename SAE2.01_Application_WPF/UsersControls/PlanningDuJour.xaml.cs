@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,14 +16,18 @@ using System.Windows.Shapes;
 
 namespace SAE2._01_Application_WPF
 {
-    /// <summary>
-    /// Logique d'interaction pour Interface_Employe.xaml
-    /// </summary>
-    public partial class Interface_Employe : UserControl
-    {
-        public Interface_Employe()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Logique d'interaction pour PlanningDuJour.xaml
+	/// </summary>
+	public partial class PlanningDuJour : UserControl
+	{
+		public PlanningDuJour()
+		{
+			InitializeComponent();
+
+			var culture = new CultureInfo("fr-FR");
+			string date = DateTime.Now.ToString("dddd, MMMM dd, yyyy", culture);
+			DateLabel.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(date);
+		}
+	}
 }

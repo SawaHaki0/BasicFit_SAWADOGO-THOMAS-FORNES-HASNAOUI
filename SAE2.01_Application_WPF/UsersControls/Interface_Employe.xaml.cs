@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SAE2._01_Application_WPF
 {
     /// <summary>
-    /// Logique d'interaction pour Interface_ResponsableDuClub.xaml
+    /// Logique d'interaction pour Interface_Employe.xaml
     /// </summary>
-    public partial class Interface_ResponsableDuClub : UserControl
+    public partial class Interface_Employe : UserControl
     {
-        public Interface_ResponsableDuClub()
+        public Interface_Employe()
         {
             InitializeComponent();
         }
@@ -46,7 +46,7 @@ namespace SAE2._01_Application_WPF
             }
 
             clickedButton.FontWeight = FontWeights.Bold;
-            clickedButton.Foreground = (Brush)new BrushConverter().ConvertFromString("#9E4300");  
+            clickedButton.Foreground = (Brush)new BrushConverter().ConvertFromString("#9E4300");
             clickedButton.Background = (Brush)new BrushConverter().ConvertFromString("#CCDFFF");
             clickedButton.BorderThickness = new Thickness(5, 0, 0, 0);
             clickedButton.BorderBrush = (Brush)new BrushConverter().ConvertFromString("#9E4300"); ;

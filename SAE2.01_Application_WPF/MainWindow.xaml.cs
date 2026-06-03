@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using SAE2._01_Application_WPF.Classes;
+using SAE2._01_Application_WPF.UsersControls;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,11 +18,47 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        Interface_ResponsableDuClub interface_responsable = new Interface_ResponsableDuClub();
+        private bool loggedInTantQueResponsable;
+
+        // Constructeur par défaut : affiche le Login au démarrage
         public MainWindow()
         {
+            Login uc = new Login(this);
             InitializeComponent();
-            MainContainer.Children.Add(interface_responsable); 
+            MainGrid.Children.Add(uc);
+        }
+
+        // Constructeur après connexion : true = responsable, false = employé
+        public MainWindow(bool loggedInTantQueResponsable)
+        {
+            InitializeComponent();
+            this.LoggedInTantQueResponsable = loggedInTantQueResponsable;
+
+            // Menu selon le rôle
+            if (loggedInTantQueResponsable)
+            {
+                MenuContainer.Content = new Interface_ResponsableDuClub();
+            }
+            else
+            {
+                MenuContainer.Content = new Interface_Employe();
+            }
+
+            // Page d'accueil commune aux deux rôles
+            MainContainer.Content = new PlanningDuJour();
+        }
+
+        public bool LoggedInTantQueResponsable
+        {
+            get
+            {
+                return this.loggedInTantQueResponsable;
+            }
+
+            set
+            {
+                this.loggedInTantQueResponsable = value;
+            }
         }
     }
 }
