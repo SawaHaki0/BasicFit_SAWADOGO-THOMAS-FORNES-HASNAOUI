@@ -35,11 +35,15 @@ namespace SAE2._01_Application_WPF
             string username = textboxUsername.Text;
             string password = textBoxPassword.Password;   
             
-            if (username == "admin" && password == "1234")
+            if (username == "responsable" && password == "1234")
             {
                 MainWindow fenetreSuivante = new MainWindow();
                 fenetreSuivante.Show();
                 Application.Current.Shutdown();          
+            }
+            else if (username == "employée" && password == "4321")
+            {
+                
             }
             else
             {
