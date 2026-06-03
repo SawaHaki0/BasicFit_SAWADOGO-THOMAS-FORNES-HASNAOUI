@@ -19,6 +19,8 @@ namespace SAE2._01_Application_WPF
     public partial class MainWindow : Window
     {
         private bool loggedInTantQueResponsable;
+
+        // Constructeur par défaut : affiche le Login au démarrage
         public MainWindow()
         {
             Login uc = new Login(this);
@@ -26,11 +28,23 @@ namespace SAE2._01_Application_WPF
             MainGrid.Children.Add(uc);
         }
 
+        // Constructeur après connexion : true = responsable, false = employé
         public MainWindow(bool loggedInTantQueResponsable)
         {
             InitializeComponent();
             this.LoggedInTantQueResponsable = loggedInTantQueResponsable;
-            MenuContainer.Content = new Interface_ResponsableDuClub();
+
+            // Menu selon le rôle
+            if (loggedInTantQueResponsable)
+            {
+                MenuContainer.Content = new Interface_ResponsableDuClub();
+            }
+            else
+            {
+                MenuContainer.Content = new Interface_Employe();
+            }
+
+            // Page d'accueil commune aux deux rôles
             MainContainer.Content = new PlanningDuJour();
         }
 
@@ -46,7 +60,5 @@ namespace SAE2._01_Application_WPF
                 this.loggedInTantQueResponsable = value;
             }
         }
-
-
     }
 }

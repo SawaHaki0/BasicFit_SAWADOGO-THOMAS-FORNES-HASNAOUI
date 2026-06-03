@@ -49,18 +49,15 @@ namespace SAE2._01_Application_WPF
         private void butConfirmer_Click(object sender, RoutedEventArgs e)
         {
             string username = textboxUsername.Text;
-            string password = textBoxPassword.Password;   
-            
+            string password = textBoxPassword.Password;
+
             if (username == "responsable" && password == "1234")
             {
-                MainWindow fenetreSuivante = new MainWindow(true);
-                this.Window.Close();
-                fenetreSuivante.Show();
-                
+                OuvrirApplication(true);   // true = responsable
             }
             else if (username == "employée" && password == "4321")
             {
-                
+                OuvrirApplication(false);  // false = employé
             }
             else
             {
@@ -69,6 +66,14 @@ namespace SAE2._01_Application_WPF
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
+        }
+
+        private void OuvrirApplication(bool estResponsable)
+        {
+            MainWindow fenetreSuivante = new MainWindow(estResponsable);
+            Application.Current.MainWindow = fenetreSuivante; // évite que l'app se ferme
+            fenetreSuivante.Show();
+            this.Window.Close();
         }
     }
 }
