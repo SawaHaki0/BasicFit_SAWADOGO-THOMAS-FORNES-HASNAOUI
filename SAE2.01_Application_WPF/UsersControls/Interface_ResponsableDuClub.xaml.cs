@@ -80,6 +80,9 @@ namespace SAE2._01_Application_WPF
                 case "menuGererEntraineurs":
                     MainWindow.MainContainer.Content = new UCEntraineurs(); 
                     break;
+                case "menuLogout":
+                    MainWindow.MainGrid.Children.Add(new LogOut(this.MainWindow));
+                    break;
 
             }
         }
