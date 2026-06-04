@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
+             xmlns:model="clr-namespace:SAE2._01_Application_WPF.Classes"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Background="#F8FAFC">
 
+    <UserControl.DataContext>
+        <model:ObservableCollections x:Name="Binding"></model:ObservableCollections>
+    </UserControl.DataContext>
     <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -155,10 +159,10 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button x:Name="btnVoirParticipants" Content="Voir participants" Click="btnVoirParticipants_Click"/>
-                <Button x:Name="btnGerer" Content="Gérer" Click="btnGerer_Click"/>
-                <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription" Click="btnNouvelleInscription_Click"/>
-                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" Click="btnVoirStatistique_Click" Margin="0"/>
+                <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
+                <Button x:Name="btnGerer" Content="Gérer" />
+                <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription"/>
+                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0"/>
             </StackPanel>
         </Grid>
     </Grid>

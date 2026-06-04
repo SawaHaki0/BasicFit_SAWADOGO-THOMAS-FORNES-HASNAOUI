@@ -69,7 +69,7 @@ namespace SAE2._01_Application_WPF
                     MainWindow.MainContainer.Content = new PlanningDuJour();
                     break;
                 case "menuCours":
-                    MainWindow.MainContainer.Content = new PlanningDuJour(); 
+                    MainWindow.MainContainer.Content = new UC_Séance(); 
                     break;
                 case "menuParticipants":
                     MainWindow.MainContainer.Content = new UC_Participants1stPage(); 
