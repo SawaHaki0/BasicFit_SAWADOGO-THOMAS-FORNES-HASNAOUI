@@ -44,7 +44,7 @@ VerticalAlignment="Top" Margin="0,155,0,0" Grid.Column="1" Width="600" Height="1
             </TextBox>
         </StackPanel>
         <StackPanel Orientation="Vertical" Margin="0,350,0,0" Width="600" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1">
-            <Button Height="60" Background="#FFFF6B0F" Content="Ajouter" Foreground="White" FontSize="20">
+            <Button x:Name="butAjouter" Height="60" Background="#FFFF6B0F" Content="Ajouter" Foreground="White" FontSize="20" Click="butAjouter_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="12"/>

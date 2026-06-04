@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,13 @@ namespace SAE2._01_Application_WPF.Classes
         public Categorie()
         {
         }
+
+        public Categorie(string nomCategorie, string descriptionCategorie)
+        {
+            this.NomCategorie = nomCategorie;
+            this.DescriptionCategorie = descriptionCategorie;
+        }
+
 
         public Categorie(int idCategorie, string nomCategorie, string descriptionCategorie)
         {
@@ -73,7 +81,7 @@ namespace SAE2._01_Application_WPF.Classes
                 DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
                     lesCategories.Add(new Categorie(
-                        (int)dr["CATEGORIE_ID"], 
+                        (int)dr["CATEGORIE_ID"],
                         (String)dr["CATEGORIE_NOM"],
                         (String)dr["CATEGORIE_DESCRIPTION"]));
             }
@@ -107,8 +115,20 @@ namespace SAE2._01_Application_WPF.Classes
                     }
                 }
             }
-            
-
         }
+        public int Create()
+        {
+            int nb = 0;
+            using (var cmdInsert = new NpgsqlCommand("@INSERT INTO categorie(categorie_nom, categorie_description)VALUES(@nom, @description);"));
+            {
+                cmdInsert.Parameters.AddWithValue("nom", this.NomCategorie);
+                cmdInsert.Parameters.AddWithValue("maitre", this.DescriptionCategorie);
+
+                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+            }
+            this.IdCategorie = nb;
+            return nb;
+        }
+         
     }
 }

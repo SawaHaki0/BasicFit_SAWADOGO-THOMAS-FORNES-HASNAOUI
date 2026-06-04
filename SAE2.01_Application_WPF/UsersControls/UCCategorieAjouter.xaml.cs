@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +36,25 @@ namespace SAE2._01_Application_WPF.UsersControls
                 UCCategorie nouvellePage = new UCCategorie();
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
+
         }
+
+        private void butAjouter_Click(object sender, RoutedEventArgs e)
+        {
+            string nom = txtNomCate.Text.Trim();
+            string description = txtDescCate.Text.Trim();
+            if (string.IsNullOrWhiteSpace(nom) ||
+        string.IsNullOrWhiteSpace(description))
+            {
+                MessageBox.Show("Le Nom et la Description de la catégorie sont obligatoires !");
+                return;
+            }
+
+            
+
+            
+
+        }
+
     }
 }

@@ -35,5 +35,17 @@ namespace SAE2._01_Application_WPF.UsersControls
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
         }
+
+        private void butModifierCate_Click(object sender, RoutedEventArgs e)
+        {
+            string nom = txtNomCate.Text.Trim();
+            string description = txtDescCate.Text.Trim();
+
+                if (string.IsNullOrEmpty(nom) || nom == "Nom de la catégorie" || string.IsNullOrEmpty(description) || description == "Description de la catégorie")
+                {
+                    MessageBox.Show("Le Nom et la Description de la catégorie sont obligatoires !", "Champs manquants", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+            }
+        }
     }
 }
