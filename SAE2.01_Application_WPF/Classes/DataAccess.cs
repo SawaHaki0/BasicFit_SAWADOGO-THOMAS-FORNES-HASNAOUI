@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -68,11 +69,11 @@ namespace SAE2._01_Application_WPF.Classes
         static DataAccess()
         {
             hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201_BasiFit";
-            hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=Ncxkk3pxfd6@;Database=SAE201_BasiFit";
+            hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201_BasiFit";
             soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
-            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=sae201_basicfit;Options='-c search_path=basicfit_schema'";
+            connectionString = ConfigurationManager.ConnectionStrings["ConnexionDB"].ConnectionString;
             try
             {
                 connection = new NpgsqlConnection(connectionString);
@@ -89,11 +90,14 @@ namespace SAE2._01_Application_WPF.Classes
             this.Login = login;
             this.Password = password;
 
+<<<<<<< HEAD
 
             string ConnectionString = $"Host=127.0.0.1;Port=5432;Username={login};Password={password};Database=SAE201";
             connection = new NpgsqlConnection(ConnectionString);
 
 
+=======
+>>>>>>> 74221b75bdc21a2ea871657b57adec34f8aefe5a
             connection.Open();
             using (var cmd = new NpgsqlCommand(
                 "SELECT password, role FROM users WHERE username = @login", connection))
