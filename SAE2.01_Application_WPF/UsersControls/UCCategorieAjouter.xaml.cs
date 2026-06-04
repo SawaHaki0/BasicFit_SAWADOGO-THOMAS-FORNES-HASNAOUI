@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,24 @@ namespace SAE2._01_Application_WPF.UsersControls
                 UCCategorie nouvellePage = new UCCategorie();
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
+
+        }
+
+        private void butAjouter_Click(object sender, RoutedEventArgs e)
+        {
+            string nom = txtNomCate.Text.Trim();
+            string description = txtDescCate.Text.Trim();
+
+            Categorie newCate = new Categorie(nom, description);
+
+                if (string.IsNullOrEmpty(nom) || nom == "Nom de la catégorie" || string.IsNullOrEmpty(description) || description == "Description de la catégorie")
+                {
+                    MessageBox.Show("Le Nom et la Description de la catégorie sont obligatoires !", "Champs manquants", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+            }
+            Collections.Categories.Add(newCate);
+            MessageBox.Show("La catégorie a bien été ajoutée à la base de données.", "Ajout réussi", MessageBoxButton.OK, MessageBoxImage.Information);
+            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
         }
     }
 }
