@@ -16,28 +16,13 @@ using System.Windows.Shapes;
 namespace SAE2._01_Application_WPF.UsersControls
 {
     /// <summary>
-    /// Logique d'interaction pour UCCategorie.xaml
+    /// Logique d'interaction pour UCCategorieModifier.xaml
     /// </summary>
-    public partial class UCCategorie : UserControl
+    public partial class UCCategorieModifier : UserControl
     {
-        public UCCategorie()
+        public UCCategorieModifier()
         {
             InitializeComponent();
-        }
-
-        private void butAjouterCate_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void butModifierCate_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void butSupprimerCate_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

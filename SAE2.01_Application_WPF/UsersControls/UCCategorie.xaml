@@ -89,21 +89,21 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Height="200" Width="190" Margin="0,0,40,50">
-            <Button Content="Ajouter une catégorie" Margin="0,12" Height="40" Background="#FFFF6B0F" Foreground="White">
+            <Button Content="Ajouter une catégorie" Margin="0,12" Height="40" Background="#FFFF6B0F" Foreground="White" x:Name="butAjouterCate" Click="butAjouterCate_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="12"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Content="Modifier une catégorie" Margin="0,12" Height="40" Background="#FFFF6B0F" Foreground="White">
+            <Button Content="Modifier une catégorie" Margin="0,12" Height="40" Background="#FFFF6B0F" Foreground="White" x:Name="butModifierCate" Click="butModifierCate_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="12"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Content="Supprimer une catégorie" Margin="0,12" Height="40" Background="#FFFF6B0F" BorderBrush="#FFEFDFDF" Foreground="White">
+            <Button Content="Supprimer une catégorie" Margin="0,12" Height="40" Background="#FFFF6B0F" BorderBrush="#FFEFDFDF" Foreground="White" x:Name="butSupprimerCate" Click="butSupprimerCate_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="12"/>
