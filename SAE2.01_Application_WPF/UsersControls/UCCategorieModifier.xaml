@@ -25,7 +25,7 @@
         <Label Content="Modifier catégorie" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0" Grid.Column="1" Height="63" Width="364"/>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
     VerticalAlignment="Top" Margin="0,80,0,0" Grid.Column="1" Width="600" Height="50" >
-            <TextBox Height="40" Width="600" Margin="0,4,0,0" FontSize="20" Text="{Binding Categorie, ValidatesOnExceptions=True}">
+            <TextBox x:Name="txtNomCate" Height="40" Width="600" Margin="0,4,0,0" FontSize="20" Text="{Binding Categorie, ValidatesOnExceptions=True}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="12"/>
@@ -35,7 +35,7 @@
         </StackPanel>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
 VerticalAlignment="Top" Margin="0,155,0,0" Grid.Column="1" Width="600" Height="150">
-            <TextBox Height="150" Width="600" Margin="0,4,0,0" Text="{Binding DescriptionCategorie, ValidatesOnExceptions=True}" FontSize="20">
+            <TextBox x:Name="txtDescCate" Height="150" Width="600" Margin="0,4,0,0" Text="{Binding DescriptionCategorie, ValidatesOnExceptions=True}" FontSize="20">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="12"/>

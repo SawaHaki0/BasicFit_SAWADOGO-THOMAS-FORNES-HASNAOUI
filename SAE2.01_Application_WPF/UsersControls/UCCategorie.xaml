@@ -20,35 +20,35 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
     VerticalAlignment="Top" Margin="0,70,0,0" Grid.Column="1" Width="780" Height="75">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12" Height="30" Width="780">
-                    <Button Content="Toutes les catégories" Margin="6,0" Width="160" Background="#FFFF6B0F" Foreground="White" RenderTransformOrigin="0.5,0.5">
+                    <Button x:Name="butToutesCate" Content="Toutes les catégories" Margin="6,0" Width="160" Background="#FFFF6B0F" Foreground="White" RenderTransformOrigin="0.5,0.5">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Cardio &amp; Endurance" Margin="6,0" Width="150">
+                    <Button x:Name="butCardio" Content="Cardio &amp; Endurance" Margin="6,0" Width="150">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Renforcement musculaire" Margin="6,0" Width="150">
+                    <Button x:Name="butRenfo" Content="Renforcement musculaire" Margin="6,0" Width="150">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Bien-être &amp; Stretching" Margin="6,0" Width="150">
+                    <Button x:Name="butBienetre" Content="Bien-être &amp; Stretching" Margin="6,0" Width="150">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="HIIT" Margin="6,0" Width="90">
+                    <Button x:Name="butHIIT" Content="HIIT" Margin="6,0" Width="90">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
@@ -57,28 +57,28 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="776" Height="30">
-                    <Button Content="Danse &amp; Fitness rythmique" Margin="6,0" Width="170">
+                    <Button x:Name="butDanse" Content="Danse &amp; Fitness rythmique" Margin="6,0" Width="170">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Cycling" Margin="6,0" Width="60">
+                    <Button x:Name="butCycling" Content="Cycling" Margin="6,0" Width="60">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Pilates &amp; Core" Margin="6,0" Width="100">
+                    <Button x:Name="butPilates" Content="Pilates &amp; Core" Margin="6,0" Width="100">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="Yoga &amp; Méditation" Margin="6,0" Width="130">
+                    <Button x:Name="butYoga" Content="Yoga &amp; Méditation" Margin="6,0" Width="130">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="12"/>
@@ -111,7 +111,7 @@
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Height="270" Width="400" Margin="50,0,0,25">
-                <DataGrid Height="270" ItemsSource="{Binding LesCategories}"
+                <DataGrid x:Name="dgCate" Height="270" ItemsSource="{Binding LesCategories}"
                 AutoGenerateColumns="True" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="CATEGORIE"
