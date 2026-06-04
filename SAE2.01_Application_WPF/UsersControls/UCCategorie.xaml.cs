@@ -27,12 +27,25 @@ namespace SAE2._01_Application_WPF.UsersControls
 
         private void butAjouterCate_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
+
+            if (fenetrePrincipale != null)
+            {
+                UCCategorieAjouter nouvellePage = new UCCategorieAjouter();
+                fenetrePrincipale.MainContainer.Content = nouvellePage;
+            }
 
         }
 
         private void butModifierCate_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
 
+            if (fenetrePrincipale != null)
+            {
+                UCCategorieModifier nouvellePage = new UCCategorieModifier();
+                fenetrePrincipale.MainContainer.Content = nouvellePage;
+            }
         }
 
         private void butSupprimerCate_Click(object sender, RoutedEventArgs e)

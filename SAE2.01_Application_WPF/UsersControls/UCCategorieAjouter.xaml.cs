@@ -24,5 +24,16 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             InitializeComponent();
         }
+
+        private void butRetour_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
+
+            if (fenetrePrincipale != null)
+            {
+                UCCategorie nouvellePage = new UCCategorie();
+                fenetrePrincipale.MainContainer.Content = nouvellePage;
+            }
+        }
     }
 }

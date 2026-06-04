@@ -11,7 +11,7 @@
             <ColumnDefinition Width="0"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,30,0,0" Grid.Column="1" Height="30" Width="40" Background="Transparent" >
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,30,0,0" Grid.Column="1" Height="30" Width="40" Background="Transparent" x:Name="butRetour" Click="butRetour_Click">
             <TextBlock Text="&lt;"
                FontSize="40"
                Foreground="#FFFF6B0F"
@@ -22,7 +22,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Label Content="Modifier catégorie" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0" Grid.Column="1" Height="63" Width="301"/>
+        <Label Content="Modifier catégorie" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0" Grid.Column="1" Height="63" Width="364"/>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
     VerticalAlignment="Top" Margin="0,80,0,0" Grid.Column="1" Width="600" Height="50" >
             <TextBox Height="40" Width="600" Margin="0,4,0,0" FontSize="20" Text="{Binding Categorie, ValidatesOnExceptions=True}">
