@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -72,7 +73,7 @@ namespace SAE2._01_Application_WPF.Classes
             soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
-            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=sae201_basicfit;Options='-c search_path=basicfit_schema'";
+            connectionString = ConfigurationManager.ConnectionStrings["ConnexionDB"].ConnectionString;
             try
             {
                 connection = new NpgsqlConnection(connectionString);
