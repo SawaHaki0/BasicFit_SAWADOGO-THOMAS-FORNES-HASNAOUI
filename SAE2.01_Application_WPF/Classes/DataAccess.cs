@@ -90,14 +90,6 @@ namespace SAE2._01_Application_WPF.Classes
             this.Login = login;
             this.Password = password;
 
-<<<<<<< HEAD
-
-            string ConnectionString = $"Host=127.0.0.1;Port=5432;Username={login};Password={password};Database=SAE201";
-            connection = new NpgsqlConnection(ConnectionString);
-
-
-=======
->>>>>>> 74221b75bdc21a2ea871657b57adec34f8aefe5a
             connection.Open();
             using (var cmd = new NpgsqlCommand(
                 "SELECT password, role FROM users WHERE username = @login", connection))
