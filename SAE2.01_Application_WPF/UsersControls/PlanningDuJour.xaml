@@ -20,8 +20,12 @@
                    FontSize="26"
                    FontWeight="Bold"
                    Foreground="#0E2235"/>
+		<TextBox x:Name="txtRecherche" Grid.Row="0"
+         Width="220" Height="30"
+         HorizontalAlignment="Right" VerticalAlignment="Top"
+         VerticalContentAlignment="Center"
+         TextChanged="txtRecherche_TextChanged"/>
 
-		
 		<TextBlock Grid.Row="1"
                    x:Name="DateLabel"
                    Margin="0,4,0,20"

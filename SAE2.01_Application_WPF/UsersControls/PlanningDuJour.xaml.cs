@@ -25,15 +25,17 @@ namespace SAE2._01_Application_WPF
 
             ChargerPlanning();
         }
+        private List<Seance> toutesLesSeances;
 
+        
         private void ChargerPlanning()
         {
-            int jour = 1; // TEST lundi ; remettre le calcul dynamique ensuite
+            int jour = 1;
 
             try
             {
-                List<Seance> lesSeances = new Seance().FindByJour(jour);
-                RowsGrid.ItemsSource = lesSeances;
+                toutesLesSeances = new Seance().FindByJour(jour);
+                RowsGrid.ItemsSource = toutesLesSeances;
             }
             catch (Exception ex)
             {
@@ -56,6 +58,19 @@ namespace SAE2._01_Application_WPF
                                 "Aucune séance sélectionnée",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+        private void txtRecherche_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (toutesLesSeances == null) return;
+
+            string r = txtRecherche.Text.Trim().ToLower();
+
+            RowsGrid.ItemsSource = toutesLesSeances.Where(s =>
+                s.UnCours.NomCours.ToLower().Contains(r) ||
+                s.NomSalle.ToLower().Contains(r) ||
+                s.NomEntraineur.ToLower().Contains(r) ||
+                s.UnCours.UneCategorie.NomCategorie.ToLower().Contains(r)
+            ).ToList();
         }
     }
 }
