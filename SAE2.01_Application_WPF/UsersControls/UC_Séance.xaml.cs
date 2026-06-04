@@ -22,11 +22,19 @@ namespace SAE2._01_Application_WPF.UsersControls
     /// </summary>
     public partial class UC_Séance : UserControl
     {
-        public UC_Séance()
+        public UC_Séance(bool estResponsable)
         {
             InitializeComponent();
+
+            if (!estResponsable )
+            {
+                btnModifier.Visibility = Visibility.Collapsed;
+                btnAjouter.Visibility = Visibility.Collapsed;
+                btnSupprimer.Visibility = Visibility.Collapsed;
+            }
         }
         private string categorieSelectionnee = "";   // "" = toutes
+
 
         private void Filtre_Changed(object sender, SelectionChangedEventArgs e)
         {

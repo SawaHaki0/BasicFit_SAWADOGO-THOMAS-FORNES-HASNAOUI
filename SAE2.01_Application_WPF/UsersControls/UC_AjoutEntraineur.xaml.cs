@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Npgsql; // Ne pas oublier pour la connexion PostgreSQL
+using Npgsql; 
 using SAE2._01_Application_WPF.Classes;
 
 namespace SAE2._01_Application_WPF.UsersControls

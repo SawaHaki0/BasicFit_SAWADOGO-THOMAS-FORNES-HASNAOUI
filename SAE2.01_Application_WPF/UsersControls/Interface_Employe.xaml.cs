@@ -73,7 +73,7 @@ namespace SAE2._01_Application_WPF
                     MainWindow.MainContainer.Content = new PlanningDuJour();
                     break;
                 case "menuCours":
-                    MainWindow.MainContainer.Content = new PlanningDuJour();
+                    MainWindow.MainContainer.Content = new UC_Séance(false);
                     break;
                 case "menuParticipants":
                     MainWindow.MainContainer.Content = new UC_Participants1stPage();
@@ -83,6 +83,9 @@ namespace SAE2._01_Application_WPF
                     break;
                 case "menuGererEntraineurs":
                     MainWindow.MainContainer.Content = new UCEntraineurs();
+                    break;
+                case "menuLogout":
+                    MainWindow.MainGrid.Children.Add(new LogOut(this.MainWindow));
                     break;
 
             }

@@ -50,7 +50,7 @@
                         <Button x:Name="menuCours" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;" FontSize="18" Margin="10,0,10,0"/>
-                                <TextBlock Text="Cours" VerticalAlignment="Center"/>
+                                <TextBlock Text="Seances" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -59,14 +59,6 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE716;" FontSize="18" Margin="10,0,10,0"/>
                                 <TextBlock Text="Participants" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-
-                        <!-- Categories -->
-                        <Button x:Name="menuCategories" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF246;" FontSize="18" Margin="10,0,10,0"/>
-                                <TextBlock Text="Categories" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 

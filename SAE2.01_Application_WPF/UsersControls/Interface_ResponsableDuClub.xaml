@@ -47,10 +47,10 @@
                         </Button>
 
                         <!-- Cours -->
-                        <Button x:Name="menuCours" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
+                        <Button x:Name="menuSeances" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;" FontSize="18" Margin="10,0,10,0"/>
-                                <TextBlock Text="Cours" VerticalAlignment="Center"/>
+                                <TextBlock Text="Seances" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -75,6 +75,14 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE13D;" FontSize="18" Margin="10,0,10,0"/>
                                 <TextBlock Text="Gérer entraineurs" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Cours -->
+                        <Button x:Name="menuCours" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;" FontSize="18" Margin="10,0,10,0"/>
+                                <TextBlock Text="Cours" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 

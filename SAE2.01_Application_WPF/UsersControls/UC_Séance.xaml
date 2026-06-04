@@ -72,7 +72,7 @@
                 </Style>
             </WrapPanel.Resources>
 
-			<Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories" Tag="" Click="FiltrerCategorie"/>
+			<Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories" Tag="" Click="FiltrerCategorie" Height="35" Width="123"/>
 			<Button Content="Cardio &amp; Endurance"          Tag="Cardio &amp; Endurance"          Click="FiltrerCategorie"/>
 			<Button Content="Renforcement musculaire"         Tag="Renforcement musculaire"         Click="FiltrerCategorie"/>
 			<Button Content="Bien-être &amp; Stretching"      Tag="Bien-etre &amp; Stretching"      Click="FiltrerCategorie"/>
@@ -80,7 +80,7 @@
 			<Button Content="Danse &amp; Fitness rythmique"   Tag="Danse &amp; Fitness rythmique"   Click="FiltrerCategorie"/>
 			<Button Content="Cycling"                         Tag="Cycling"                         Click="FiltrerCategorie"/>
 			<Button Content="Pilates &amp; Core"              Tag="Pilates &amp; Core"              Click="FiltrerCategorie"/>
-			<Button Content="Yoga &amp; Méditation"           Tag="Yoga &amp; Meditation"           Click="FiltrerCategorie"/>
+			<Button Content="Yoga &amp; Méditation"           Tag="Yoga &amp; Meditation"           Click="FiltrerCategorie" Height="34" Width="123"/>
 		</WrapPanel>
 
         <!-- ZONE 3 : CONTENU PRINCIPAL (Tableau à gauche, boutons d'action à droite) -->
@@ -92,7 +92,6 @@
                 <!-- CORRIGÉ : Plus de "Grid." devant ColumnDefinition ! -->
             </Grid.ColumnDefinitions>
 
-            <!-- LE TABLEAU STYLE HARMONISÉ (Identique au Planning du Jour) -->
             <Border Grid.Column="0" Background="White" CornerRadius="10" BorderBrush="#D9DEE5" BorderThickness="1" ClipToBounds="True">
                 <DataGrid x:Name="dgSeances" ItemsSource="{Binding LesSeances}"
                           AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
@@ -166,9 +165,38 @@
                 </StackPanel.Resources>
 
                 <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
-                <Button x:Name="btnGerer" Content="Gérer" />
                 <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription"/>
-                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0"/>
+                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" />
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="25,300,0,0">
+                <StackPanel.Resources>
+                    <!-- Style pour les gros boutons d'action oranges -->
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#F26B1A"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="Height" Value="50"/>
+                        <Setter Property="Margin" Value="0,0,0,15"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button x:Name="btnModifier" Content="Modifier" />
+                <Button x:Name="btnSupprimer" Content="Supprimer" />
+                <Button x:Name="btnAjouter" Content="Supprimer" />
             </StackPanel>
         </Grid>
     </Grid>
