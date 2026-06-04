@@ -129,6 +129,7 @@
                         <DataGridTextColumn Header="SALLE" Binding="{Binding NomSalle}" Width="*"/>
                         <DataGridTextColumn Header="ENTRAÎNEUR" Binding="{Binding NomEntraineur}" Width="*"/>
                         <DataGridTextColumn Header="PLACES RESTANTES" Binding="{Binding PlacesRestantes}" Width="1.2*"/>
+                        <DataGridTextColumn Header="DATE" Binding="{Binding JourSeance, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
