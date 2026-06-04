@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800">
-    <Grid x:Name="MainGrid">
-        <ContentControl x:Name="MenuContainer"/>
+    <Grid x:Name="MainGrid" x:FieldModifier="public" >
+        <ContentControl x:Name="MenuContainer" x:FieldModifier="public"/>
 
-        <ContentControl x:Name="MainContainer" Margin="210,50,0,0"/>
+        <ContentControl x:Name="MainContainer" Margin="210,50,0,0" x:FieldModifier="public"/>
     </Grid>
 </Window>

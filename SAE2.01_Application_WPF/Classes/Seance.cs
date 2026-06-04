@@ -151,6 +151,20 @@ namespace SAE2._01_Application_WPF.Classes
                 this.participantsSeance = value;
             }
         }
+        // ===== Propriétés d'affichage pour le DataGrid du planning =====
+
+        public string Horaire =>
+            HeureDebut.ToString("HH:mm") + " - " + HeureFin.ToString("HH:mm");
+
+        public string Description =>
+            Horaire + "  |  " + UnCours.NomCours + " (" + UnCours.UneCategorie.NomCategorie + ")";
+
+        public string NomSalle => UneSalle.NomSalle;
+
+        public string NomEntraineur => UnEntraineur.PrenomEntraineur + " " + UnEntraineur.NomEntraineur;
+
+        public int PlacesRestantes => NbPlaces - ParticipantsSeance.Count;
+
 
         public List<Seance> FindAll()
         {
@@ -170,6 +184,33 @@ namespace SAE2._01_Application_WPF.Classes
                         (int)dr["NB_PLACES"]        
                     ));
 
+            }
+            return lesSeances;
+        }
+        public List<Seance> FindByJour(int jour)
+        {
+            List<Seance> lesSeances = new List<Seance>();
+            using (NpgsqlCommand cmdSelect =
+                new NpgsqlCommand("SELECT * FROM SEANCE WHERE JOUR = @jour ORDER BY HEURE_DEBUT;"))
+            {
+                cmdSelect.Parameters.AddWithValue("jour", jour);
+                DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Seance s = new Seance(
+                        (int)dr["SEANCE_ID"],
+                        (int)dr["COURS_ID"],
+                        (int)dr["ENTRAINEUR_ID"],
+                        (int)dr["SALLE_ID"],
+                        (int)dr["JOUR"],
+                        (TimeOnly)dr["HEURE_DEBUT"],
+                        (TimeOnly)dr["HEURE_FIN"],
+                        (int)dr["NB_PLACES"]
+                    );
+                    // charge les inscrits (pour le calcul des places restantes)
+                    s.ParticipantsSeance = new Client().FindBySeance(s.IdSeance);
+                    lesSeances.Add(s);
+                }
             }
             return lesSeances;
         }

@@ -34,11 +34,11 @@ namespace SAE2._01_Application_WPF
 
             if (loggedInTantQueResponsable)
             {
-                MenuContainer.Content = new Interface_ResponsableDuClub();
+                MenuContainer.Content = new Interface_ResponsableDuClub(this);
             }
             else
             {
-                MenuContainer.Content = new Interface_Employe();
+                MenuContainer.Content = new Interface_Employe(this);
             }
 
             MainContainer.Content = new PlanningDuJour();

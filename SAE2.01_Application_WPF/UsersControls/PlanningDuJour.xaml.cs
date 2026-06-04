@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Npgsql;
+using SAE2._01_Application_WPF.Classes;
+using SAE2._01_Application_WPF.UsersControls;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using Npgsql;
-using SAE2._01_Application_WPF.Classes;
 
 namespace SAE2._01_Application_WPF
 {
@@ -27,49 +28,33 @@ namespace SAE2._01_Application_WPF
 
         private void ChargerPlanning()
         {
-            int jour = (int)DateTime.Now.DayOfWeek;
-            jour = (jour == 0) ? 7 : jour;
-
-            const string sql = @"
-                SELECT TO_CHAR(se.HEURE_DEBUT,'HH24:MI') || ' - ' || TO_CHAR(se.HEURE_FIN,'HH24:MI')
-         || '  |  ' || c.COURS_NOM || ' (' || cat.CATEGORIE_NOM || ')'  AS description,
-       s.SALLE_NOM                                            AS salle,
-       e.ENTRAINEUR_PRENOM || ' ' || e.ENTRAINEUR_NOM         AS entraineur,
-       se.NB_PLACES
-         - (SELECT COUNT(*) FROM INSCRIPTION i WHERE i.SEANCE_ID = se.SEANCE_ID) AS places
-FROM SEANCE se
-JOIN COURS      c   ON c.COURS_ID       = se.COURS_ID
-JOIN CATEGORIE  cat ON cat.CATEGORIE_ID = c.CATEGORIE_ID
-JOIN SALLE      s   ON s.SALLE_ID       = se.SALLE_ID
-JOIN ENTRAINEUR e   ON e.ENTRAINEUR_ID  = se.ENTRAINEUR_ID
-WHERE se.JOUR = @jour
-ORDER BY se.HEURE_DEBUT;";
+            int jour = 1; // TEST lundi ; remettre le calcul dynamique ensuite
 
             try
             {
-                NpgsqlCommand cmd = new NpgsqlCommand(sql);
-                cmd.Parameters.AddWithValue("jour", jour);
-
-                DataTable table = DataAccess.ExecuteSelect(cmd);
-
-                var lignes = new List<SeanceDuJour>();
-                foreach (DataRow row in table.Rows)
-                {
-                    lignes.Add(new SeanceDuJour
-                    {
-                        Description = row["description"].ToString(),
-                        Salle = row["salle"].ToString(),
-                        Entraineur = row["entraineur"].ToString(),
-                        Places = Convert.ToInt32(row["places"])
-                    });
-                }
-
-                RowsGrid.ItemsSource = lignes;
+                List<Seance> lesSeances = new Seance().FindByJour(jour);
+                RowsGrid.ItemsSource = lesSeances;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ERREUR :\n" + ex.Message,
-                                "Base de données", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("ERREUR :\n" + ex.Message, "Base de données",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (RowsGrid.SelectedItem is Seance seance)
+            {
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UC_Participants1stPage(seance.IdSeance);
+            }
+            else
+            {
+                MessageBox.Show("Sélectionne d'abord un cours dans le planning.",
+                                "Aucune séance sélectionnée",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

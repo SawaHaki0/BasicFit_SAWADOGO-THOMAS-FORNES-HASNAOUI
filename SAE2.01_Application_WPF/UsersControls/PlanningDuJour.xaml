@@ -85,9 +85,9 @@
 
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="DESCRIPTION" Width="*" Binding="{Binding Description}"/>
-					<DataGridTextColumn Header="SALLE"       Width="*" Binding="{Binding Salle}"/>
-					<DataGridTextColumn Header="ENTREINEUR"  Width="*" Binding="{Binding Entraineur}"/>
-					<DataGridTextColumn Header="PLACES"      Width="*" Binding="{Binding Places}"/>
+					<DataGridTextColumn Header="SALLE"       Width="*" Binding="{Binding NomSalle}"/>
+					<DataGridTextColumn Header="ENTREINEUR"  Width="*" Binding="{Binding NomEntraineur}"/>
+					<DataGridTextColumn Header="PLACES"      Width="*" Binding="{Binding PlacesRestantes}"/>
 				</DataGrid.Columns>
 			</DataGrid>
 		</Border>
@@ -103,7 +103,7 @@
                 BorderThickness="0"
                 Cursor="Hand"
                 HorizontalAlignment="Right"
-                Margin="0,18,0,0"/>
+                Margin="0,18,0,0" Click="Button_Click"/>
 	</Grid>
 </UserControl>
 

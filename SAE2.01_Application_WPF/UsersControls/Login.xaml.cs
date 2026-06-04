@@ -57,7 +57,7 @@ namespace SAE2._01_Application_WPF
                 DataAccess da = new DataAccess(username, password);
                 DataAccess.GetConnection();
 
-                if (da.Role == "responsable_club")
+                if (da.Role == "responsable_du_club")
                     OuvrirApplication(true);
                 else
                     OuvrirApplication(false);

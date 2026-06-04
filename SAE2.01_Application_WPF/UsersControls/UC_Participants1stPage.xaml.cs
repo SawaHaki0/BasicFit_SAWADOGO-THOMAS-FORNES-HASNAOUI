@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace SAE2._01_Application_WPF.UsersControls
         public UC_Participants1stPage()
         {
             InitializeComponent();
+        }
+        public UC_Participants1stPage(int seanceId) : this()
+        {
+            dgListeParticipants.ItemsSource = new Client().FindBySeance(seanceId);
         }
         private void TextBox_Focus(object sender, RoutedEventArgs e)
         {
