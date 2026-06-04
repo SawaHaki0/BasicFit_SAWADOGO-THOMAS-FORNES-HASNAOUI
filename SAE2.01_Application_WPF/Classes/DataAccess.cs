@@ -18,7 +18,13 @@ namespace SAE2._01_Application_WPF.Classes
         private string password;
         private string role;
 
-        
+        private static readonly string connectionString;
+        private static readonly string hakim_connectionString;
+        private static readonly string soren_connectionString;
+        private static readonly string vincent_connectionString;
+        private static readonly string hasnaoui_connectionString;
+
+
 
         public string Password
         {
@@ -59,22 +65,57 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
+        static DataAccess()
+        {
+            hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201_BasiFit";
+            hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=Ncxkk3pxfd6@;Database=SAE201_BasiFit";
+            soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
+            vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
+            hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
+            connectionString = "Host=srv-peda-new;Port=5433;Username=hakima;Password=ZBJvmN;Database=sae201_basicfit;Options='-c search_path=basicfit_schema'";
+            try
+            {
+                connection = new NpgsqlConnection(connectionString);
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Pb à la connexion  \n");
+                throw;
+            }
+        }
+
         public DataAccess(string login, string password)
         {
             this.Login = login;
             this.Password = password;
 
-            string ConnectionString = $"Host=127.0.0.1;Port=5432;Username={login};Password={password};Database=SAE201_BasiFit";
-            connection = new NpgsqlConnection(ConnectionString);
-
             connection.Open();
-            using (var cmd = new NpgsqlCommand("SELECT current_user", connection))
+            using (var cmd = new NpgsqlCommand(
+                "SELECT password, role FROM users WHERE username = @login", connection))
             {
-                string user = cmd.ExecuteScalar().ToString();
-                if (user.StartsWith("responsable"))
-                    role = "responsable_club";
-                else if (user.StartsWith("employe"))
-                    role = "employe";
+                cmd.Parameters.AddWithValue("@login", login);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string dbPassword = reader["password"].ToString();
+                        string dbRole = reader["role"].ToString();
+
+                        
+                        if (password == dbPassword)
+                        {
+                            this.role = dbRole;
+                        }
+                        else
+                        {
+                            throw new Exception("Invalid password.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("User not found.");
+                    }
+                }
             }
             connection.Close();
         }
