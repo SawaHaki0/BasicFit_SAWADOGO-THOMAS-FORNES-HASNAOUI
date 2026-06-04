@@ -116,5 +116,19 @@ namespace SAE2._01_Application_WPF.Classes
                 }
             }
         }
+        public int Create()
+        {
+            int nb = 0;
+            using (var cmdInsert = new NpgsqlCommand("@INSERT INTO categorie(categorie_nom, categorie_description)VALUES(@nom, @description);"));
+            {
+                cmdInsert.Parameters.AddWithValue("nom", this.NomCategorie);
+                cmdInsert.Parameters.AddWithValue("maitre", this.DescriptionCategorie);
+
+                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+            }
+            this.IdCategorie = nb;
+            return nb;
+        }
+         
     }
 }
