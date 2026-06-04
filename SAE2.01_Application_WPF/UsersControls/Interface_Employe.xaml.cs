@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.UsersControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,24 @@ namespace SAE2._01_Application_WPF
     /// </summary>
     public partial class Interface_Employe : UserControl
     {
-        public Interface_Employe()
+        private MainWindow mainWindow;
+        public Interface_Employe(MainWindow mainWindow)
         {
             InitializeComponent();
+            this.MainWindow = mainWindow;
+        }
+
+        public MainWindow MainWindow
+        {
+            get
+            {
+                return this.mainWindow;
+            }
+
+            set
+            {
+                this.mainWindow = value;
+            }
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -49,7 +65,27 @@ namespace SAE2._01_Application_WPF
             clickedButton.Foreground = (Brush)new BrushConverter().ConvertFromString("#9E4300");
             clickedButton.Background = (Brush)new BrushConverter().ConvertFromString("#CCDFFF");
             clickedButton.BorderThickness = new Thickness(5, 0, 0, 0);
-            clickedButton.BorderBrush = (Brush)new BrushConverter().ConvertFromString("#9E4300"); ;
+            clickedButton.BorderBrush = (Brush)new BrushConverter().ConvertFromString("#9E4300");
+
+            switch (clickedButton.Name)
+            {
+                case "menuPlanningJour":
+                    MainWindow.MainContainer.Content = new PlanningDuJour();
+                    break;
+                case "menuCours":
+                    MainWindow.MainContainer.Content = new PlanningDuJour();
+                    break;
+                case "menuParticipants":
+                    MainWindow.MainContainer.Content = new UC_Participants1stPage();
+                    break;
+                case "menuCategories":
+                    MainWindow.MainContainer.Content = new UCCategorie();
+                    break;
+                case "menuGererEntraineurs":
+                    MainWindow.MainContainer.Content = new UCEntraineurs();
+                    break;
+
+            }
         }
     }
 }
