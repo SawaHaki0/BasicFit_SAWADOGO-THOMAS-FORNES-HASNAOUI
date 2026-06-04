@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="SAE2._01_Application_WPF.UsersControls.LogOut"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" 
+             Background="#BF000000">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+
+            <TextBlock Text="Êtes-vous sûr ?"
+                       FontSize="50"
+                       FontWeight="Bold"
+                       Foreground="#FFFFFF"
+                       TextAlignment="Center"
+                       Margin="0,0,0,40"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Button x:Name="btnNON"
+                        Content="NON"
+                        Background="#F26B1A"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="24"
+                        Width="160"
+                        Height="50"
+                        Cursor="Hand"
+                        BorderThickness="0"
+                        Margin="0,0,20,0" 
+                        Click="Button_Click"/>
+
+                <Button x:Name="btnOUI"
+                        Content="OUI"
+                        Background="#F26B1A"
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        FontSize="24"
+                        Width="160"
+                        Height="50"
+                        Cursor="Hand"
+                        BorderThickness="0"
+                        Margin="20,0,0,0" 
+                        Click="Button_Click"/>
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
