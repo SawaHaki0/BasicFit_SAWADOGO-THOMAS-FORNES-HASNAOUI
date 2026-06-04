@@ -57,7 +57,7 @@
                 </Button>
 
                 <Button x:Name="btnSupprimer" Content="Supprimer un entraîneur" Height="40"
-                        Background="#A8A29E" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand">
+                        Background="#A8A29E" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand" Click="btnSupprimer_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
