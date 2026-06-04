@@ -6,47 +6,95 @@
              xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
              xmlns:model="clr-namespace:SAE2._01_Application_WPF.Classes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="900">
 
     <UserControl.DataContext>
         <model:ObservableCollections x:Name="Collections"/>
     </UserControl.DataContext>
-    <Grid>
 
-        <Grid>
-            <TextBlock x:Name="tbTitrePage1" TextWrapping="Wrap" Margin="69,56,426,0" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
-                <Run Language="fr-fr" Text="Rechercher Participants"/>
-            </TextBlock>
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <TextBox x:Name="txtFiltreRecherche" HorizontalAlignment="Left" Margin="69,110,0,0" TextWrapping="Wrap" Text="Recherche" VerticalAlignment="Top" Width="120" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
-            <TextBox x:Name="txtFiltreNaissance" HorizontalAlignment="Left" Margin="280,110,0,0" TextWrapping="Wrap" Text="Naissance" VerticalAlignment="Top" Width="120" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
-            <TextBox x:Name="txtFiltreAdresse" HorizontalAlignment="Left" Margin="491,110,0,0" TextWrapping="Wrap" Text="Adresse" VerticalAlignment="Top" Width="120" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+        <TextBlock Grid.Row="0" Text="Rechercher des participants" FontSize="26" FontWeight="Bold" Foreground="#0E2235"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,15,0,20">
+            <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Margin="0,0,15,0" Width="150">
+                <TextBox x:Name="txtFiltreRecherche" Text="Recherche..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+            </Border>
+            <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Margin="0,0,15,0" Width="150">
+                <TextBox x:Name="txtFiltreNaissance" Text="Naissance..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+            </Border>
+            <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Width="150">
+                <TextBox x:Name="txtFiltreAdresse" Text="Adresse..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+            </Border>
+        </StackPanel>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="220"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" CornerRadius="10" BorderBrush="#D9DEE5" BorderThickness="1" ClipToBounds="True">
+                <DataGrid x:Name="dgListeParticipants" ItemsSource="{Binding LesClients}"
+                          AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                          HeadersVisibility="Column" GridLinesVisibility="All"
+                          HorizontalGridLinesBrush="#7CC2E8" VerticalGridLinesBrush="#7CC2E8"
+                          Background="White" RowBackground="White" AlternatingRowBackground="White"
+                          BorderThickness="0" RowHeight="45" ColumnHeaderHeight="38"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#E5ECFB"/>
+                            <Setter Property="Foreground" Value="#0E2235"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="4"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="Foreground" Value="#0E2235"/>
+                            <Setter Property="Padding" Value="4"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="NOM" Binding="{Binding Nom}" Width="*"/>
+                        <DataGridTextColumn Header="PRÉNOM" Binding="{Binding Prenom}" Width="*"/>
+                        <DataGridTextColumn Header="MAIL" Binding="{Binding Mail}" Width="1.3*"/>
+                        <DataGridTextColumn Header="TÉLÉPHONE" Binding="{Binding Telephone}" Width="*"/>
+                        <DataGridTextColumn Header="NAISSANCE" Binding="{Binding DateNaissance, StringFormat={}{0:dd/MM/yyyy}}" Width="1.1*"/>
+                        <DataGridTextColumn Header="ADRESSE" Binding="{Binding Adresse}" Width="1.4*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="20,0,0,0">
+                <Button x:Name="btnOuvrirCreation" Content="Créer un Participant" Click="btnOuvrirCreation_Click"
+                        Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Padding="15,12" 
+                        BorderThickness="0" Cursor="Hand" HorizontalAlignment="Stretch">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
         </Grid>
-
-        <Grid>
-            <DataGrid x:Name="dgListeParticipants" Margin="69,155,235,44" AutoGenerateColumns="False" IsReadOnly="True" 
-                      Background="White" RowHeight="35" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0" ItemsSource="{Binding LesClients}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="NOM" Binding="{Binding Nom}" Width="*"/>
-                    <DataGridTextColumn Header="PRENOM" Binding="{Binding Prenom}" Width="*"/>
-                    <DataGridTextColumn Header="MAIL" Binding="{Binding Mail}" Width="1.5*"/>
-                    <DataGridTextColumn Header="TELEPHONE" Binding="{Binding Telephone}" Width="*"/>
-                    <DataGridTextColumn Header="DATE DE NAISSANCE" Binding="{Binding DateNaissance, StringFormat={}{0:dd/MM/yyyy}}" Width="1.2*"/>
-                    <DataGridTextColumn Header="ADRESSE" Binding="{Binding Adresse}" Width="1.5*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-
-        <Button x:Name="btnOuvrirCreation" Content="Créer Participants"
-                Background="#FF6B00" Foreground="White" FontSize="15" FontWeight="Bold"
-                Width="200" Height="110" VerticalAlignment="Top" HorizontalAlignment="Right"
-                Click="btnOuvrirCreation_Click" Margin="0,280,10,0">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="16"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-
     </Grid>
 </UserControl>

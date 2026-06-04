@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
 
@@ -13,62 +14,85 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Title -->
-        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold"
-                   Foreground="#0F172A" Margin="0,0,0,20"/>
+        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="26" FontWeight="Bold" Foreground="#0E2235" Margin="0,0,0,20"/>
 
-        <!-- Search box -->
-        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12"
-                Background="White" Padding="15,8" Margin="0,0,0,20">
-            <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray"
-                     BorderThickness="0" Background="Transparent" FontSize="16"/>
+        <Border Grid.Row="1" BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="10" Background="White" Padding="15,8" Margin="0,0,0,20">
+            <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14"/>
         </Border>
 
-        <!-- Main content: DataGrid + Buttons -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
 
-            <!-- DataGrid -->
-            <DataGrid Grid.Column="0" x:Name="dgEntraineurs" ItemsSource="{Binding LesEntraineurs}"
-                      AutoGenerateColumns="False" IsReadOnly="True" Background="White"
-                      BorderBrush="#CBD5E1" RowHeight="35" GridLinesVisibility="Horizontal">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding IdEntraineur}" Width="60"/>
-                    <DataGridTextColumn Header="Nom" Binding="{Binding NomEntraineur}" Width="*"/>
-                    <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomEntraineur}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Border Grid.Column="0" Background="White" CornerRadius="10" BorderBrush="#D9DEE5" BorderThickness="1" ClipToBounds="True">
+                <DataGrid x:Name="dgEntraineurs" ItemsSource="{Binding LesEntraineurs}"
+                          AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                          HeadersVisibility="Column" GridLinesVisibility="All"
+                          HorizontalGridLinesBrush="#7CC2E8" VerticalGridLinesBrush="#7CC2E8"
+                          Background="White" RowBackground="White" AlternatingRowBackground="White"
+                          BorderThickness="0" RowHeight="45" ColumnHeaderHeight="38"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 
-            <!-- Action buttons -->
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#E5ECFB"/>
+                            <Setter Property="Foreground" Value="#0E2235"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="4"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="Foreground" Value="#0E2235"/>
+                            <Setter Property="Padding" Value="4"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding IdEntraineur}" Width="60"/>
+                        <DataGridTextColumn Header="NOM" Binding="{Binding NomEntraineur}" Width="*"/>
+                        <DataGridTextColumn Header="PRÉNOM" Binding="{Binding PrenomEntraineur}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20,0,0,0">
 
-                <Button x:Name="btnAjout" Content="Ajouter un entraîneur" Height="40" Margin="0,0,0,15"
-                        Background="#FF6F00" Foreground="White" FontWeight="Bold" FontSize="14"
-                        Cursor="Hand" Click="btnAjout_click">
+                <Button x:Name="btnAjout" Content="Ajouter un entraîneur" Height="40" Margin="0,0,0,12"
+                        Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand" Click="btnAjout_click">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnModifier" Content="Modifier un entraîneur" Height="40" Margin="0,0,0,15"
-                        Background="#FF6F00" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand">
+                <Button x:Name="btnModifier" Content="Modifier un entraîneur" Height="40" Margin="0,0,0,12"
+                        Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>
 
                 <Button x:Name="btnSupprimer" Content="Supprimer un entraîneur" Height="40"
-                        Background="#A8A29E" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand" Click="btnSupprimer_Click">
+                        Background="#A8A29E" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand" Click="btnSupprimer_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="CornerRadius" Value="8"/>
                         </Style>
                     </Button.Resources>
                 </Button>
