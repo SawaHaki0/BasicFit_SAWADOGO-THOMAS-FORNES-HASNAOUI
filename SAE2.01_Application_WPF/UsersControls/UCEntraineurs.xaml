@@ -5,27 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800" Background="#F8FAFC">
 
     <Grid Margin="30">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="579*"/>
-            <ColumnDefinition Width="161*"/>
-        </Grid.ColumnDefinitions>
-<<<<<<< HEAD
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,20" Grid.ColumnSpan="2"/>
+        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,20"/>
 
-        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12" Background="White" Padding="15,8" Margin="0,0,0,20" Grid.ColumnSpan="2">
+        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12" Background="White" Padding="15,8" Margin="0,0,0,20">
             <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="16"/>
         </Border>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="220"/>
@@ -38,53 +33,6 @@
                     <DataGridTextColumn Header="ID" Binding="{Binding IdEntraineur}" Width="60"/>
                     <DataGridTextColumn Header="Nom" Binding="{Binding NomEntraineur}" Width="*"/>
                     <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomEntraineur}" Width="*"/>
-=======
-        <Label Content="Gérer entraineurs" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,0,0,0" Grid.Column="1" Height="63" Width="340"/>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
- VerticalAlignment="Top" Margin="0,70,0,0" Grid.Column="1" Width="700" Height="44">
-            <TextBox Height="40" Text="Recherche" FontSize="26" Width="705">
-                <TextBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="12"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Height="200" Width="190" Margin="0,0,40,50">
-            <Button Content="Ajouter un entraineur" Margin="0,12" Height="40" Background="#FFFF6B0F" Foreground="White">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="12"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Content="Modifier un entraineur" Margin="0,12" Height="40" Background="#FFFF6B0F" Foreground="White">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="12"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Content="Supprimer un entraineur" Margin="0,12" Height="40" Background="#FFFF6B0F" BorderBrush="#FFEFDFDF" Foreground="White">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="12"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Height="270" Width="400" Margin="50,0,0,25">
-            <DataGrid Height="270" ItemsSource="{Binding Entraineurs}"
-         AutoGenerateColumns="True" IsReadOnly="True">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="NOM"
-                     Binding="{Binding Nom}"
-                     Width="*" />
-
-                    <DataGridTextColumn Header="PRENOM"
-                     Binding="{Binding DescriptionCategorie}"
-                     Width="2*" />
->>>>>>> 3f4c05f7e947c995ca1306e124ebbb16155acdb9
                 </DataGrid.Columns>
             </DataGrid>
 
