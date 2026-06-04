@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Npgsql;
+using SAE2._01_Application_WPF.Classes; // Permet d'accéder à la classe Entraineur
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using SAE2._01_Application_WPF.Classes; // Permet d'accéder à la classe Entraineur
 
 namespace SAE2._01_Application_WPF.UsersControls
 {
@@ -37,6 +38,59 @@ namespace SAE2._01_Application_WPF.UsersControls
 
                 // On l'affiche proprement au centre de l'application dans le MainContainer
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
+            }
+        }
+
+        private void btnSupprimer_Click(object sender, RoutedEventArgs e)
+        {
+            // 1. On récupère l'entraîneur sélectionné dans le DataGrid
+            Entraineur entraineurSelectionne = (Entraineur)dgEntraineurs.SelectedItem;
+
+            // 2. Sécurité : On vérifie qu'une ligne est bien sélectionnée
+            if (entraineurSelectionne == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un entraîneur dans la liste à supprimer !", "Sélection manquante", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // 3. Fenêtre de confirmation (Oui / Non) pour valider le choix
+            MessageBoxResult resultat = MessageBox.Show(
+                $"Êtes-vous sûr de vouloir supprimer définitivement l'entraîneur {entraineurSelectionne.PrenomEntraineur} {entraineurSelectionne.NomEntraineur} ?",
+                "Confirmation de suppression",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            // Si l'utilisateur clique sur "Oui"
+            if (resultat == MessageBoxResult.Yes)
+            {
+                // Requête SQL utilisant l'ID de l'entraîneur (Nom de colonne vu dans ton modèle)
+                string requete = "DELETE FROM Entraineur WHERE ENTRAINEUR_ID = @id;";
+
+                try
+                {
+                    // Récupération de la connexion partagée du groupe
+                    var connexion = DataAccess.GetConnection();
+
+                    NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
+                    commande.Parameters.AddWithValue("@id", entraineurSelectionne.IdEntraineur);
+
+                    // Exécution du DELETE
+                    int lignesModifiees = commande.ExecuteNonQuery();
+
+                    if (lignesModifiees > 0)
+                    {
+                        MessageBox.Show("L'entraîneur a bien été supprimé de la base de données.", "Suppression réussie", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        // 4. RAFRAÎCHISSEMENT : On recharge la liste et on met à jour le tableau
+                        this.LesEntraineurs = new Entraineur().FindAll();
+                        dgEntraineurs.ItemsSource = this.LesEntraineurs;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors de la suppression. Vérifiez si cet entraîneur n'est pas lié à un cours existant ! \nDétail : " + ex.Message, "Erreur BDD", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
