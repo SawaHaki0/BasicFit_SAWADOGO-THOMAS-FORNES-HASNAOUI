@@ -177,12 +177,40 @@ namespace SAE2._01_Application_WPF.Classes
                         (string)dr["PRENOM"],
                         (string)dr["MAIL"],
                         (string)dr["TELEPHONE"],
-                        (string)dr["ADRESSE"] as string,
-                        (string)dr["CODE_POSTAL"] as string,
-                        (string)dr["VILLE"] as string,
+                        dr["ADRESSE"] as string,
+                        dr["CODE_POSTAL"] as string,
+                        dr["VILLE"] as string,
                         ((DateOnly)dr["DATE_NAISSANCE"]).ToDateTime(TimeOnly.MinValue)
                     ));
                 
+            }
+            return lesClients;
+        }
+        public List<Client> FindBySeance(int seanceId)
+        {
+            List<Client> lesClients = new List<Client>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand(
+                @"SELECT cl.*
+          FROM CLIENT cl
+          JOIN INSCRIPTION i ON i.CLIENT_ID = cl.CLIENT_ID
+          WHERE i.SEANCE_ID = @seance
+          ORDER BY cl.NOM, cl.PRENOM;"))
+            {
+                cmdSelect.Parameters.AddWithValue("seance", seanceId);
+                DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesClients.Add(new Client(
+                        (int)dr["CLIENT_ID"],
+                        (int)dr["ABONNEMENT_ID"],
+                        (string)dr["NOM"],
+                        (string)dr["PRENOM"],
+                        (string)dr["MAIL"],
+                        (string)dr["TELEPHONE"],
+                        dr["ADRESSE"] as string,
+                        dr["CODE_POSTAL"] as string,
+                        dr["VILLE"] as string,
+                        ((DateOnly)dr["DATE_NAISSANCE"]).ToDateTime(TimeOnly.MinValue)
+                    ));
             }
             return lesClients;
         }

@@ -64,7 +64,7 @@ namespace SAE2._01_Application_WPF.Classes
             this.Login = login;
             this.Password = password;
 
-            string ConnectionString = $"Host=127.0.0.1;Port=5432;Username={login};Password={password};Database=SAE201_BasiFit";
+            string ConnectionString = $"Host=127.0.0.1;Port=5432;Username={login};Password={password};Database=SAE201";
             connection = new NpgsqlConnection(ConnectionString);
 
             connection.Open();
