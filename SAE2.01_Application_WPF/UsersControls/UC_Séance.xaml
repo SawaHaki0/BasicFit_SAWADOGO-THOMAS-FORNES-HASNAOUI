@@ -1,0 +1,169 @@
+﻿<UserControl x:Class="SAE2._01_Application_WPF.UsersControls.UC_Séance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
+             xmlns:model="clr-namespace:SAE2._01_Application_WPF.Classes"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900" Background="#F8FAFC">
+
+    <UserControl.DataContext>
+        <model:ObservableCollections x:Name="Binding"></model:ObservableCollections>
+    </UserControl.DataContext>
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Ligne 0 : Titre + Filtres Date/Heure -->
+            <RowDefinition Height="Auto"/>
+            <!-- Ligne 1 : Les boutons de catégories -->
+            <RowDefinition Height="*"/>
+            <!-- Ligne 2 : DataGrid + Boutons d'actions -->
+        </Grid.RowDefinitions>
+
+        <!-- ZONE 1 : TITRE ET RECHERCHE DATE / HEURE -->
+        <Grid Grid.Row="0" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Consulter les séances" FontSize="32" FontWeight="Bold" Foreground="#0E2235" VerticalAlignment="Center"/>
+
+            <!-- Filtres Date et Heure -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Margin="0,0,10,0" Width="140">
+                    <TextBox x:Name="txtFiltreDate" Text="📅 Date :" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13"/>
+                </Border>
+                <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Width="140">
+                    <TextBox x:Name="txtFiltreHeure" Text="🕒 Heure" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13"/>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <!-- ZONE 2 : BOUTONS DES CATÉGORIES -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,25">
+            <WrapPanel.Resources>
+                <!-- Style partagé pour les boutons de catégorie -->
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="#555555"/>
+                    <Setter Property="BorderBrush" Value="#D9DEE5"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Padding" Value="12,6"/>
+                    <Setter Property="Margin" Value="0,0,8,8"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </WrapPanel.Resources>
+
+            <!-- Bouton actif "Toutes les catégories" (Orange) -->
+            <Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories"/>
+            <Button Content="Cardio &amp; Endurance"/>
+            <Button Content="Renforcement musculaire"/>
+            <Button Content="Bien-être &amp; Stretching"/>
+            <Button Content="HIIT"/>
+            <Button Content="Danse &amp; Fitness rythmique"/>
+            <Button Content="Cycling"/>
+            <Button Content="Pilates &amp; Core"/>
+            <Button Content="Yoga &amp; Méditation"/>
+        </WrapPanel>
+
+        <!-- ZONE 3 : CONTENU PRINCIPAL (Tableau à gauche, boutons d'action à droite) -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- Le tableau prend toute la place libre -->
+                <ColumnDefinition Width="240"/>
+                <!-- CORRIGÉ : Plus de "Grid." devant ColumnDefinition ! -->
+            </Grid.ColumnDefinitions>
+
+            <!-- LE TABLEAU STYLE HARMONISÉ (Identique au Planning du Jour) -->
+            <Border Grid.Column="0" Background="White" CornerRadius="10" BorderBrush="#D9DEE5" BorderThickness="1" ClipToBounds="True">
+                <DataGrid x:Name="dgSeances" ItemsSource="{Binding LesSeances}"
+                          AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                          HeadersVisibility="Column" GridLinesVisibility="All"
+                          HorizontalGridLinesBrush="#7CC2E8" VerticalGridLinesBrush="#7CC2E8"
+                          Background="White" RowBackground="White" AlternatingRowBackground="White"
+                          BorderThickness="0" RowHeight="45" ColumnHeaderHeight="38"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+
+                    <!-- Style des En-têtes -->
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#E5ECFB"/>
+                            <Setter Property="Foreground" Value="#0E2235"/>
+                            <Setter Property="FontSize" Value="12"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="4"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+                    <!-- Style des Cellules -->
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="13"/>
+                            <Setter Property="Foreground" Value="#0E2235"/>
+                            <Setter Property="Padding" Value="4"/>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <!-- Colonnes du tableau -->
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="DESCRIPTION" Binding="{Binding Description}" Width="1.5*"/>
+                        <DataGridTextColumn Header="SALLE" Binding="{Binding NomSalle}" Width="*"/>
+                        <DataGridTextColumn Header="ENTRAÎNEUR" Binding="{Binding NomEntraineur}" Width="*"/>
+                        <DataGridTextColumn Header="PLACES RESTANTES" Binding="{Binding PlacesRestantes}" Width="1.2*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <!-- LES BOUTONS D'ACTIONS DE DROITE -->
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="25,0,0,0">
+                <StackPanel.Resources>
+                    <!-- Style pour les gros boutons d'action oranges -->
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#F26B1A"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="Height" Value="50"/>
+                        <Setter Property="Margin" Value="0,0,0,15"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
+                <Button x:Name="btnGerer" Content="Gérer" />
+                <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription"/>
+                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

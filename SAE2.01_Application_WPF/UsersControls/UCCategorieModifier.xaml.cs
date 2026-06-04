@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SAE2._01_Application_WPF.UsersControls
 {
     /// <summary>
-    /// Logique d'interaction pour UCCategorieAjouter.xaml
+    /// Logique d'interaction pour UCCategorieModifier.xaml
     /// </summary>
-    public partial class UCCategorieAjouter : UserControl
+    public partial class UCCategorieModifier : UserControl
     {
-        public UCCategorieAjouter()
+        public UCCategorieModifier()
         {
             InitializeComponent();
         }

@@ -16,24 +16,13 @@ using System.Windows.Shapes;
 namespace SAE2._01_Application_WPF.UsersControls
 {
     /// <summary>
-    /// Logique d'interaction pour UCCategorieAjouter.xaml
+    /// Logique d'interaction pour UC_Séance.xaml
     /// </summary>
-    public partial class UCCategorieAjouter : UserControl
+    public partial class UC_Séance : UserControl
     {
-        public UCCategorieAjouter()
+        public UC_Séance()
         {
             InitializeComponent();
-        }
-
-        private void butRetour_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
-
-            if (fenetrePrincipale != null)
-            {
-                UCCategorie nouvellePage = new UCCategorie();
-                fenetrePrincipale.MainContainer.Content = nouvellePage;
-            }
         }
     }
 }
