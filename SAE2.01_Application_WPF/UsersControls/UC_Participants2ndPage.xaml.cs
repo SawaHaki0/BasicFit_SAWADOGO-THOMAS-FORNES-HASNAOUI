@@ -26,12 +26,13 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             InitializeComponent();
         }
-        // Gère l'effacement du texte d'aide gris au clic
+        // Gestionnaires d'événements pour les placeholders (textes d'aide gris)
         private void TextBox_Focus(object sender, RoutedEventArgs e)
         {
             TextBox box = (TextBox)sender;
             if (box.Text == "Nom" || box.Text == "Prenom" || box.Text == "Mail" ||
-                box.Text == "Téléphone" || box.Text == "📅 Date de Naissance" || box.Text == "Adresse")
+                box.Text == "Téléphone" || box.Text == "📅 Date de Naissance" ||
+                box.Text == "Adresse" || box.Text == "Code Postal" || box.Text == "Ville")
             {
                 box.Text = "";
                 box.Foreground = Brushes.Black;
@@ -51,73 +52,99 @@ namespace SAE2._01_Application_WPF.UsersControls
                 if (box == txtSaisieTelephone) box.Text = "Téléphone";
                 if (box == txtSaisieNaissance) box.Text = "📅 Date de Naissance";
                 if (box == txtSaisieAdresse) box.Text = "Adresse";
+                if (box == txtSaisieCodePostal) box.Text = "Code Postal";
+                if (box == txtSaisieVille) box.Text = "Ville";
             }
         }
 
         // Gère le clic sur le bouton de retour "<"
         private void btnRetourPage1_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Retour à la page 1");
+            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
+            if (fenetrePrincipale != null)
+            {
+                fenetrePrincipale.MainContainer.Content = new UC_Participants1stPage();
+            }
         }
-        // Gère le clic sur le bouton orange de validation
         private void btnValiderCreation_Click(object sender, RoutedEventArgs e)
         {
-            // 1. Récupération directe des textes des champs
-            string nom = txtSaisieNom.Text.Trim();
-            string prenom = txtSaisiePrenom.Text.Trim();
-            string mail = txtSaisieMail.Text.Trim();
-            string telephone = txtSaisieTelephone.Text.Trim();
-            string adresse = txtSaisieAdresse.Text.Trim();
+            // 1. Récupération et nettoyage des textes (on vire le texte si c'est le placeholder d'aide)
+            string nom = (txtSaisieNom.Text == "Nom") ? "" : txtSaisieNom.Text.Trim();
+            string prenom = (txtSaisiePrenom.Text == "Prenom") ? "" : txtSaisiePrenom.Text.Trim();
+            string mail = (txtSaisieMail.Text == "Mail") ? "" : txtSaisieMail.Text.Trim();
+            string telephone = (txtSaisieTelephone.Text == "Téléphone") ? "" : txtSaisieTelephone.Text.Trim();
+            string adresse = (txtSaisieAdresse.Text == "Adresse") ? "" : txtSaisieAdresse.Text.Trim();
+            string dateTexte = (txtSaisieNaissance.Text == "📅 Date de Naissance") ? "" : txtSaisieNaissance.Text.Trim();
 
-            // 2. Validation simple avec des 'if' classiques
-            if (nom == "" || prenom == "")
+            // NOUVEAU : Récupération du Code Postal et de la Ville
+            string cpTexte = (txtSaisieCodePostal.Text == "Code Postal") ? "" : txtSaisieCodePostal.Text.Trim();
+            string ville = (txtSaisieVille.Text == "Ville") ? "" : txtSaisieVille.Text.Trim();
+
+            // 2. Validations de sécurité
+            if (nom == "" || prenom == "" || dateTexte == "")
             {
-                MessageBox.Show("Le Nom et le Prénom sont obligatoires !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return; // On arrête tout ici
+                MessageBox.Show("Le Nom, le Prénom et la Date de naissance sont obligatoires !", "Champs manquants", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
-            // 3. Préparation de la requête SQL
-            string requete = "INSERT INTO Client (nom, prenom, mail, telephone, adresse) " +
-                             "VALUES (@nom, @prenom, @mail, @telephone, @adresse);";
+            // Conversion sécurisée de la Date de naissance
+            DateTime dateNaissance;
+            if (!DateTime.TryParse(dateTexte, out dateNaissance))
+            {
+                MessageBox.Show("Le format de la date est incorrect (Attendu: JJ/MM/AAAA).", "Format invalide", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Conversion sécurisée du Code Postal en entier (int) pour PostgreSQL
+            int codePostal = 0;
+            if (cpTexte != "")
+            {
+                if (!int.TryParse(cpTexte, out codePostal))
+                {
+                    MessageBox.Show("Le Code Postal doit être composé uniquement de chiffres !", "Format invalide", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
+            // 3. Requête SQL d'insertion incluant code_postal et ville
+            string requete = "INSERT INTO Client (nom, prenom, mail, telephone, date_naissance, adresse, code_postal, ville) " +
+                             "VALUES (@nom, @prenom, @mail, @telephone, @dateNaissance, @adresse, @codePostal, @ville);";
 
             try
             {
-                // On récupère la connexion de votre classe DataAccess
+                // On récupère la connexion partagée du groupe
                 var connexion = DataAccess.GetConnection();
 
-                // Création de la commande SQL
                 NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
 
-                // Association des paramètres (très lisible, ligne par ligne)
+                // Association des paramètres
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@prenom", prenom);
                 commande.Parameters.AddWithValue("@mail", mail);
                 commande.Parameters.AddWithValue("@telephone", telephone);
+                commande.Parameters.AddWithValue("@dateNaissance", dateNaissance);
                 commande.Parameters.AddWithValue("@adresse", adresse);
 
-                // Exécution de la requête sur la base de données
+                // Si le code postal ou la ville sont vides, on gère proprement pour la BDD
+                commande.Parameters.AddWithValue("@codePostal", cpTexte == "" ? (object)DBNull.Value : codePostal);
+                commande.Parameters.AddWithValue("@ville", ville == "" ? (object)DBNull.Value : ville);
+
+                // Exécution de la requête
                 int lignesModifiees = commande.ExecuteNonQuery();
 
-                // Si la ligne a bien été ajoutée
                 if (lignesModifiees > 0)
                 {
                     MessageBox.Show("Le participant a bien été ajouté !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // On vide les champs du formulaire proprement
-                    txtSaisieNom.Text = "";
-                    txtSaisiePrenom.Text = "";
-                    txtSaisieMail.Text = "";
-                    txtSaisieTelephone.Text = "";
-                    txtSaisieAdresse.Text = "";
+                    // Retour automatique à la liste (Page 1)
+                    btnRetourPage1_Click(sender, e);
                 }
             }
             catch (Exception ex)
             {
-                // En cas de problème informatique, on affiche juste l'erreur
                 MessageBox.Show("Erreur BDD : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void ReinitialiserFormulaire()
         {
             txtSaisieNom.Text = "Nom"; txtSaisieNom.Foreground = Brushes.Gray;

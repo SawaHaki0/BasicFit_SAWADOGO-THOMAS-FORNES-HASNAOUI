@@ -7,56 +7,76 @@
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800">
 
-    <Grid>
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <Grid.Resources>
-            <Style TargetType="TextBox">
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Padding" Value="15,0,0,0"/>
-                <Setter Property="FontSize" Value="13"/>
-                <Setter Property="BorderBrush" Value="#CBD5E1"/>
-                <Setter Property="Height" Value="40"/>
-                <Setter Property="Width" Value="500"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="TextBox">
-                            <Border x:Name="border" CornerRadius="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Grid.Resources>
+        <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,20">
+            <Button x:Name="btnRetourPage1" Content="&lt;" Click="btnRetourPage1_Click"
+                    HorizontalAlignment="Left" Background="Transparent" BorderThickness="0" 
+                    Foreground="#C2410C" FontSize="28" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,5"/>
+            <TextBlock Text="Créer participant" FontSize="32" FontWeight="Bold" Foreground="#0F172A"/>
+        </StackPanel>
 
-        <Button x:Name="btnRetourPage1" Content="&lt;" HorizontalAlignment="Left" Margin="45,40,0,0" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Foreground="#FF6B00" Background="Transparent" BorderBrush="Transparent" Click="btnRetourPage1_Click"/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Width="500">
 
-        <TextBlock x:Name="tbTitrePage2" TextWrapping="Wrap" Margin="90,46,0,0" FontSize="25" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Run Language="fr-fr" Text="Créer participant"/>
-        </TextBlock>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,0,15">
+                    <TextBox x:Name="txtSaisieNom" Text="Nom" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                </Border>
 
-        <TextBox x:Name="txtSaisieNom" Margin="60,110,0,0" VerticalAlignment="Top" Text="Nom" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,0,15">
+                    <TextBox x:Name="txtSaisiePrenom" Text="Prenom" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                </Border>
 
-        <TextBox x:Name="txtSaisiePrenom" Margin="60,170,0,0" VerticalAlignment="Top" Text="Prenom" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,0,15">
+                    <TextBox x:Name="txtSaisieMail" Text="Mail" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                </Border>
 
-        <TextBox x:Name="txtSaisieMail" Margin="60,230,0,0" VerticalAlignment="Top" Text="Mail" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,0,15">
+                    <TextBox x:Name="txtSaisieTelephone" Text="Téléphone" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                </Border>
 
-        <TextBox x:Name="txtSaisieTelephone" Margin="60,290,0,0" VerticalAlignment="Top" Text="Téléphone" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,0,15">
+                    <TextBox x:Name="txtSaisieNaissance" Text="📅 Date de Naissance" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                </Border>
 
-        <TextBox x:Name="txtSaisieNaissance" Margin="60,350,0,0" VerticalAlignment="Top" Text="📅 Date de Naissance" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                <Border BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,0,15">
+                    <TextBox x:Name="txtSaisieAdresse" Text="Adresse" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                </Border>
 
-        <TextBox x:Name="txtSaisieAdresse" Margin="60,410,0,0" VerticalAlignment="Top" Text="Adresse" Foreground="Gray" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-        <Button x:Name="btnValiderCreation" Content="Valider Participant"
-                Background="#FF6B00" Foreground="White" FontSize="15" FontWeight="Bold"
-                Width="200" Height="45" VerticalAlignment="Top" HorizontalAlignment="Right"
-                Click="btnValiderCreation_Click" Margin="0,408,30,0">
+                    <Border Grid.Column="0" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10" Margin="0,0,10,0">
+                        <TextBox x:Name="txtSaisieCodePostal" Text="Code Postal" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                    </Border>
+
+                    <Border Grid.Column="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="15" Background="White" Padding="15,10">
+                        <TextBox x:Name="txtSaisieVille" Text="Ville" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14" GotFocus="TextBox_Focus" LostFocus="TextBox_NoFocus"/>
+                    </Border>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Grid.Row="2" x:Name="btnValiderCreation" Content="Valider Participant" Click="btnValiderCreation_Click"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="45"
+                Foreground="White" FontWeight="Bold" FontSize="15" Cursor="Hand">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="12"/>
                 </Style>
             </Button.Resources>
+            <Button.Background>
+                <SolidColorBrush Color="#FF6F00"/>
+            </Button.Background>
         </Button>
 
     </Grid>
