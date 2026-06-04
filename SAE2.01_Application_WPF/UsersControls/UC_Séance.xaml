@@ -42,8 +42,8 @@
         </Grid>
 
         <!-- ZONE 2 : BOUTONS DES CATÉGORIES -->
-        <WrapPanel Grid.Row="1" Margin="0,0,0,25">
-            <WrapPanel.Resources>
+		<WrapPanel x:Name="panelCategories" Grid.Row="1" Margin="0,0,0,25">
+			<WrapPanel.Resources>
                 <!-- Style partagé pour les boutons de catégorie -->
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="White"/>
@@ -66,17 +66,16 @@
                 </Style>
             </WrapPanel.Resources>
 
-            <!-- Bouton actif "Toutes les catégories" (Orange) -->
-            <Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories"/>
-            <Button Content="Cardio &amp; Endurance"/>
-            <Button Content="Renforcement musculaire"/>
-            <Button Content="Bien-être &amp; Stretching"/>
-            <Button Content="HIIT"/>
-            <Button Content="Danse &amp; Fitness rythmique"/>
-            <Button Content="Cycling"/>
-            <Button Content="Pilates &amp; Core"/>
-            <Button Content="Yoga &amp; Méditation"/>
-        </WrapPanel>
+			<Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories" Tag="" Click="FiltrerCategorie"/>
+			<Button Content="Cardio &amp; Endurance"          Tag="Cardio &amp; Endurance"          Click="FiltrerCategorie"/>
+			<Button Content="Renforcement musculaire"         Tag="Renforcement musculaire"         Click="FiltrerCategorie"/>
+			<Button Content="Bien-être &amp; Stretching"      Tag="Bien-etre &amp; Stretching"      Click="FiltrerCategorie"/>
+			<Button Content="HIIT"                            Tag="HIIT"                            Click="FiltrerCategorie"/>
+			<Button Content="Danse &amp; Fitness rythmique"   Tag="Danse &amp; Fitness rythmique"   Click="FiltrerCategorie"/>
+			<Button Content="Cycling"                         Tag="Cycling"                         Click="FiltrerCategorie"/>
+			<Button Content="Pilates &amp; Core"              Tag="Pilates &amp; Core"              Click="FiltrerCategorie"/>
+			<Button Content="Yoga &amp; Méditation"           Tag="Yoga &amp; Meditation"           Click="FiltrerCategorie"/>
+		</WrapPanel>
 
         <!-- ZONE 3 : CONTENU PRINCIPAL (Tableau à gauche, boutons d'action à droite) -->
         <Grid Grid.Row="2">
