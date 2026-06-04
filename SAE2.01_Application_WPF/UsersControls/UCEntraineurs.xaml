@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800" Background="#F8FAFC">
+             d:DesignHeight="500" d:DesignWidth="800">
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
@@ -14,20 +13,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,20"/>
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold"
+                   Foreground="#0F172A" Margin="0,0,0,20"/>
 
-        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12" Background="White" Padding="15,8" Margin="0,0,0,20">
-            <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="16"/>
+        <!-- Search box -->
+        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12"
+                Background="White" Padding="15,8" Margin="0,0,0,20">
+            <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray"
+                     BorderThickness="0" Background="Transparent" FontSize="16"/>
         </Border>
 
+        <!-- Main content: DataGrid + Buttons -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
 
+            <!-- DataGrid -->
             <DataGrid Grid.Column="0" x:Name="dgEntraineurs" ItemsSource="{Binding LesEntraineurs}"
-                      AutoGenerateColumns="False" IsReadOnly="True" Background="White" 
+                      AutoGenerateColumns="False" IsReadOnly="True" Background="White"
                       BorderBrush="#CBD5E1" RowHeight="35" GridLinesVisibility="Horizontal">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding IdEntraineur}" Width="60"/>
@@ -36,10 +42,12 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <!-- Action buttons -->
             <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20,0,0,0">
 
                 <Button x:Name="btnAjout" Content="Ajouter un entraîneur" Height="40" Margin="0,0,0,15"
-                        Background="#FF6F00" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand" Click="btnAjout_click">
+                        Background="#FF6F00" Foreground="White" FontWeight="Bold" FontSize="14"
+                        Cursor="Hand" Click="btnAjout_click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
