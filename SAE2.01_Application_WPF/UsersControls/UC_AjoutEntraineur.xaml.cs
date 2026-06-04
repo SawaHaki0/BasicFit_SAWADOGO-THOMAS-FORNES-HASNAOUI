@@ -1,19 +1,9 @@
-﻿using Npgsql;
-using SAE2._01_Application_WPF.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Npgsql; // Ne pas oublier pour la connexion PostgreSQL
+using SAE2._01_Application_WPF.Classes;
 
 namespace SAE2._01_Application_WPF.UsersControls
 {
@@ -27,77 +17,82 @@ namespace SAE2._01_Application_WPF.UsersControls
             InitializeComponent();
         }
 
-        private void TextBox_Focus(object sender, RoutedEventArgs e)
-        {
-            TextBox box = (TextBox)sender;
-            if (box.Text == "Nom" || box.Text == "Prenom")
-            {
-                box.Text = "";
-                box.Foreground = System.Windows.Media.Brushes.Black;
-            }
-        }
-
+        // 1. Gère le bouton de retour "<" vers la liste
         private void btnRetour_Click(object sender, RoutedEventArgs e)
         {
             MainWindow fenetre = (MainWindow)Window.GetWindow(this);
             if (fenetre != null)
             {
-                // Remplacez 'UC_EntraineursList' par le nom exact de votre UC de la page précédente
-                fenetre.MenuContainer.Content = new UCEntraineurs();
+                // On recharge l'UC de la liste dans le conteneur principal central
+                fenetre.MainContainer.Content = new UCEntraineurs();
             }
         }
 
-        private void TextBox_NoFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox box = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(box.Text))
-            {
-                box.Foreground = System.Windows.Media.Brushes.Gray;
-                if (box == txtSaisieNom) box.Text = "Nom";
-                if (box == txtSaisiePrenom) box.Text = "Prenom";
-            }
-        }
-
+        // 2. Gère le bouton orange "Finaliser la création"
         private void btnFinaliserCreation_Click(object sender, RoutedEventArgs e)
         {
-            // Récupération des données en enlevant les espaces inutiles
+            // Récupération des données en enlevant les espaces inutiles autour
             string nom = txtSaisieNom.Text.Trim();
             string prenom = txtSaisiePrenom.Text.Trim();
 
-            // Vérification si l'utilisateur a laissé les champs vides (ou s'il y a vos placeholders)
+            // Sécurité : On vérifie que les champs ne sont pas vides ou égaux aux placeholders d'aide
             if (string.IsNullOrEmpty(nom) || nom == "Nom" || string.IsNullOrEmpty(prenom) || prenom == "Prenom")
             {
                 MessageBox.Show("Le Nom et le Prénom de l'entraîneur sont obligatoires !", "Champs manquants", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Requête SQL pour insérer l'entraîneur (adaptez le nom de la table et des colonnes à votre BDD)
-            string requete = "INSERT INTO Entraineur (nom, prenom) VALUES (@nom, @prenom);";
+            // Requête SQL ajustée sur tes vrais noms de colonnes PostgreSQL (vus dans ton modèle)
+            string requete = "INSERT INTO Entraineur (ENTRAINEUR_NOM, ENTRAINEUR_PRENOM) VALUES (@nom, @prenom);";
 
             try
             {
-                // Récupération de la connexion commune à votre groupe
+                // Récupération de la connexion partagée de ta SAE
                 var connexion = DataAccess.GetConnection();
 
-                // Création et configuration de la commande PostgreSQL
                 NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
+
+                // Association des paramètres pour éviter les injections SQL
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@prenom", prenom);
 
-                // Exécution
+                // Exécution de l'ordre SQL
                 int lignesModifiees = commande.ExecuteNonQuery();
 
                 if (lignesModifiees > 0)
                 {
                     MessageBox.Show("L'entraîneur a bien été créé !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Optionnel : redirection automatique vers la liste après l'ajout réussi
+                    // Redirection automatique vers la liste mise à jour après l'ajout
                     btnRetour_Click(sender, e);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erreur lors de la création dans la base : " + ex.Message, "Erreur BDD", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // 3. Gestionnaires d'événements pour effacer le texte d'aide gris quand on clique dessus
+        private void TextBox_Focus(object sender, RoutedEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            if (box.Text == "Nom" || box.Text == "Prenom")
+            {
+                box.Text = "";
+                box.Foreground = Brushes.Black; // Le texte saisi devient noir
+            }
+        }
+
+        // Remet le texte d'aide gris si l'étudiant clique ailleurs en laissant le champ vide
+        private void TextBox_NoFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(box.Text))
+            {
+                box.Foreground = Brushes.Gray;
+                if (box == txtSaisieNom) box.Text = "Nom";
+                if (box == txtSaisiePrenom) box.Text = "Prenom";
             }
         }
     }
