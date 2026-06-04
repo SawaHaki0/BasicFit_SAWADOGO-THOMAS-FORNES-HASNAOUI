@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SAE2._01_Application_WPF.UsersControls"
              mc:Ignorable="d" 
+<<<<<<< HEAD
              d:DesignHeight="500" d:DesignWidth="800">
+=======
+             d:DesignHeight="500" d:DesignWidth="800" Background="#F8FAFC">
+>>>>>>> a0a083b9c99e636e8a35c0a1cd6482815e7841f3
 
     <Grid Margin="30">
         <Grid.RowDefinitions>
@@ -14,18 +17,43 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+<<<<<<< HEAD
         <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="26" FontWeight="Bold" Foreground="#0E2235" Margin="0,0,0,20"/>
 
         <Border Grid.Row="1" BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="10" Background="White" Padding="15,8" Margin="0,0,0,20">
             <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="14"/>
         </Border>
 
+=======
+<<<<<<< HEAD
+        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,20"/>
+
+        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12" Background="White" Padding="15,8" Margin="0,0,0,20">
+            <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="16"/>
+        </Border>
+
+=======
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Text="Gérer les entraîneurs" FontSize="32" FontWeight="Bold"
+                   Foreground="#0F172A" Margin="0,0,0,20"/>
+
+        <!-- Search box -->
+        <Border Grid.Row="1" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12"
+                Background="White" Padding="15,8" Margin="0,0,0,20">
+            <TextBox x:Name="txtRecherche" Text="Rechercher un entraîneur..." Foreground="Gray"
+                     BorderThickness="0" Background="Transparent" FontSize="16"/>
+        </Border>
+
+        <!-- Main content: DataGrid + Buttons -->
+>>>>>>> 5ac7e65 (Erreurs de fusion + Logout)
+>>>>>>> a0a083b9c99e636e8a35c0a1cd6482815e7841f3
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
 
+<<<<<<< HEAD
             <Border Grid.Column="0" Background="White" CornerRadius="10" BorderBrush="#D9DEE5" BorderThickness="1" ClipToBounds="True">
                 <DataGrid x:Name="dgEntraineurs" ItemsSource="{Binding LesEntraineurs}"
                           AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
@@ -75,24 +103,61 @@
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>
+=======
+            <!-- DataGrid -->
+            <DataGrid Grid.Column="0" x:Name="dgEntraineurs" ItemsSource="{Binding LesEntraineurs}"
+                      AutoGenerateColumns="False" IsReadOnly="True" Background="White"
+                      BorderBrush="#CBD5E1" RowHeight="35" GridLinesVisibility="Horizontal">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding IdEntraineur}" Width="60"/>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding NomEntraineur}" Width="*"/>
+                    <DataGridTextColumn Header="Prénom" Binding="{Binding PrenomEntraineur}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Action buttons -->
+            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="20,0,0,0">
+
+                <Button x:Name="btnAjout" Content="Ajouter un entraîneur" Height="40" Margin="0,0,0,15"
+                        Background="#FF6F00" Foreground="White" FontWeight="Bold" FontSize="14"
+                        Cursor="Hand" Click="btnAjout_click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+>>>>>>> a0a083b9c99e636e8a35c0a1cd6482815e7841f3
                         </Style>
                     </Button.Resources>
                 </Button>
 
+<<<<<<< HEAD
                 <Button x:Name="btnModifier" Content="Modifier un entraîneur" Height="40" Margin="0,0,0,12"
                         Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>
+=======
+                <Button x:Name="btnModifier" Content="Modifier un entraîneur" Height="40" Margin="0,0,0,15"
+                        Background="#FF6F00" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+>>>>>>> a0a083b9c99e636e8a35c0a1cd6482815e7841f3
                         </Style>
                     </Button.Resources>
                 </Button>
 
                 <Button x:Name="btnSupprimer" Content="Supprimer un entraîneur" Height="40"
+<<<<<<< HEAD
                         Background="#A8A29E" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand" Click="btnSupprimer_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>
+=======
+                        Background="#A8A29E" Foreground="White" FontWeight="Bold" FontSize="14" Cursor="Hand" Click="btnSupprimer_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+>>>>>>> a0a083b9c99e636e8a35c0a1cd6482815e7841f3
                         </Style>
                     </Button.Resources>
                 </Button>
