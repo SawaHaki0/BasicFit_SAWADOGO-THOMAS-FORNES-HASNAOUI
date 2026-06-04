@@ -170,38 +170,85 @@ namespace SAE2._01_Application_WPF.Classes
             {
                 DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
+                {
+                    // 1. Gestion de l'ABONNEMENT_ID (Peut être NULL)
+                    int idAbonnement;
+                    if (dr["ABONNEMENT_ID"] == DBNull.Value)
+                    {
+                        idAbonnement = 0; // Valeur par défaut
+                    }
+                    else
+                    {
+                        idAbonnement = Convert.ToInt32(dr["ABONNEMENT_ID"]);
+                    }
+
+                    // 2. Gestion sécurisée des chaînes (Évite les plantages sur l'adresse, code postal ou ville)
+                    string nom = dr["NOM"].ToString();
+                    string prenom = dr["PRENOM"].ToString();
+                    string mail = dr["MAIL"].ToString();
+                    string telephone = dr["TELEPHONE"].ToString();
+
+                    string adresse = dr["ADRESSE"] == DBNull.Value ? "" : dr["ADRESSE"].ToString();
+                    string codePostal = dr["CODE_POSTAL"] == DBNull.Value ? "" : dr["CODE_POSTAL"].ToString();
+                    string ville = dr["VILLE"] == DBNull.Value ? "" : dr["VILLE"].ToString();
+
+                    // 3. Gestion de la DATE_NAISSANCE (Spécifique PostgreSQL DateOnly)
+                    DateTime dateNaissance = DateTime.MinValue;
+                    if (dr["DATE_NAISSANCE"] != DBNull.Value)
+                    {
+                        // On extrait la valeur en disant à C# : "c'est un DateOnly"
+                        DateOnly dateSeule = (DateOnly)dr["DATE_NAISSANCE"];
+
+                        // On la transforme en DateTime (en ajoutant une heure par défaut à minuit)
+                        dateNaissance = dateSeule.ToDateTime(TimeOnly.MinValue);
+                    }
+
+                    // 4. On ajoute le client créé avec nos variables nettoyées
                     lesClients.Add(new Client(
-                        (int)dr["CLIENT_ID"],
-                        (int)dr["ABONNEMENT_ID"],
-                        (string)dr["NOM"],
-                        (string)dr["PRENOM"],
-                        (string)dr["MAIL"],
-                        (string)dr["TELEPHONE"],
-                        dr["ADRESSE"] as string,
-                        dr["CODE_POSTAL"] as string,
-                        dr["VILLE"] as string,
-                        ((DateOnly)dr["DATE_NAISSANCE"]).ToDateTime(TimeOnly.MinValue)
+                        Convert.ToInt32(dr["CLIENT_ID"]),
+                        idAbonnement,
+                        nom,
+                        prenom,
+                        mail,
+                        telephone,
+                        adresse,
+                        codePostal,
+                        ville,
+                        dateNaissance
                     ));
-                
+                }
+                return lesClients;
             }
-            return lesClients;
         }
+
         public List<Client> FindBySeance(int seanceId)
         {
             List<Client> lesClients = new List<Client>();
             using (NpgsqlCommand cmdSelect = new NpgsqlCommand(
                 @"SELECT cl.*
-          FROM CLIENT cl
-          JOIN INSCRIPTION i ON i.CLIENT_ID = cl.CLIENT_ID
-          WHERE i.SEANCE_ID = @seance
-          ORDER BY cl.NOM, cl.PRENOM;"))
+                  FROM CLIENT cl
+                  JOIN INSCRIPTION i ON i.CLIENT_ID = cl.CLIENT_ID
+                  WHERE i.SEANCE_ID = @seance
+                  ORDER BY cl.NOM, cl.PRENOM;"))
             {
                 cmdSelect.Parameters.AddWithValue("seance", seanceId);
                 DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
+                {
+                    // Sécurisation BUT 1 : On applique la même logique ici
+                    int idAbonnement;
+                    if (dr["ABONNEMENT_ID"] == DBNull.Value)
+                    {
+                        idAbonnement = 0;
+                    }
+                    else
+                    {
+                        idAbonnement = (int)dr["ABONNEMENT_ID"];
+                    }
+
                     lesClients.Add(new Client(
                         (int)dr["CLIENT_ID"],
-                        (int)dr["ABONNEMENT_ID"],
+                        idAbonnement, // On passe notre variable triée
                         (string)dr["NOM"],
                         (string)dr["PRENOM"],
                         (string)dr["MAIL"],
@@ -211,6 +258,7 @@ namespace SAE2._01_Application_WPF.Classes
                         dr["VILLE"] as string,
                         ((DateOnly)dr["DATE_NAISSANCE"]).ToDateTime(TimeOnly.MinValue)
                     ));
+                }
             }
             return lesClients;
         }
