@@ -39,5 +39,10 @@ namespace SAE2._01_Application_WPF.UsersControls
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
         }
+
+        private void btnSupprimer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
