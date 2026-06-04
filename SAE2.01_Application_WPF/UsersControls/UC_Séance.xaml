@@ -8,10 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Background="#F8FAFC">
 
-    <UserControl.DataContext>
-        <model:ObservableCollections x:Name="Binding"></model:ObservableCollections>
-    </UserControl.DataContext>
-    <Grid Margin="30">
+	<UserControl.DataContext>
+		<model:ObservableCollections x:Name="Binding"/>
+	</UserControl.DataContext>
+	<Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Ligne 0 : Titre + Filtres Date/Heure -->
@@ -30,16 +30,22 @@
 
             <TextBlock Grid.Column="0" Text="Consulter les séances" FontSize="32" FontWeight="Bold" Foreground="#0E2235" VerticalAlignment="Center"/>
 
-            <!-- Filtres Date et Heure -->
-            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Margin="0,0,10,0" Width="140">
-                    <TextBox x:Name="txtFiltreDate" Text="📅 Date :" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13"/>
-                </Border>
-                <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,6" Width="140">
-                    <TextBox x:Name="txtFiltreHeure" Text="🕒 Heure" Foreground="Gray" BorderThickness="0" Background="Transparent" FontSize="13"/>
-                </Border>
-            </StackPanel>
-        </Grid>
+			<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+				<Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,4" Width="170">
+					<ComboBox x:Name="cmbJour" BorderThickness="0" Background="Transparent" FontSize="13"
+                  SelectionChanged="Filtre_Changed">
+						<ComboBoxItem Content="📅 Tous les jours" IsSelected="True"/>
+						<ComboBoxItem Content="Lundi"/>
+						<ComboBoxItem Content="Mardi"/>
+						<ComboBoxItem Content="Mercredi"/>
+						<ComboBoxItem Content="Jeudi"/>
+						<ComboBoxItem Content="Vendredi"/>
+						<ComboBoxItem Content="Samedi"/>
+						<ComboBoxItem Content="Dimanche"/>
+					</ComboBox>
+				</Border>
+			</StackPanel>
+		</Grid>
 
         <!-- ZONE 2 : BOUTONS DES CATÉGORIES -->
 		<WrapPanel x:Name="panelCategories" Grid.Row="1" Margin="0,0,0,25">
@@ -129,8 +135,8 @@
                         <DataGridTextColumn Header="SALLE" Binding="{Binding NomSalle}" Width="*"/>
                         <DataGridTextColumn Header="ENTRAÎNEUR" Binding="{Binding NomEntraineur}" Width="*"/>
                         <DataGridTextColumn Header="PLACES RESTANTES" Binding="{Binding PlacesRestantes}" Width="1.2*"/>
-                        <DataGridTextColumn Header="DATE" Binding="{Binding JourSeance, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
-                    </DataGrid.Columns>
+						<DataGridTextColumn Header="JOUR" Binding="{Binding JourLibelle}" Width="*"/>
+					</DataGrid.Columns>
                 </DataGrid>
             </Border>
 

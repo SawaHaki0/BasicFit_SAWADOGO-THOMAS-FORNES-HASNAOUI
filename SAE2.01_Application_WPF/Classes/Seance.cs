@@ -151,7 +151,14 @@ namespace SAE2._01_Application_WPF.Classes
                 this.participantsSeance = value;
             }
         }
-        // ===== Propriétés d'affichage pour le DataGrid du planning =====
+        public string JourLibelle
+        {
+            get
+            {
+                string[] jours = { "", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche" };
+                return (JourSeance >= 1 && JourSeance <= 7) ? jours[JourSeance] : "";
+            }
+        }
 
         public string Horaire =>
             HeureDebut.ToString("HH:mm") + " - " + HeureFin.ToString("HH:mm");

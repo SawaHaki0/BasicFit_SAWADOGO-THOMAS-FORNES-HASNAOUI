@@ -26,33 +26,32 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             InitializeComponent();
         }
+        private string categorieSelectionnee = "";   // "" = toutes
+
+        private void Filtre_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            AppliquerFiltres();
+        }
+
         private void FiltrerCategorie(object sender, RoutedEventArgs e)
         {
-            string categorie = (sender as Button)?.Tag as string;
-
-            ICollectionView vue = CollectionViewSource.GetDefaultView(dgSeances.ItemsSource);
-            if (vue == null) return;
-
-            if (string.IsNullOrEmpty(categorie))
-                vue.Filter = null;   // "Toutes les catégories"
-            else
-                vue.Filter = obj =>
-                    (obj as Seance)?.UnCours.UneCategorie.NomCategorie == categorie;
-
-            MettreEnValeurBouton(sender as Button);   // surbrillance (optionnel)
+            categorieSelectionnee = (sender as Button)?.Tag as string ?? "";
+            AppliquerFiltres();
+            MettreEnValeurBouton(sender as Button);
         }
         private void MettreEnValeurBouton(Button actif)
         {
+            if (panelCategories == null) return;
+
             BrushConverter bc = new BrushConverter();
             foreach (var child in panelCategories.Children)
-            {
                 if (child is Button b)
                 {
                     b.Background = Brushes.White;
                     b.Foreground = (Brush)bc.ConvertFrom("#555555");
                     b.BorderThickness = new Thickness(1);
                 }
-            }
+
             if (actif != null)
             {
                 actif.Background = (Brush)bc.ConvertFrom("#F26B1A");
@@ -60,6 +59,28 @@ namespace SAE2._01_Application_WPF.UsersControls
                 actif.BorderThickness = new Thickness(0);
             }
         }
+
+        private void AppliquerFiltres()
+        {
+            if (dgSeances == null) return;
+
+            ICollectionView vue = CollectionViewSource.GetDefaultView(dgSeances.ItemsSource);
+            if (vue == null) return;
+
+            int jour = (cmbJour != null) ? cmbJour.SelectedIndex : 0;   // 0 = tous, 1..7 = Lundi..Dimanche
+
+            vue.Filter = obj =>
+            {
+                if (!(obj is Seance s)) return false;
+
+                bool okCat = string.IsNullOrEmpty(categorieSelectionnee)
+                              || s?.UnCours?.UneCategorie?.NomCategorie == categorieSelectionnee;
+                bool okJour = jour == 0 || s.JourSeance == jour;
+
+                return okCat && okJour;
+            };
+        }
+
     }
 }
 
