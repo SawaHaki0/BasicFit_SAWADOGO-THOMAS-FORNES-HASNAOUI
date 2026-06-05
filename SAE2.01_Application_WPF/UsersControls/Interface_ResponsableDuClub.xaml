@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- SIDEBAR -->
+
         <Grid Grid.Column="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
@@ -38,7 +38,7 @@
 
                     <StackPanel Orientation="Vertical" Grid.Row="0">
 
-                        <!-- Planning jour -->
+   
                         <Button x:Name="menuPlanningJour" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" Margin="0,20,0,0" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE787;" FontSize="18" Margin="10,0,10,0"/>
@@ -46,7 +46,7 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Cours -->
+                   
                         <Button x:Name="menuSeances" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;" FontSize="18" Margin="10,0,10,0"/>
@@ -54,7 +54,7 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Participants -->
+                        
                         <Button x:Name="menuParticipants" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE716;" FontSize="18" Margin="10,0,10,0"/>
@@ -62,7 +62,7 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Categories -->
+                      
                         <Button x:Name="menuCategories" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xF246;" FontSize="18" Margin="10,0,10,0"/>
@@ -70,7 +70,7 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Gérer entraineurs -->
+                       
                         <Button x:Name="menuGererEntraineurs" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE13D;" FontSize="18" Margin="10,0,10,0"/>
@@ -78,17 +78,12 @@
                             </StackPanel>
                         </Button>
 
-                        <!-- Cours -->
-                        <Button x:Name="menuCours" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" HorizontalContentAlignment="Left" Height="60">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7BE;" FontSize="18" Margin="10,0,10,0"/>
-                                <TextBlock Text="Cours" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                      
+                        
 
                     </StackPanel>
 
-                    <!-- Logout at the bottom -->
+            
                     <StackPanel Orientation="Vertical" Grid.Row="1">
                         <Button x:Name="menuLogout" Click="MenuButton_Click" Background="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Width="Auto" Margin="0,0,0,10" HorizontalContentAlignment="Left" Height="40">
                             <StackPanel Orientation="Horizontal">
@@ -102,7 +97,7 @@
             </Border>
         </Grid>
 
-        <!-- HEADER -->
+        
         <Border Grid.Column="1" Grid.Row="0" Background="White" BorderBrush="#FFD9A7" BorderThickness="0,0,0,1" Padding="20,0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -116,7 +111,7 @@
             </Grid>
         </Border>
 
-        <!-- CONTENT AREA (empty, filled by MainContainer in MainWindow) -->
+    
         <Border Grid.Column="1" Grid.Row="1" Background="#F8FAFC" Padding="30">
             <Grid/>
         </Border>

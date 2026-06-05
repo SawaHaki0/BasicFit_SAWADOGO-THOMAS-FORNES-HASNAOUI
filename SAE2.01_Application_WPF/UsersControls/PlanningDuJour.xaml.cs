@@ -30,8 +30,8 @@ namespace SAE2._01_Application_WPF
         
         private void ChargerPlanning()
         {
-            int jour = (int)DateTime.Now.DayOfWeek;   // dimanche = 0, lundi = 1, ... samedi = 6
-            jour = (jour == 0) ? 7 : jour;            // -> lundi = 1 ... dimanche = 7 (comme en base)
+            int jour = (int)DateTime.Now.DayOfWeek;   
+            jour = (jour == 0) ? 7 : jour;           
 
             try
             {

@@ -11,7 +11,7 @@ namespace SAE2._01_Application_WPF.Classes
         public string Libelle { get; set; }
         public int Inscrits { get; set; }
         public int Places { get; set; }
-        public double Taux { get; set; }       // 0–100 (pour la barre)
-        public string Detail { get; set; }     // ex : "75 % (45/60)"
+        public double Taux { get; set; }       
+        public string Detail { get; set; }    
     }
 }

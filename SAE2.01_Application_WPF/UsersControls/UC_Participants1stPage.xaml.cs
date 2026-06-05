@@ -87,6 +87,10 @@ namespace SAE2._01_Application_WPF.UsersControls
                 dgListeParticipants.ItemsSource = new Client().FindBySeance(seanceID);
                 btnValiderInscription.Content = "Nouvelle Inscription";
             }
+            else if (this.PagePrecedente is UC_Séance)
+            {
+                btnVoirSeances.Visibility= Visibility.Collapsed;
+            }
             else
             {
                 dgListeParticipants.ItemsSource = new Client().FindAll();

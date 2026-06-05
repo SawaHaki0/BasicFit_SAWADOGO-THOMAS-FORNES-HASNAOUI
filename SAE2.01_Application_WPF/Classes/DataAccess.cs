@@ -1,4 +1,6 @@
 ﻿using Npgsql;
+using Org.BouncyCastle.Crypto.Generators;
+using Org.BouncyCastle.Crypto.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -72,16 +74,6 @@ namespace SAE2._01_Application_WPF.Classes
             soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
-            connectionString = ConfigurationManager.ConnectionStrings["ConnexionDB"].ConnectionString;
-            try
-            {
-                connection = new NpgsqlConnection(connectionString);
-            }
-            catch (Exception ex)
-            {
-                LogError.Log(ex, "Pb à la connexion  \n");
-                throw;
-            }
         }
 
         public DataAccess(string login, string password)
@@ -89,53 +81,63 @@ namespace SAE2._01_Application_WPF.Classes
             this.Login = login;
             this.Password = password;
 
-            connection.Open();
-            using (var cmd = new NpgsqlCommand(
-                "SELECT password, role FROM users WHERE username = @login", connection))
+            string ConnectionStr = $"Host=srv-peda-new;Port=5433;Username=hakima;Password={password};Database=sae201_basicfit;Options='-c search_path=basicfit_schema'";
+
+            try
             {
-                cmd.Parameters.AddWithValue("@login", login);
-                using (var reader = cmd.ExecuteReader())
+                connection = new NpgsqlConnection(ConnectionStr);
+                connection.Open();
+
+                using (var cmd = new NpgsqlCommand("SELECT role FROM users WHERE username = @login", connection))
                 {
-                    if (reader.Read())
+                    cmd.Parameters.AddWithValue("@login", login);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        string dbPassword = reader["password"].ToString();
-                        string dbRole = reader["role"].ToString();
-
-
-                        if (password == dbPassword)
+                        if (reader.Read())
                         {
-                            this.role = dbRole;
+                            this.Role = reader["role"].ToString();
                         }
-                        else
-                        {
-                            throw new Exception("Invalid password.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("User not found.");
                     }
                 }
             }
-            connection.Close();
+            catch (PostgresException ex) when (ex.SqlState == "28P01")
+            {
+                LogError.Log(ex, "Authentification échouée : Identifiants Postgres incorrects.\n");
+                throw new Exception("Nom d'utilisateur ou mot de passe Postgres incorrect.");
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Erreur lors de la connexion initiale.\n");
+                throw;
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
         }
 
-
-        // pour récupérer la connexion (et l'ouvrir si nécessaire)
         public static NpgsqlConnection GetConnection()
         {
+            if (connection == null)
+            {
+                throw new InvalidOperationException("La connexion n'a pas été initialisée. Veuillez d'abord instancier DataAccess.");
+            }
 
             if (connection.State == ConnectionState.Closed || connection.State == ConnectionState.Broken)
-
+            {
                 try
                 {
                     connection.Open();
                 }
                 catch (Exception ex)
                 {
-                    LogError.Log(ex, "Pb à la connexion  \n");
+                    LogError.Log(ex, "Pb à la connexion \n");
                     throw;
                 }
+            }
 
             return connection;
         }
@@ -156,11 +158,8 @@ namespace SAE2._01_Application_WPF.Classes
                 LogError.Log(ex, "Pb de executeSelect \n" + cmd.CommandText);
                 throw;
             }
-
             return dataTable;
         }
-
-        //   pour requêtes INSERT et renvoie l'ID généré
 
         public static int ExecuteInsert(NpgsqlCommand cmd)
         {
@@ -168,8 +167,11 @@ namespace SAE2._01_Application_WPF.Classes
             try
             {
                 cmd.Connection = GetConnection();
-                nb = (int)cmd.ExecuteScalar();
-
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    nb = Convert.ToInt32(result);
+                }
             }
             catch (Exception ex)
             {
@@ -177,7 +179,6 @@ namespace SAE2._01_Application_WPF.Classes
                 throw;
             }
             return nb;
-
         }
 
         public static int ExecuteUpdate(NpgsqlCommand cmd)
@@ -186,8 +187,7 @@ namespace SAE2._01_Application_WPF.Classes
             try
             {
                 cmd.Connection = GetConnection();
-                nb = (int)cmd.ExecuteNonQuery();
-
+                nb = cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -197,9 +197,6 @@ namespace SAE2._01_Application_WPF.Classes
             return nb;
         }
 
-
-
-        //  pour requêtes UPDATE, DELETE
         public static int ExecuteSet(NpgsqlCommand cmd)
         {
             int nb = 0;
@@ -214,10 +211,8 @@ namespace SAE2._01_Application_WPF.Classes
                 throw;
             }
             return nb;
-
         }
 
-        // pour requêtes avec une seule valeur retour  (ex : 1 colonne, ou COUNT, SUM) 
         public static string ExecuteSelectOneValue(NpgsqlCommand cmd)
         {
             object res = null;
@@ -231,19 +226,17 @@ namespace SAE2._01_Application_WPF.Classes
                 LogError.Log(ex, "Pb de ExecuteSelectOneValue \n" + cmd.CommandText);
                 throw;
             }
-            return res.ToString();
-
+            return res?.ToString() ?? string.Empty;
         }
 
-        //  Fermer la connexion 
         public static void CloseConnection()
         {
-            if (connection.State == ConnectionState.Open)
+            if (connection != null && connection.State == ConnectionState.Open)
             {
                 connection.Close();
             }
         }
 
-        
+
     }
 }

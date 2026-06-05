@@ -20,7 +20,7 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             try
             {
-                // ----- Indicateurs globaux -----
+                
                 int totalPlaces = LireInt("SELECT COALESCE(SUM(NB_PLACES),0) FROM SEANCE;");
                 int totalInscriptions = LireInt("SELECT COUNT(*) FROM INSCRIPTION;");
                 int nbSeances = LireInt("SELECT COUNT(*) FROM SEANCE;");
@@ -30,7 +30,6 @@ namespace SAE2._01_Application_WPF.UsersControls
                 txtNbSeances.Text = nbSeances.ToString();
                 txtNbInscriptions.Text = totalInscriptions.ToString();
 
-                // ----- Par jour -----
                 icParJour.ItemsSource = LireStats(@"
                     SELECT se.JOUR::text AS libelle,
                            SUM(se.NB_PLACES) AS places,
@@ -41,7 +40,7 @@ namespace SAE2._01_Application_WPF.UsersControls
                     GROUP BY se.JOUR
                     ORDER BY se.JOUR;", estJour: true);
 
-                // ----- Par catégorie -----
+                
                 List<StatItem> parCat = LireStats(@"
                     SELECT cat.CATEGORIE_NOM AS libelle,
                            SUM(se.NB_PLACES) AS places,
