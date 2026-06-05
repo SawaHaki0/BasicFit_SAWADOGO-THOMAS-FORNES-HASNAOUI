@@ -35,7 +35,7 @@
             <!-- DATAGRID -->
             <Border Grid.Column="0" Background="White" CornerRadius="10" 
                     BorderBrush="#D9DEE5" BorderThickness="1" ClipToBounds="True">
-                <DataGrid x:Name="dgSeances" ItemsSource="{Binding LesCategories}"
+                <DataGrid x:Name="dgCategorie" ItemsSource="{Binding LesCategories}"
                           AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
                           HeadersVisibility="Column" GridLinesVisibility="All"
                           HorizontalGridLinesBrush="#7CC2E8" VerticalGridLinesBrush="#7CC2E8"

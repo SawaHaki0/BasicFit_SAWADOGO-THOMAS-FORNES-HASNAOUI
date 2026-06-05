@@ -41,7 +41,7 @@ namespace SAE2._01_Application_WPF.UsersControls
         private void butModifierCate_Click(object sender, RoutedEventArgs e)
         {
                 
-            if (dgSeances.SelectedItem is Categorie cate)
+            if (dgCategorie.SelectedItem is Categorie cate)
             {
                 MainWindow fenetre = (MainWindow)Window.GetWindow(this);
                 if (fenetre != null)
