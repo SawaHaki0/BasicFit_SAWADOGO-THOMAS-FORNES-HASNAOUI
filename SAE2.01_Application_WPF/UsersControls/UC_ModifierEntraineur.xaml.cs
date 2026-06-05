@@ -68,7 +68,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             MainWindow fenetre = (MainWindow)Window.GetWindow(this);
             if (fenetre != null)
             {
-                fenetre.MenuContainer.Content = new UCEntraineurs(); // Nom de votre UC liste
+                fenetre.MainContainer.Content = new UCEntraineurs(); // Nom de votre UC liste
             }
         }
 
@@ -85,7 +85,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
 
             // Requête SQL UPDATE filtrée par l'ID de l'entraîneur
-            string requete = "UPDATE Entraineur SET nom = @nom, prenom = @prenom WHERE id_entraineur = @id;";
+            string requete = "UPDATE Entraineur SET entraineur_nom = @nom, entraineur_prenom = @prenom WHERE entraineur_id = @id;";
             try
             {
                 var connexion = DataAccess.GetConnection();
@@ -100,8 +100,12 @@ namespace SAE2._01_Application_WPF.UsersControls
                 {
                     MessageBox.Show("L'entraîneur a bien été mis à jour !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Retour automatique à la liste
-                    btnRetour_Click(sender, e);
+                    
+                    MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                    if (fenetre != null)
+                    {
+                        fenetre.MainContainer.Content = new UCEntraineurs(); // Nom de votre UC liste
+                    }
                 }
             }
             catch (Exception ex)

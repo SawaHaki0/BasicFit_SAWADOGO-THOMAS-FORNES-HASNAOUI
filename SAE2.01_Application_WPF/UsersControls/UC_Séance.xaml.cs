@@ -28,11 +28,11 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             InitializeComponent();
 
-            if (!estResponsable )
+            if (!estResponsable)
             {
                 btnModifier.Visibility = Visibility.Collapsed;
                 btnAjouter.Visibility = Visibility.Collapsed;
-                
+
             }
         }
 
@@ -127,7 +127,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             ICollectionView vue = CollectionViewSource.GetDefaultView(dgSeances.ItemsSource);
             if (vue == null) return;
 
-            int jour = (cmbJour != null) ? cmbJour.SelectedIndex : 0;   
+            int jour = (cmbJour != null) ? cmbJour.SelectedIndex : 0;
 
             vue.Filter = obj =>
             {
@@ -219,8 +219,9 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
         }
 
-        /*private void btnModifier_Click(object sender, RoutedEventArgs e)
+        private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
+            /*
             if (dgSeances.SelectedItem is Seance seance)
             {
                 MainWindow fenetre = (MainWindow)Window.GetWindow(this);
@@ -234,8 +235,9 @@ namespace SAE2._01_Application_WPF.UsersControls
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
         */
-    }
+        }
 
+    }
 }
 
 
