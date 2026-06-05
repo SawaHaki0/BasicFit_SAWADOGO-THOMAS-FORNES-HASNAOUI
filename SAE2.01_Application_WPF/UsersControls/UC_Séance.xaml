@@ -166,9 +166,9 @@
 
                 <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
                 <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription" Click="btnNouvelleInscription_Click"/>
-                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" />
+				<Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0" Click="btnVoirStatistique_Click"/>
 
-            </StackPanel>
+			</StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="25,300,0,0">
                 <StackPanel.Resources>
