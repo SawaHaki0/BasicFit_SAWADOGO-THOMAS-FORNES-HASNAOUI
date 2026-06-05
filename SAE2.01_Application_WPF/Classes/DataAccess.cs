@@ -228,6 +228,9 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
-        
+        internal static void ExecuteUpdate(NpgsqlCommand cmdUpdate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
