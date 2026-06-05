@@ -107,6 +107,16 @@
                         </Style>
                     </Button.Resources>
                 </Button>
+
+                <Button x:Name="btnVoirSeances" Content="Voir seances"
+                Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Padding="15,12" 
+                BorderThickness="0" Cursor="Hand" HorizontalAlignment="Stretch" Margin="0,50,0,0" Click="btnVoirSeances_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

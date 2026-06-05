@@ -214,8 +214,36 @@ namespace SAE2._01_Application_WPF.Classes
                         (TimeOnly)dr["HEURE_FIN"],
                         (int)dr["NB_PLACES"]
                     );
-                    // charge les inscrits (pour le calcul des places restantes)
                     s.ParticipantsSeance = new Client().FindBySeance(s.IdSeance);
+                    lesSeances.Add(s);
+                }
+            }
+            return lesSeances;
+        }
+
+        public List<Seance> FindByClient(int client)
+        {
+            List<Seance> lesSeances = new List<Seance>();
+
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand(
+                "SELECT s.* FROM SEANCE s JOIN INSCRIPTION i ON s.SEANCE_ID = i.SEANCE_ID WHERE i.CLIENT_ID = @ClientId;"))
+            {
+                cmdSelect.Parameters.AddWithValue("@ClientId", client);
+
+                DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Seance s = new Seance(
+                        (int)dr["SEANCE_ID"],
+                        (int)dr["COURS_ID"],
+                        (int)dr["ENTRAINEUR_ID"],
+                        (int)dr["SALLE_ID"],
+                        (int)dr["JOUR"],
+                        (TimeOnly)dr["HEURE_DEBUT"],
+                        (TimeOnly)dr["HEURE_FIN"],
+                        (int)dr["NB_PLACES"]
+                    );
                     lesSeances.Add(s);
                 }
             }

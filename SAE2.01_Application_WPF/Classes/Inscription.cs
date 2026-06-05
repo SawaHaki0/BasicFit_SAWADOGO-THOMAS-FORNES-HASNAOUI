@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SAE2._01_Application_WPF.Classes
 {
-    internal class Inscription
+    public class Inscription
     {
         private int idSeance, idClient;
         private DateTime dateInscription;
@@ -18,6 +18,10 @@ namespace SAE2._01_Application_WPF.Classes
             this.IdSeance = idSeance;
             this.IdClient = idClient;
             this.DateInscription = dateInscription;
+        }
+
+        public Inscription()
+        {
         }
 
         public int IdSeance
@@ -74,6 +78,31 @@ namespace SAE2._01_Application_WPF.Classes
 
             }
             return lesInscriptions;
+        }
+
+        public bool DeleteInscription(int seanceId, int clientId)
+        {
+            string query = "DELETE FROM INSCRIPTION WHERE SEANCE_ID = @SeanceId AND CLIENT_ID = @ClientId;";
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query))
+            {
+                cmd.Parameters.AddWithValue("@SeanceId", seanceId);
+                cmd.Parameters.AddWithValue("@ClientId", clientId);
+
+                try
+                {
+                    var connexion = DataAccess.GetConnection();
+                    cmd.Connection = connexion;
+
+                    int lignesAffectees = cmd.ExecuteNonQuery();
+
+                    return lignesAffectees > 0;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erreur lors de la suppression de l'inscription : " + ex.Message);
+                }
+            }
         }
     }
 }
