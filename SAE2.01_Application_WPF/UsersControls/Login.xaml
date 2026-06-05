@@ -60,7 +60,7 @@
 					<Label Grid.Column="0" Content="👤" FontSize="24"
                        VerticalAlignment="Center"/>
 					<TextBox Grid.Column="1" x:Name="textboxUsername"
-                         Text="Username" FontSize="24"
+                         Text="" FontSize="24"
                          TextWrapping="Wrap" VerticalAlignment="Center"/>
 				</Grid>
 
