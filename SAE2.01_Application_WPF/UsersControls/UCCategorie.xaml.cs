@@ -49,8 +49,8 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
             else
             {
-                MessageBox.Show("Sélectionnez d'abord une séance dans le planning.",
-                                "Aucune séance sélectionnée",
+                MessageBox.Show("Sélectionnez d'abord une catégorie dans la liste.",
+                                "Aucune catégorie sélectionnée",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

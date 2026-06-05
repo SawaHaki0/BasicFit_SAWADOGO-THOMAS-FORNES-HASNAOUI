@@ -80,7 +80,7 @@
                 </Button>
 
                 <Button x:Name="btnModifier" Content="Modifier un entraîneur" Height="40" Margin="0,0,0,12"
-                        Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand">
+                        Background="#F26B1A" Foreground="White" FontWeight="SemiBold" FontSize="13" Cursor="Hand" Click="btnModifier_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="8"/>

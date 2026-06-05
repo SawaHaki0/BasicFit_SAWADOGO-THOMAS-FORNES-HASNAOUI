@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SAE2._01_Application_WPF.UsersControls
 {
@@ -22,11 +23,43 @@ namespace SAE2._01_Application_WPF.UsersControls
     /// </summary>
     public partial class UC_ModifierEntraineur : UserControl
     {
-        private int idEntraineurAModifier;
+        private UserControl pagePrecedente;
+        private Entraineur trainer;
 
-        public UC_ModifierEntraineur()
+        public UserControl PagePrecedente
+        {
+            get
+            {
+                return this.pagePrecedente;
+            }
+
+            set
+            {
+                this.pagePrecedente = value;
+            }
+        }
+
+        public Entraineur Trainer
+        {
+            get
+            {
+                return this.trainer;
+            }
+
+            set
+            {
+                this.trainer = value;
+            }
+        }
+
+        public UC_ModifierEntraineur(Entraineur trainer, UserControl pagePrec)
         {
             InitializeComponent();
+            this.PagePrecedente = pagePrec;
+            this.Trainer = trainer;
+
+            txtSaisieNom.Text = trainer.NomEntraineur;
+            txtSaisiePrenom.Text = trainer.PrenomEntraineur;
 
         }
 
@@ -53,7 +86,6 @@ namespace SAE2._01_Application_WPF.UsersControls
 
             // Requête SQL UPDATE filtrée par l'ID de l'entraîneur
             string requete = "UPDATE Entraineur SET nom = @nom, prenom = @prenom WHERE id_entraineur = @id;";
-
             try
             {
                 var connexion = DataAccess.GetConnection();
@@ -61,8 +93,7 @@ namespace SAE2._01_Application_WPF.UsersControls
                 NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@prenom", prenom);
-                commande.Parameters.AddWithValue("@id", idEntraineurAModifier);
-
+                //commande.Parameters.AddWithValue("@id", this.Trainer.IdEntraineur);
                 int lignesModifiees = commande.ExecuteNonQuery();
 
                 if (lignesModifiees > 0)

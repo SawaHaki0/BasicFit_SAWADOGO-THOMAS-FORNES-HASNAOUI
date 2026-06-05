@@ -93,5 +93,21 @@ namespace SAE2._01_Application_WPF.UsersControls
                 }
             }
         }
+
+        private void btnModifier_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgEntraineurs.SelectedItem is Entraineur trainer)
+            {
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UC_ModifierEntraineur(trainer, this);
+            }
+            else
+            {
+                MessageBox.Show("Sélectionnez d'abord un entraineur dans la liste.",
+                                "Aucune entraineur",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
     }
 }

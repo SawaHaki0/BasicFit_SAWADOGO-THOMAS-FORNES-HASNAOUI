@@ -56,8 +56,8 @@ namespace SAE2._01_Application_WPF.UsersControls
             this.Cate = cate;
             this.PagePrecedente = pagePrec;
 
-            // pré-remplissage des champs avec les valeurs existantes
-            txtNomCate.Text = cate.NomCategorie;       // adapte au nom réel de tes propriétés
+            
+            txtNomCate.Text = cate.NomCategorie;
             txtDescCate.Text = cate.DescriptionCategorie;
         }
 
