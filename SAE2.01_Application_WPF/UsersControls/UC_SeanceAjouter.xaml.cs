@@ -17,45 +17,19 @@ using System.Windows.Shapes;
 namespace SAE2._01_Application_WPF.UsersControls
 {
     /// <summary>
-    /// Logique d'interaction pour UC_SeanceModifier.xaml
+    /// Logique d'interaction pour UC_SeanceAjouter.xaml
     /// </summary>
-    public partial class UC_SeanceModifier : UserControl
+    public partial class UC_SeanceAjouter : UserControl
     {
-        private Seance seance;
         private UserControl pagePrec;
-        public UC_SeanceModifier(Seance seance, UserControl pagePrec)
+        public UC_SeanceAjouter(UserControl PagePrec)
         {
             InitializeComponent();
-            this.Seance = seance;
             this.PagePrec = pagePrec;
 
             cbCours.ItemsSource = new Cours().FindAll();
             cbEntraineur.ItemsSource = new Entraineur().FindAll();
             cbSalle.ItemsSource = new Salle().FindAll();
-
-            cbCours.SelectedItem = cbCours.Items.Cast<Cours>().FirstOrDefault(c => c.IdCours == seance.UnCours.IdCours);
-            cbEntraineur.SelectedItem = cbEntraineur.Items.Cast<Entraineur>().FirstOrDefault(en => en.IdEntraineur == seance.UnEntraineur.IdEntraineur);
-            cbSalle.SelectedItem = cbSalle.Items.Cast<Salle>().FirstOrDefault(s => s.IdSalle == seance.UneSalle.IdSalle);
-
-            cbJour.SelectedIndex = seance.JourSeance;
-            txtHeureDebut.Text = seance.HeureDebut.ToString("HH:mm");
-            txtHeureFin.Text = seance.HeureFin.ToString("HH:mm");
-            txtNbPlaces.Text = seance.NbPlaces.ToString();
-
-
-        }
-
-        public Seance Seance
-        {
-            get
-            {
-                return this.seance;
-            }
-
-            set
-            {
-                this.seance = value;
-            }
         }
 
         public UserControl PagePrec
@@ -71,16 +45,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
         }
 
-        private void btnRetour_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
-            if (fenetre != null)
-            {
-                fenetre.MainContainer.Content = new UCEntraineurs(); 
-            }
-        }
-
-        private void btnFinaliserModification_Click(object sender, RoutedEventArgs e)
+        private void btnAjouter_Click(object sender, RoutedEventArgs e)
         {
             // validation des objets liés
             if (cbCours.SelectedItem is not Cours cours
@@ -92,16 +57,16 @@ namespace SAE2._01_Application_WPF.UsersControls
                 return;
             }
 
-            int jour = cbJour.SelectedIndex;
-if (jour < 1 || jour > 7)
-{
-    MessageBox.Show("Sélectionnez un jour valide.",
-                    "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
-    return;
-}
+            // jour : Lundi est à l'index 0 → jour 1
+            if (cbJour.SelectedIndex < 0)
+            {
+                MessageBox.Show("Sélectionnez un jour.",
+                                "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            int jour = cbJour.SelectedIndex + 1;
 
-            // validation et conversion des champs simples
-
+            // heures
             if (!TimeOnly.TryParse(txtHeureDebut.Text.Trim(), out TimeOnly hd)
                 || !TimeOnly.TryParse(txtHeureFin.Text.Trim(), out TimeOnly hf))
             {
@@ -109,6 +74,8 @@ if (jour < 1 || jour > 7)
                                 "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
+            // nombre de places
             if (!int.TryParse(txtNbPlaces.Text.Trim(), out int nbPlaces) || nbPlaces <= 0)
             {
                 MessageBox.Show("Le nombre de places doit être un entier positif.",
@@ -116,27 +83,38 @@ if (jour < 1 || jour > 7)
                 return;
             }
 
-            // affectation à l'objet séance
-            this.Seance.UnCours = cours;
-            this.Seance.UnEntraineur = entr;
-            this.Seance.UneSalle = salle;
-            this.Seance.JourSeance = jour;
-            this.Seance.HeureDebut = hd;
-            this.Seance.HeureFin = hf;
-            this.Seance.NbPlaces = nbPlaces;
+            // construction de la nouvelle séance
+            Seance nouvelle = new Seance
+            {
+                UnCours = cours,
+                UnEntraineur = entr,
+                UneSalle = salle,
+                JourSeance = jour,
+                HeureDebut = hd,
+                HeureFin = hf,
+                NbPlaces = nbPlaces
+            };
 
-            // enregistrement
-            int nb = this.Seance.Update();
+            int nb = nouvelle.Create();
             if (nb > 0)
             {
-                MessageBox.Show("La séance a bien été modifiée !", "Succès",
+                MessageBox.Show("La séance a bien été ajoutée !", "Succès",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
                 btnRetour_Click(sender, e);
             }
             else
             {
-                MessageBox.Show("La modification a échoué.", "Erreur",
+                MessageBox.Show("L'ajout a échoué.", "Erreur",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnRetour_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+            if (fenetre != null)
+            {
+                fenetre.MainContainer.Content = new UCEntraineurs(); 
             }
         }
     }

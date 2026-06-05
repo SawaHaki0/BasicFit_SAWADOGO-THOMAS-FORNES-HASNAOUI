@@ -202,7 +202,7 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button x:Name="btnAjouter" Content="Ajouter" />
+                <Button x:Name="btnAjouter" Content="Ajouter" Click="btnAjouter_Click" />
                 <Button x:Name="btnModifier" Content="Modifier" Click="btnModifier_Click"  />
 
             </StackPanel>

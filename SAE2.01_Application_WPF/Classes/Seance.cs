@@ -269,6 +269,25 @@ namespace SAE2._01_Application_WPF.Classes
                 nb = DataAccess.ExecuteUpdate(cmd);
             }
             return nb;
+
+        }
+            public int Create() { 
+            int nb = 0;
+            using (NpgsqlCommand cmd = new NpgsqlCommand(
+                "INSERT INTO SEANCE (COURS_ID, ENTRAINEUR_ID, SALLE_ID, JOUR, HEURE_DEBUT, HEURE_FIN, NB_PLACES) " +
+                "VALUES (@cours, @entr, @salle, @jour, @hd, @hf, @nb);"))
+            {
+                cmd.Parameters.AddWithValue("@cours", this.UnCours.IdCours);
+                cmd.Parameters.AddWithValue("@entr", this.UnEntraineur.IdEntraineur);
+                cmd.Parameters.AddWithValue("@salle", this.UneSalle.IdSalle);
+                cmd.Parameters.AddWithValue("@jour", this.JourSeance);
+                cmd.Parameters.AddWithValue("@hd", this.HeureDebut);
+                cmd.Parameters.AddWithValue("@hf", this.HeureFin);
+                cmd.Parameters.AddWithValue("@nb", this.NbPlaces);
+                nb = DataAccess.ExecuteUpdate(cmd);
+            }
+            return nb;
         }
     }
-}
+    }
+

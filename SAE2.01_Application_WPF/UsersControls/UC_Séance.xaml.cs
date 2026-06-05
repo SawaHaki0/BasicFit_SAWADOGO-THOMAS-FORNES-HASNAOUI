@@ -286,7 +286,14 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
         }
 
-        
+        private void btnAjouter_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UC_SeanceAjouter(this);
+            
+
+        }
     }
 }
 
