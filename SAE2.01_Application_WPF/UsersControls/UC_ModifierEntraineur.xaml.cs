@@ -68,7 +68,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             MainWindow fenetre = (MainWindow)Window.GetWindow(this);
             if (fenetre != null)
             {
-                fenetre.MainContainer.Content = new UCEntraineurs(); // Nom de votre UC liste
+                fenetre.MainContainer.Content = new UCEntraineurs(); 
             }
         }
 
@@ -77,14 +77,14 @@ namespace SAE2._01_Application_WPF.UsersControls
             string nom = txtSaisieNom.Text.Trim();
             string prenom = txtSaisiePrenom.Text.Trim();
 
-            // Validation de sécurité
+
             if (string.IsNullOrEmpty(nom) || string.IsNullOrEmpty(prenom))
             {
                 MessageBox.Show("Le Nom et le Prénom ne peuvent pas être vides !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // Requête SQL UPDATE filtrée par l'ID de l'entraîneur
+
             string requete = "UPDATE Entraineur SET entraineur_nom = @nom, entraineur_prenom = @prenom WHERE entraineur_id = @id;";
             try
             {
@@ -104,7 +104,7 @@ namespace SAE2._01_Application_WPF.UsersControls
                     MainWindow fenetre = (MainWindow)Window.GetWindow(this);
                     if (fenetre != null)
                     {
-                        fenetre.MainContainer.Content = new UCEntraineurs(); // Nom de votre UC liste
+                        fenetre.MainContainer.Content = new UCEntraineurs();
                     }
                 }
             }

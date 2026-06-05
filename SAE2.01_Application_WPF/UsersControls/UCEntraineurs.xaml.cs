@@ -12,48 +12,45 @@ namespace SAE2._01_Application_WPF.UsersControls
     /// </summary>
     public partial class UCEntraineurs : UserControl
     {
-        // Cette propriété publique va alimenter le ItemsSource du DataGrid dans le XAML
+
         public List<Entraineur> LesEntraineurs { get; set; }
 
         public UCEntraineurs()
         {
             InitializeComponent();
 
-            // 1. On charge la liste de tous les entraîneurs depuis la base de données
             this.LesEntraineurs = new Entraineur().FindAll();
 
-            // 2. On lie ce code C# au XAML grâce au DataContext
+
             this.DataContext = this;
         }
 
-        // Gère le clic sur le bouton "Ajouter un entraîneur"
         private void btnAjout_click(object sender, RoutedEventArgs e)
         {
             MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
 
             if (fenetrePrincipale != null)
             {
-                // On instancie l'UserControl d'ajout
+
                 UC_AjoutEntraineur nouvellePage = new UC_AjoutEntraineur();
 
-                // On l'affiche proprement au centre de l'application dans le MainContainer
+
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
         }
 
         private void btnSupprimer_Click(object sender, RoutedEventArgs e)
         {
-            // 1. On récupère l'entraîneur sélectionné dans le DataGrid
+
             Entraineur entraineurSelectionne = (Entraineur)dgEntraineurs.SelectedItem;
 
-            // 2. Sécurité : On vérifie qu'une ligne est bien sélectionnée
+
             if (entraineurSelectionne == null)
             {
                 MessageBox.Show("Veuillez sélectionner un entraîneur dans la liste à supprimer !", "Sélection manquante", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            // 3. Fenêtre de confirmation (Oui / Non) pour valider le choix
             MessageBoxResult resultat = MessageBox.Show(
                 $"Êtes-vous sûr de vouloir supprimer définitivement l'entraîneur {entraineurSelectionne.PrenomEntraineur} {entraineurSelectionne.NomEntraineur} ?",
                 "Confirmation de suppression",
@@ -61,28 +58,27 @@ namespace SAE2._01_Application_WPF.UsersControls
                 MessageBoxImage.Question
             );
 
-            // Si l'utilisateur clique sur "Oui"
+
             if (resultat == MessageBoxResult.Yes)
             {
-                // Requête SQL utilisant l'ID de l'entraîneur (Nom de colonne vu dans ton modèle)
+ 
                 string requete = "DELETE FROM Entraineur WHERE ENTRAINEUR_ID = @id;";
 
                 try
                 {
-                    // Récupération de la connexion partagée du groupe
+
                     var connexion = DataAccess.GetConnection();
 
                     NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
                     commande.Parameters.AddWithValue("@id", entraineurSelectionne.IdEntraineur);
 
-                    // Exécution du DELETE
                     int lignesModifiees = commande.ExecuteNonQuery();
 
                     if (lignesModifiees > 0)
                     {
                         MessageBox.Show("L'entraîneur a bien été supprimé de la base de données.", "Suppression réussie", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        // 4. RAFRAÎCHISSEMENT : On recharge la liste et on met à jour le tableau
+
                         this.LesEntraineurs = new Entraineur().FindAll();
                         dgEntraineurs.ItemsSource = this.LesEntraineurs;
                     }

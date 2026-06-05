@@ -171,7 +171,7 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
+                <Button x:Name="btnVoirParticipants" Content="Voir participants" Click="btnVoirParticipants_Click"/>
                 <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription" Click="btnNouvelleInscription_Click"/>
                 <Button x:Name="btnVoirStatistique" Content="Voir Statistique"  Click="btnVoirStatistique_Click"/>
                 <Button x:Name="btnSupprimerIns" Content="Supprimer inscription" Margin="0" Visibility="Collapsed" Click="btnSupprimerIns_Click"/>
