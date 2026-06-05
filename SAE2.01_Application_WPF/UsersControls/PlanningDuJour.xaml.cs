@@ -50,7 +50,7 @@ namespace SAE2._01_Application_WPF
             {
                 MainWindow fenetre = (MainWindow)Window.GetWindow(this);
                 if (fenetre != null)
-                    fenetre.MainContainer.Content = new UC_Participants1stPage(seance.IdSeance);
+                    fenetre.MainContainer.Content = new UC_Participants1stPage(seance.IdSeance, this);
             }
             else
             {

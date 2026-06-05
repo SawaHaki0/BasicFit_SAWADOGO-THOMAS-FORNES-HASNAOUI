@@ -101,7 +101,7 @@
 
                 <Button Content="Ajouter une catégorie"   x:Name="butAjouterCate"   Click="butAjouterCate_Click"/>
                 <Button Content="Modifier une catégorie"  x:Name="butModifierCate"  Click="butModifierCate_Click"/>
-                <Button Content="Supprimer une catégorie" x:Name="butSupprimerCate" Click="butSupprimerCate_Click"/>
+               
             </StackPanel>
         </Grid>
     </Grid>
