@@ -180,6 +180,22 @@ namespace SAE2._01_Application_WPF.Classes
 
         }
 
+        public static int ExecuteUpdate(NpgsqlCommand cmd)
+        {
+            int nb = 0;
+            try
+            {
+                cmd.Connection = GetConnection();
+                nb = (int)cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Pb de executeUpdate \n" + cmd.CommandText);
+                throw;
+            }
+            return nb;
+        }
 
 
 
@@ -228,9 +244,6 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
-        internal static void ExecuteUpdate(NpgsqlCommand cmdUpdate)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

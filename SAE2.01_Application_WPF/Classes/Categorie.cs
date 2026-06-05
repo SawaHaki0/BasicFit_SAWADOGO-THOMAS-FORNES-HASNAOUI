@@ -131,8 +131,9 @@ namespace SAE2._01_Application_WPF.Classes
             return nb;
         }
 
-        public void Update()
+        public int Update()
         {
+            int nb = 0;
             using (var cmdUpdate = new NpgsqlCommand(
                 "UPDATE categorie SET categorie_nom = @nom, categorie_description = @description WHERE categorie_id = @id;"))
             {
@@ -140,7 +141,9 @@ namespace SAE2._01_Application_WPF.Classes
                 cmdUpdate.Parameters.AddWithValue("nom", this.NomCategorie);
                 cmdUpdate.Parameters.AddWithValue("description", this.DescriptionCategorie);
                 DataAccess.ExecuteUpdate(cmdUpdate);
+                nb = cmdUpdate.ExecuteNonQuery();
             }
+            return nb;
         }
 
     }

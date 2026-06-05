@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,15 +40,21 @@ namespace SAE2._01_Application_WPF.UsersControls
 
         private void butModifierCate_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
-
-            if (fenetrePrincipale != null)
+                
+            if (dgSeances.SelectedItem is Categorie cate)
             {
-                UCCategorieModifier nouvellePage = new UCCategorieModifier();
-                fenetrePrincipale.MainContainer.Content = nouvellePage;
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UCCategorieModifier(cate, this);
+            }
+            else
+            {
+                MessageBox.Show("Sélectionnez d'abord une séance dans le planning.",
+                                "Aucune séance sélectionnée",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
+        
         private void butSupprimerCate_Click(object sender, RoutedEventArgs e)
         {
 

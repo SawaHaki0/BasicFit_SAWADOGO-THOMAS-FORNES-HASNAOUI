@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE2._01_Application_WPF.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,44 @@ namespace SAE2._01_Application_WPF.UsersControls
     /// </summary>
     public partial class UCCategorieModifier : UserControl
     {
-        public UCCategorieModifier()
+        private UserControl pagePrecedente;
+        private Categorie cate;
+
+        public UserControl PagePrecedente
+        {
+            get
+            {
+                return this.pagePrecedente;
+            }
+
+            set
+            {
+                this.pagePrecedente = value;
+            }
+        }
+        
+        public Categorie Cate
+        {
+            get
+            {
+                return this.cate;
+            }
+
+            set
+            {
+                this.cate = value;
+            }
+        }
+
+        public UCCategorieModifier(Categorie cate, UserControl pagePrec)
         {
             InitializeComponent();
+            this.Cate = cate;
+            this.PagePrecedente = pagePrec;
+
+            // pré-remplissage des champs avec les valeurs existantes
+            txtNomCate.Text = cate.NomCategorie;       // adapte au nom réel de tes propriétés
+            txtDescCate.Text = cate.DescriptionCategorie;
         }
 
         private void butRetour_Click(object sender, RoutedEventArgs e)
@@ -45,6 +81,26 @@ namespace SAE2._01_Application_WPF.UsersControls
                 {
                     MessageBox.Show("Le Nom et la Description de la catégorie sont obligatoires !", "Champs manquants", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
+            
+                }
+
+            this.Cate.NomCategorie = nom;
+            this.Cate.DescriptionCategorie = description;
+
+            int nb = this.Cate.Update();
+            if (nb > 0)
+            {
+                MessageBox.Show("Catégorie modifiée avec succès !", "Succès",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UCCategorie();
+            }
+            else
+            {
+                MessageBox.Show("La modification a échoué.", "Erreur",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

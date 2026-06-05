@@ -49,12 +49,6 @@ namespace SAE2._01_Application_WPF.UsersControls
                 MessageBox.Show("Le Nom et la Description de la catégorie sont obligatoires !");
                 return;
             }
-
-            
-
-            
-
         }
-
     }
 }
