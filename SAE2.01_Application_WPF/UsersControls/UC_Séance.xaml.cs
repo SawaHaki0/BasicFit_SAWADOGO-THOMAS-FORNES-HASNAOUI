@@ -47,6 +47,17 @@ namespace SAE2._01_Application_WPF.UsersControls
                 btnModifier.Visibility = Visibility.Collapsed;
                 btnAjouter.Visibility = Visibility.Collapsed;
             }
+            
+            if (this.PagePrecedente is UC_Séance)
+            {
+                btnModifier.Visibility = Visibility.Visible;
+                btnAjouter.Visibility = Visibility.Visible;
+                btnNouvelleInscription.Visibility = Visibility.Visible;
+                btnVoirParticipants.Visibility = Visibility.Visible;
+                btnVoirStatistique.Visibility = Visibility.Visible;
+                btnRetourPage1.Visibility = Visibility.Collapsed;
+                btnSupprimerIns.Visibility = Visibility.Collapsed;
+            }
 
             if (this.PagePrecedente is UC_Participants1stPage)
             {
@@ -221,20 +232,42 @@ namespace SAE2._01_Application_WPF.UsersControls
 
         private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            if (dgSeances.SelectedItem is Seance seance)
-            {
-                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
-                if (fenetre != null)
-                    fenetre.MainContainer.Content = new UCSeanceModifier(seance, this);
-            }
-            else
+
+            if (dgSeances.SelectedItem is not Seance seance)
             {
                 MessageBox.Show("Sélectionnez d'abord une séance dans le planning.",
                                 "Aucune séance sélectionnée",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
-        */
+
+            try
+            {
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre == null)
+                {
+                    MessageBox.Show("PROBLEME : fenetre (MainWindow) est null.");
+                    return;
+                }
+
+                var page = new UC_SeanceModifier(seance, this);
+
+                if (fenetre.MainContainer == null)
+                {
+                    MessageBox.Show("PROBLEME : MainContainer est null. Le conteneur s'appelle peut-être MenuContainer.");
+                    return;
+                }
+
+                fenetre.MainContainer.Content = page;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERREUR EXACTE :\n\n" + ex.GetType().Name + "\n" + ex.Message
+                                + "\n\n--- INNER ---\n" + ex.InnerException?.Message
+                                + "\n\n--- STACK ---\n" + ex.StackTrace,
+                                "Diagnostic", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
     }

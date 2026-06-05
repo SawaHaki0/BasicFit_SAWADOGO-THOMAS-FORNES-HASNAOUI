@@ -188,7 +188,7 @@ namespace SAE2._01_Application_WPF.Classes
                         (int)dr["JOUR"],
                         (TimeOnly)dr["HEURE_DEBUT"],
                         (TimeOnly)dr["HEURE_FIN"],
-                        (int)dr["NB_PLACES"]        
+                        (int)dr["NB_PLACES"]
                     ));
 
             }
@@ -248,6 +248,27 @@ namespace SAE2._01_Application_WPF.Classes
                 }
             }
             return lesSeances;
+        }
+
+        public int Update()
+        {
+            int nb = 0;
+            using (NpgsqlCommand cmd = new NpgsqlCommand(
+                "UPDATE SEANCE SET COURS_ID = @cours, ENTRAINEUR_ID = @entr, SALLE_ID = @salle, " +
+                "JOUR = @jour, HEURE_DEBUT = @hd, HEURE_FIN = @hf, NB_PLACES = @nb " +
+                "WHERE SEANCE_ID = @id;"))
+            {
+                cmd.Parameters.AddWithValue("@cours", this.UnCours.IdCours);
+                cmd.Parameters.AddWithValue("@entr", this.UnEntraineur.IdEntraineur);
+                cmd.Parameters.AddWithValue("@salle", this.UneSalle.IdSalle);
+                cmd.Parameters.AddWithValue("@jour", this.JourSeance);
+                cmd.Parameters.AddWithValue("@hd", this.HeureDebut);
+                cmd.Parameters.AddWithValue("@hf", this.HeureFin);
+                cmd.Parameters.AddWithValue("@nb", this.NbPlaces);
+                cmd.Parameters.AddWithValue("@id", this.IdSeance);
+                nb = DataAccess.ExecuteUpdate(cmd);
+            }
+            return nb;
         }
     }
 }
