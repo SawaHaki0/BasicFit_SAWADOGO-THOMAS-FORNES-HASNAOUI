@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -244,6 +245,26 @@ namespace SAE2._01_Application_WPF.Classes
             }
         }
 
-        
+        public static int CreateUser(string username, string email, string clearPassword, string role = "employe")
+        {
+            // Hashes the password securely
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(clearPassword);
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.CommandText = @"
+            INSERT INTO users (username, email, password, role) 
+            VALUES (@username, @email, @password, @role::user_role)
+            RETURNING id;";
+
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@password", hashedPassword);
+                cmd.Parameters.AddWithValue("@role", role);
+
+                return ExecuteInsert(cmd);
+            }
+        }
+
     }
 }

@@ -182,7 +182,7 @@ namespace SAE2._01_Application_WPF.Classes
                         idAbonnement = Convert.ToInt32(dr["ABONNEMENT_ID"]);
                     }
 
-                    // 2. Gestion sécurisée des chaînes (Évite les plantages sur l'adresse, code postal ou ville)
+                    
                     string nom = dr["NOM"].ToString();
                     string prenom = dr["PRENOM"].ToString();
                     string mail = dr["MAIL"].ToString();
@@ -192,18 +192,17 @@ namespace SAE2._01_Application_WPF.Classes
                     string codePostal = dr["CODE_POSTAL"] == DBNull.Value ? "" : dr["CODE_POSTAL"].ToString();
                     string ville = dr["VILLE"] == DBNull.Value ? "" : dr["VILLE"].ToString();
 
-                    // 3. Gestion de la DATE_NAISSANCE (Spécifique PostgreSQL DateOnly)
+
                     DateTime dateNaissance = DateTime.MinValue;
                     if (dr["DATE_NAISSANCE"] != DBNull.Value)
                     {
-                        // On extrait la valeur en disant à C# : "c'est un DateOnly"
+
                         DateOnly dateSeule = (DateOnly)dr["DATE_NAISSANCE"];
 
-                        // On la transforme en DateTime (en ajoutant une heure par défaut à minuit)
+
                         dateNaissance = dateSeule.ToDateTime(TimeOnly.MinValue);
                     }
 
-                    // 4. On ajoute le client créé avec nos variables nettoyées
                     lesClients.Add(new Client(
                         Convert.ToInt32(dr["CLIENT_ID"]),
                         idAbonnement,
@@ -235,7 +234,7 @@ namespace SAE2._01_Application_WPF.Classes
                 DataTable dt = DataAccess.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
                 {
-                    // Sécurisation BUT 1 : On applique la même logique ici
+
                     int idAbonnement;
                     if (dr["ABONNEMENT_ID"] == DBNull.Value)
                     {
@@ -248,7 +247,7 @@ namespace SAE2._01_Application_WPF.Classes
 
                     lesClients.Add(new Client(
                         (int)dr["CLIENT_ID"],
-                        idAbonnement, // On passe notre variable triée
+                        idAbonnement, 
                         (string)dr["NOM"],
                         (string)dr["PRENOM"],
                         (string)dr["MAIL"],
