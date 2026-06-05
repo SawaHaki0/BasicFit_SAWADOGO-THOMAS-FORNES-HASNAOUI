@@ -12,7 +12,7 @@
         <model:ObservableCollections x:Name="Binding"/>
     </UserControl.DataContext>
 
-    <Grid Margin="30">
+    <Grid Margin="30" Cursor="">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Ligne 0 : Titre + Filtres Date/Heure -->
@@ -203,7 +203,7 @@
                 </StackPanel.Resources>
 
                 <Button x:Name="btnAjouter" Content="Ajouter" />
-                <Button x:Name="btnModifier" Content="Modifier"  />
+                <Button x:Name="btnModifier" Content="Modifier" Click="btnModifier_Click"  />
 
             </StackPanel>
         </Grid>

@@ -285,6 +285,8 @@ namespace SAE2._01_Application_WPF.UsersControls
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        
     }
 }
 

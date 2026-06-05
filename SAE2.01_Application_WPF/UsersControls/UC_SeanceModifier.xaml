@@ -52,7 +52,7 @@
 
         <Button Grid.Row="2" x:Name="btnFinaliserModification" Content="Finaliser la modification"
             HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="45"
-            Foreground="White" FontWeight="Bold" FontSize="15" Cursor="Hand" Click="btnFinaliserModification_Click">
+            Foreground="White" FontWeight="Bold" FontSize="15" Cursor="" Click="btnFinaliserModification_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="12"/>
