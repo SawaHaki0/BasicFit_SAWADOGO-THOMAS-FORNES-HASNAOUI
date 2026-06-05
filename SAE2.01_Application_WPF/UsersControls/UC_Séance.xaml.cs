@@ -104,6 +104,14 @@ namespace SAE2._01_Application_WPF.UsersControls
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+        private void btnVoirStatistique_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+            if (fenetre != null)
+            {
+                fenetre.MainContainer.Content = new UC_StatsPage();
+            }
+        }
     }
 }
 
