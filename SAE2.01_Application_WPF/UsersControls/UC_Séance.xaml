@@ -194,9 +194,9 @@
                     </Style>
                 </StackPanel.Resources>
 
+                <Button x:Name="btnAjouter" Content="Ajouter" />
                 <Button x:Name="btnModifier" Content="Modifier" />
-                <Button x:Name="btnSupprimer" Content="Supprimer" />
-                <Button x:Name="btnAjouter" Content="Supprimer" />
+
             </StackPanel>
         </Grid>
     </Grid>

@@ -30,7 +30,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             {
                 btnModifier.Visibility = Visibility.Collapsed;
                 btnAjouter.Visibility = Visibility.Collapsed;
-                btnSupprimer.Visibility = Visibility.Collapsed;
+                
             }
         }
         private string categorieSelectionnee = "";   // "" = toutes
@@ -95,7 +95,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             {
                 MainWindow fenetre = (MainWindow)Window.GetWindow(this);
                 if (fenetre != null)
-                    fenetre.MainContainer.Content = new UC_Participants1stPage(seance, this);
+                    fenetre.MainContainer.Content = new UC_Participants1stPage(seance.IdSeance, this);
             }
             else
             {

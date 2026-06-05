@@ -26,20 +26,9 @@ namespace SAE2._01_Application_WPF.UsersControls
     public partial class UC_Participants1stPage : UserControl
     {
         private UserControl pagePrecedente;
-        private Seance seance;
+        private int seanceID;
 
-        public Seance Seance
-        {
-            get
-            {
-                return this.seance;
-            }
-
-            set
-            {
-                this.seance = value;
-            }
-        }
+        
 
         public UserControl PagePrecedente
         {
@@ -54,22 +43,44 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
         }
 
+        public int SeanceID
+        {
+            get
+            {
+                return this.seanceID;
+            }
+
+            set
+            {
+                this.seanceID = value;
+            }
+        }
+
         public UC_Participants1stPage()
         {
             InitializeComponent();
             btnValiderInscription.Visibility = Visibility.Collapsed; 
         }
 
-        public UC_Participants1stPage(Seance seance, UserControl pagePrecedente)
+        public UC_Participants1stPage(int seanceID, UserControl pagePrecedente)
         {
             InitializeComponent();
-            this.Seance = seance;
+            this.SeanceID = seanceID;
             this.PagePrecedente = pagePrecedente;
+
+            if (this.PagePrecedente is PlanningDuJour)
+            {
+                dgListeParticipants.ItemsSource = new Client().FindBySeance(seanceID);
+                btnValiderInscription.Content = "Nouvelle Inscription";
+            }
+            else
+            {
+                dgListeParticipants.ItemsSource = new Client().FindAll();
+                btnValiderInscription.Content = "Valider l'inscription";
+            }
+
         }
-        public UC_Participants1stPage(int seanceId) : this()
-        {
-            dgListeParticipants.ItemsSource = new Client().FindBySeance(seanceId);
-        }
+
         private void TextBox_Focus(object sender, RoutedEventArgs e)
         {
             TextBox box = (TextBox)sender;
@@ -100,10 +111,8 @@ namespace SAE2._01_Application_WPF.UsersControls
 
             if (fenetrePrincipale != null)
             {
-                // 2. On instancie le deuxième UC
                 UC_Participants2ndPage nouvellePage = new UC_Participants2ndPage();
 
-                // CORRECTION ICI : On utilise MainContainer au lieu de MenuContainer
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
         }
@@ -122,18 +131,16 @@ namespace SAE2._01_Application_WPF.UsersControls
             {
                 if (!(obj is Client c)) return false;
 
-                // Recherche : nom, prénom, mail ou téléphone
                 bool okRecherche = recherche == ""
                     || (c.Nom ?? "").ToLower().Contains(recherche)
                     || (c.Prenom ?? "").ToLower().Contains(recherche)
                     || (c.Mail ?? "").ToLower().Contains(recherche)
                     || (c.Telephone ?? "").ToLower().Contains(recherche);
 
-                // Naissance : tape "1990", "/05/", "12/05/1990"...
+
                 bool okNaissance = naissance == ""
                     || c.DateNaissance.ToString("dd/MM/yyyy").Contains(naissance);
 
-                // Adresse : adresse, ville ou code postal
                 bool okAdresse = adresse == ""
                     || (c.Adresse ?? "").ToLower().Contains(adresse)
                     || (c.Ville ?? "").ToLower().Contains(adresse)
@@ -152,62 +159,84 @@ namespace SAE2._01_Application_WPF.UsersControls
 
         private void btnValiderInscription_Click(object sender, RoutedEventArgs e)
         {
-            
+            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+            if (fenetre == null) return;
 
-            if (dgListeParticipants.SelectedItem is Client client)
+            if (this.pagePrecedente is PlanningDuJour)
             {
-                var connexion = DataAccess.GetConnection();
-                string cmd = "INSERT INTO INSCRIPTION (SEANCE_ID, CLIENT_ID, DATE_INSCRIPTION) " +
-                             "VALUES (@seance, @client, @date);";
-                int id_client = client.IdClient;
-                int id_seance = this.Seance.IdSeance;
-
-                string checkCmd = "SELECT COUNT(*) FROM INSCRIPTION WHERE SEANCE_ID = @seance AND CLIENT_ID = @client";
-                using (NpgsqlCommand check = new NpgsqlCommand(checkCmd, connexion))
-                {
-                    check.Parameters.AddWithValue("@seance", id_seance);
-                    check.Parameters.AddWithValue("@client", id_client);
-
-                    int count = Convert.ToInt32(check.ExecuteScalar());
-                    if (count > 0)
-                    {
-                        MessageBox.Show("Ce client est déjà inscrit à cette séance.",
-                                        "Inscription existante",
-                                        MessageBoxButton.OK, MessageBoxImage.Warning);
-                        return; 
-                    }
-                }
-
-                try
-                {
-                    using (NpgsqlCommand commande = new NpgsqlCommand(cmd, connexion))
-                    {
-                        commande.Parameters.AddWithValue("@seance", id_seance);
-                        commande.Parameters.AddWithValue("@client", id_client);
-                        commande.Parameters.AddWithValue("@date", DateOnly.FromDateTime(DateTime.Today));
-
-                        int lignes = commande.ExecuteNonQuery();
-
-                        if (lignes > 0)
-                        {
-                            MessageBox.Show("Le participant a bien été ajouté !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information); 
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erreur BDD directe : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
-                if (fenetre != null)
-                    fenetre.MainContainer.Content = this.pagePrecedente;
+                UC_Participants1stPage pageSelectionClient = new UC_Participants1stPage(this.SeanceID, this);
+                fenetre.MainContainer.Content = pageSelectionClient;
             }
             else
             {
-                MessageBox.Show("Sélectionne d'abord une séance dans le planning.",
-                                "Aucune séance sélectionnée",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                if (dgListeParticipants.SelectedItem is Client client)
+                {
+                    var connexion = DataAccess.GetConnection();
+                    string cmd = "INSERT INTO INSCRIPTION (SEANCE_ID, CLIENT_ID, DATE_INSCRIPTION) " +
+                                 "VALUES (@seance, @client, @date);";
+                    int id_client = client.IdClient;
+                    int id_seance = this.SeanceID;
+                    DateOnly dateInscription = DateOnly.FromDateTime(DateTime.Today);
+
+
+                    string checkCmd = "SELECT COUNT(*) FROM INSCRIPTION WHERE SEANCE_ID = @seance AND CLIENT_ID = @client";
+                    using (NpgsqlCommand check = new NpgsqlCommand(checkCmd, connexion))
+                    {
+                        check.Parameters.AddWithValue("@seance", id_seance);
+                        check.Parameters.AddWithValue("@client", id_client);
+
+                        int count = Convert.ToInt32(check.ExecuteScalar());
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Ce client est déjà inscrit à cette séance.", "Inscription existante", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                    }
+
+                    try
+                    {
+                        using (NpgsqlCommand commande = new NpgsqlCommand(cmd, connexion))
+                        {
+                            commande.Parameters.AddWithValue("@seance", id_seance);
+                            commande.Parameters.AddWithValue("@client", id_client);
+                            commande.Parameters.AddWithValue("@date", dateInscription);
+
+                            int lignes = commande.ExecuteNonQuery();
+                            if (lignes > 0)
+                            {
+                                string bilan = "L'inscription a été enregistrée avec succès !\n\n" +
+                                               "--- BILAN DE L'INSCRIPTION ---\n" +
+                                               $"Participant : {client.Prenom} {client.Nom.ToUpper()}\n" +
+                                               $"ID Client   : {client.IdClient}\n" +
+                                               $"ID Séance   : {id_seance}\n" +
+                                               $"Date inscription   : {dateInscription.ToString("dd/MM/yyyy")}\n" +
+                                               "-----------------------------\n";
+
+                                MessageBox.Show(bilan, "Succès - Bilan Inscription", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erreur BDD directe : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    if (this.pagePrecedente is UC_Participants1stPage pageParticipantsPrécédente)
+                    {
+                        pageParticipantsPrécédente.dgListeParticipants.ItemsSource = new Client().FindBySeance(this.SeanceID);
+                        fenetre.MainContainer.Content = pageParticipantsPrécédente;
+                    }
+                    else
+                    {
+                        fenetre.MainContainer.Content = this.pagePrecedente;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sélectionne d'abord un client dans la liste pour l'inscrire.",
+                                    "Aucun client sélectionné",
+                                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
     }

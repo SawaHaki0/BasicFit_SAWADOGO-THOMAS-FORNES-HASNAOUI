@@ -68,6 +68,7 @@ namespace SAE2._01_Application_WPF
                                  "Erreur de connexion",
                                  MessageBoxButton.OK,
                                  MessageBoxImage.Error);
+                DataAccess.CloseConnection();
             }
 
             
