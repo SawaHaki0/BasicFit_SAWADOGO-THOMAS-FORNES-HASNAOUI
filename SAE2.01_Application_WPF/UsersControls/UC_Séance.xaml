@@ -165,7 +165,7 @@
                 </StackPanel.Resources>
 
                 <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
-                <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription"/>
+                <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription" Click="btnNouvelleInscription_Click"/>
                 <Button x:Name="btnVoirStatistique" Content="Voir Statistique" />
 
             </StackPanel>

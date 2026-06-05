@@ -89,6 +89,21 @@ namespace SAE2._01_Application_WPF.UsersControls
             };
         }
 
+        private void btnNouvelleInscription_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSeances.SelectedItem is Seance seance)
+            {
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UC_Participants1stPage(seance, this);
+            }
+            else
+            {
+                MessageBox.Show("Sélectionne d'abord une séance dans le planning.",
+                                "Aucune séance sélectionnée",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
     }
 }
 

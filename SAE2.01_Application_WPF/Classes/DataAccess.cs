@@ -75,7 +75,7 @@ namespace SAE2._01_Application_WPF.Classes
             connectionString = ConfigurationManager.ConnectionStrings["ConnexionDB"].ConnectionString;
             try
             {
-                connection = new NpgsqlConnection(hakim_connectionString);
+                connection = new NpgsqlConnection(connectionString);
             }
             catch (Exception ex)
             {
