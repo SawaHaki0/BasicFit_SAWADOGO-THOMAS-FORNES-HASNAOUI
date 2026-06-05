@@ -22,6 +22,7 @@ namespace SAE2._01_Application_WPF.UsersControls
     /// </summary>
     public partial class UC_Séance : UserControl
     {
+        private UserControl pagePrecedente;
         public UC_Séance(bool estResponsable)
         {
             InitializeComponent();
@@ -33,8 +34,42 @@ namespace SAE2._01_Application_WPF.UsersControls
                 
             }
         }
-        private string categorieSelectionnee = "";   // "" = toutes
 
+        public UC_Séance(bool estResponsable, int idClient, UserControl pageprecedente)
+        {
+            InitializeComponent();
+            this.PagePrecedente = pageprecedente;
+            if (!estResponsable)
+            {
+                btnModifier.Visibility = Visibility.Collapsed;
+                btnAjouter.Visibility = Visibility.Collapsed;
+            }
+
+            if (this.PagePrecedente is UC_Participants1stPage)
+            {
+                btnModifier.Visibility = Visibility.Collapsed;
+                btnAjouter.Visibility = Visibility.Collapsed;
+                btnNouvelleInscription.Visibility = Visibility.Collapsed;
+                btnVoirParticipants.Visibility = Visibility.Collapsed;
+                btnVoirStatistique.Visibility = Visibility.Collapsed;
+                btnRetourPage1.Visibility = Visibility.Visible;
+            }
+            dgSeances.ItemsSource = new Seance().FindByClient(idClient);
+        }
+        private string categorieSelectionnee = "";
+
+        public UserControl PagePrecedente
+        {
+            get
+            {
+                return this.pagePrecedente;
+            }
+
+            set
+            {
+                this.pagePrecedente = value;
+            }
+        }
 
         private void Filtre_Changed(object sender, SelectionChangedEventArgs e)
         {
@@ -110,6 +145,15 @@ namespace SAE2._01_Application_WPF.UsersControls
             if (fenetre != null)
             {
                 fenetre.MainContainer.Content = new UC_StatsPage();
+            }
+        }
+
+        private void btnRetourPage1_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+            if (fenetre != null)
+            {
+                fenetre.MainContainer.Content = this.PagePrecedente;
             }
         }
     }

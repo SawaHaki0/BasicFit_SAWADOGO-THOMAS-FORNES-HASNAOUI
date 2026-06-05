@@ -72,7 +72,7 @@ namespace SAE2._01_Application_WPF
                     MainWindow.MainContainer.Content = new UC_Séance(true); 
                     break;
                 case "menuParticipants":
-                    MainWindow.MainContainer.Content = new UC_Participants1stPage(); 
+                    MainWindow.MainContainer.Content = new UC_Participants1stPage(true); 
                     break;
                 case "menuCategories":
                     MainWindow.MainContainer.Content = new UCCategorie();

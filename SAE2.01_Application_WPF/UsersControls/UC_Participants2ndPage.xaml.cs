@@ -3,6 +3,7 @@ using SAE2._01_Application_WPF.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,9 +23,25 @@ namespace SAE2._01_Application_WPF.UsersControls
     /// </summary>
     public partial class UC_Participants2ndPage : UserControl
     {
-        public UC_Participants2ndPage()
+        private UserControl pagePrecedente;
+
+        public UserControl PagePrecedente
+        {
+            get
+            {
+                return this.pagePrecedente;
+            }
+
+            set
+            {
+                this.pagePrecedente = value;
+            }
+        }
+
+        public UC_Participants2ndPage(UserControl pagePrecedente)
         {
             InitializeComponent();
+            this.PagePrecedente = pagePrecedente;
         }
         // Gestionnaires d'événements pour les placeholders (textes d'aide gris)
         private void TextBox_Focus(object sender, RoutedEventArgs e)
@@ -63,7 +80,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             MainWindow fenetrePrincipale = (MainWindow)Window.GetWindow(this);
             if (fenetrePrincipale != null)
             {
-                fenetrePrincipale.MainContainer.Content = new UC_Participants1stPage();
+                fenetrePrincipale.MainContainer.Content = this.PagePrecedente;
             }
         }
         private void btnValiderCreation_Click(object sender, RoutedEventArgs e)

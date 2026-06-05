@@ -8,10 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Background="#F8FAFC">
 
-	<UserControl.DataContext>
-		<model:ObservableCollections x:Name="Binding"/>
-	</UserControl.DataContext>
-	<Grid Margin="30">
+    <UserControl.DataContext>
+        <model:ObservableCollections x:Name="Binding"/>
+    </UserControl.DataContext>
+    <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <!-- Ligne 0 : Titre + Filtres Date/Heure -->
@@ -24,32 +24,38 @@
         <!-- ZONE 1 : TITRE ET RECHERCHE DATE / HEURE -->
         <Grid Grid.Row="0" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="653*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="Consulter les séances" FontSize="32" FontWeight="Bold" Foreground="#0E2235" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Text="Consulter les séances" FontSize="32" FontWeight="Bold" Foreground="#0E2235" VerticalAlignment="Center" Grid.ColumnSpan="3"/>
+            <Button x:Name="btnRetourPage1" Content="&lt;"
+             HorizontalAlignment="Left" Background="Transparent" BorderThickness="0" 
+            Foreground="#C2410C" FontSize="28" FontWeight="Bold" Cursor="Hand" Margin="-5,-31,0,35" Grid.Column="0" Grid.ColumnSpan="2" Click="btnRetourPage1_Click" Visibility="Collapsed"/>
 
-			<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-				<Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,4" Width="170">
-					<ComboBox x:Name="cmbJour" BorderThickness="0" Background="Transparent" FontSize="13"
+
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                <Border BorderBrush="#D9DEE5" BorderThickness="1" CornerRadius="8" Background="White" Padding="10,4" Width="170">
+                    <ComboBox x:Name="cmbJour" BorderThickness="0" Background="Transparent" FontSize="13"
                   SelectionChanged="Filtre_Changed">
-						<ComboBoxItem Content="📅 Tous les jours" IsSelected="True"/>
-						<ComboBoxItem Content="Lundi"/>
-						<ComboBoxItem Content="Mardi"/>
-						<ComboBoxItem Content="Mercredi"/>
-						<ComboBoxItem Content="Jeudi"/>
-						<ComboBoxItem Content="Vendredi"/>
-						<ComboBoxItem Content="Samedi"/>
-						<ComboBoxItem Content="Dimanche"/>
-					</ComboBox>
-				</Border>
-			</StackPanel>
-		</Grid>
+                        <ComboBoxItem Content="📅 Tous les jours" IsSelected="True"/>
+                        <ComboBoxItem Content="Lundi"/>
+                        <ComboBoxItem Content="Mardi"/>
+                        <ComboBoxItem Content="Mercredi"/>
+                        <ComboBoxItem Content="Jeudi"/>
+                        <ComboBoxItem Content="Vendredi"/>
+                        <ComboBoxItem Content="Samedi"/>
+                        <ComboBoxItem Content="Dimanche"/>
+                    </ComboBox>
+                </Border>
+            </StackPanel>
+        </Grid>
 
         <!-- ZONE 2 : BOUTONS DES CATÉGORIES -->
-		<WrapPanel x:Name="panelCategories" Grid.Row="1" Margin="0,0,0,25">
-			<WrapPanel.Resources>
+        <WrapPanel x:Name="panelCategories" Grid.Row="1" Margin="0,0,0,25">
+            <WrapPanel.Resources>
                 <!-- Style partagé pour les boutons de catégorie -->
                 <Style TargetType="Button">
                     <Setter Property="Background" Value="White"/>
@@ -72,16 +78,16 @@
                 </Style>
             </WrapPanel.Resources>
 
-			<Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories" Tag="" Click="FiltrerCategorie" Height="35" Width="123"/>
-			<Button Content="Cardio &amp; Endurance"          Tag="Cardio &amp; Endurance"          Click="FiltrerCategorie"/>
-			<Button Content="Renforcement musculaire"         Tag="Renforcement musculaire"         Click="FiltrerCategorie"/>
-			<Button Content="Bien-être &amp; Stretching"      Tag="Bien-etre &amp; Stretching"      Click="FiltrerCategorie"/>
-			<Button Content="HIIT"                            Tag="HIIT"                            Click="FiltrerCategorie"/>
-			<Button Content="Danse &amp; Fitness rythmique"   Tag="Danse &amp; Fitness rythmique"   Click="FiltrerCategorie"/>
-			<Button Content="Cycling"                         Tag="Cycling"                         Click="FiltrerCategorie"/>
-			<Button Content="Pilates &amp; Core"              Tag="Pilates &amp; Core"              Click="FiltrerCategorie"/>
-			<Button Content="Yoga &amp; Méditation"           Tag="Yoga &amp; Meditation"           Click="FiltrerCategorie" Height="34" Width="123"/>
-		</WrapPanel>
+            <Button Background="#F26B1A" Foreground="White" BorderThickness="0" Content="Toutes les Catégories" Tag="" Click="FiltrerCategorie" Height="35" Width="123"/>
+            <Button Content="Cardio &amp; Endurance"          Tag="Cardio &amp; Endurance"          Click="FiltrerCategorie"/>
+            <Button Content="Renforcement musculaire"         Tag="Renforcement musculaire"         Click="FiltrerCategorie"/>
+            <Button Content="Bien-être &amp; Stretching"      Tag="Bien-etre &amp; Stretching"      Click="FiltrerCategorie"/>
+            <Button Content="HIIT"                            Tag="HIIT"                            Click="FiltrerCategorie"/>
+            <Button Content="Danse &amp; Fitness rythmique"   Tag="Danse &amp; Fitness rythmique"   Click="FiltrerCategorie"/>
+            <Button Content="Cycling"                         Tag="Cycling"                         Click="FiltrerCategorie"/>
+            <Button Content="Pilates &amp; Core"              Tag="Pilates &amp; Core"              Click="FiltrerCategorie"/>
+            <Button Content="Yoga &amp; Méditation"           Tag="Yoga &amp; Meditation"           Click="FiltrerCategorie" Height="34" Width="123"/>
+        </WrapPanel>
 
         <!-- ZONE 3 : CONTENU PRINCIPAL (Tableau à gauche, boutons d'action à droite) -->
         <Grid Grid.Row="2">
@@ -134,8 +140,8 @@
                         <DataGridTextColumn Header="SALLE" Binding="{Binding NomSalle}" Width="*"/>
                         <DataGridTextColumn Header="ENTRAÎNEUR" Binding="{Binding NomEntraineur}" Width="*"/>
                         <DataGridTextColumn Header="PLACES RESTANTES" Binding="{Binding PlacesRestantes}" Width="1.2*"/>
-						<DataGridTextColumn Header="JOUR" Binding="{Binding JourLibelle}" Width="*"/>
-					</DataGrid.Columns>
+                        <DataGridTextColumn Header="JOUR" Binding="{Binding JourLibelle}" Width="*"/>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Border>
 
@@ -166,9 +172,9 @@
 
                 <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
                 <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription" Click="btnNouvelleInscription_Click"/>
-				<Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0" Click="btnVoirStatistique_Click"/>
+                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0" Click="btnVoirStatistique_Click"/>
 
-			</StackPanel>
+            </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Top" Margin="25,300,0,0">
                 <StackPanel.Resources>

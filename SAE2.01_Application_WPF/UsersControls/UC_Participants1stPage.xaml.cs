@@ -27,7 +27,7 @@ namespace SAE2._01_Application_WPF.UsersControls
     {
         private UserControl pagePrecedente;
         private int seanceID;
-
+        private bool estResponsable;
         
 
         public UserControl PagePrecedente
@@ -56,10 +56,24 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
         }
 
-        public UC_Participants1stPage()
+        public bool EstResponsable
+        {
+            get
+            {
+                return this.estResponsable;
+            }
+
+            set
+            {
+                this.estResponsable = value;
+            }
+        }
+
+        public UC_Participants1stPage(bool estResponsable)
         {
             InitializeComponent();
             btnValiderInscription.Visibility = Visibility.Collapsed; 
+            this.EstResponsable = estResponsable;
         }
 
         public UC_Participants1stPage(int seanceID, UserControl pagePrecedente)
@@ -111,7 +125,7 @@ namespace SAE2._01_Application_WPF.UsersControls
 
             if (fenetrePrincipale != null)
             {
-                UC_Participants2ndPage nouvellePage = new UC_Participants2ndPage();
+                UC_Participants2ndPage nouvellePage = new UC_Participants2ndPage(this);
 
                 fenetrePrincipale.MainContainer.Content = nouvellePage;
             }
@@ -237,6 +251,22 @@ namespace SAE2._01_Application_WPF.UsersControls
                                     "Aucun client sélectionné",
                                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
+            }
+        }
+
+        private void btnVoirSeances_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgListeParticipants.SelectedItem is Client client)
+            {
+                MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+                if (fenetre != null)
+                    fenetre.MainContainer.Content = new UC_Séance(this.EstResponsable, client.IdClient, this);
+            }
+            else
+            {
+                MessageBox.Show("Sélectionne d'abord un client.",
+                                "Aucune client sélectionnée",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
