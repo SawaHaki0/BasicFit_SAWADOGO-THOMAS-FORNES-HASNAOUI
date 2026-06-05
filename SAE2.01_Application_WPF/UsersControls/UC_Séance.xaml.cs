@@ -23,6 +23,7 @@ namespace SAE2._01_Application_WPF.UsersControls
     public partial class UC_Séance : UserControl
     {
         private UserControl pagePrecedente;
+        private int idClient;
         public UC_Séance(bool estResponsable)
         {
             InitializeComponent();
@@ -39,6 +40,8 @@ namespace SAE2._01_Application_WPF.UsersControls
         {
             InitializeComponent();
             this.PagePrecedente = pageprecedente;
+            this.idClient = idClient;
+
             if (!estResponsable)
             {
                 btnModifier.Visibility = Visibility.Collapsed;
@@ -53,6 +56,7 @@ namespace SAE2._01_Application_WPF.UsersControls
                 btnVoirParticipants.Visibility = Visibility.Collapsed;
                 btnVoirStatistique.Visibility = Visibility.Collapsed;
                 btnRetourPage1.Visibility = Visibility.Visible;
+                btnSupprimerIns.Visibility = Visibility.Visible;
             }
             dgSeances.ItemsSource = new Seance().FindByClient(idClient);
         }
@@ -68,6 +72,19 @@ namespace SAE2._01_Application_WPF.UsersControls
             set
             {
                 this.pagePrecedente = value;
+            }
+        }
+
+        public int IdClient
+        {
+            get
+            {
+                return this.idClient;
+            }
+
+            set
+            {
+                this.idClient = value;
             }
         }
 
@@ -110,7 +127,7 @@ namespace SAE2._01_Application_WPF.UsersControls
             ICollectionView vue = CollectionViewSource.GetDefaultView(dgSeances.ItemsSource);
             if (vue == null) return;
 
-            int jour = (cmbJour != null) ? cmbJour.SelectedIndex : 0;   // 0 = tous, 1..7 = Lundi..Dimanche
+            int jour = (cmbJour != null) ? cmbJour.SelectedIndex : 0;   
 
             vue.Filter = obj =>
             {
@@ -154,6 +171,51 @@ namespace SAE2._01_Application_WPF.UsersControls
             if (fenetre != null)
             {
                 fenetre.MainContainer.Content = this.PagePrecedente;
+            }
+        }
+
+        private void btnSupprimerIns_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSeances.SelectedItem is Seance seanceASupprimer)
+            {
+
+                MessageBoxResult resultat = MessageBox.Show(
+                    $"Êtes-vous sûr de vouloir supprimer l'inscription du client pour cette séance ?",
+                    "Confirmation de suppression",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
+                );
+
+                if (resultat == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Inscription inscription = new Inscription();
+                        bool succes = inscription.DeleteInscription(seanceASupprimer.IdSeance, this.idClient);
+
+                        if (succes)
+                        {
+                            MessageBox.Show("L'inscription a bien été supprimée.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            dgSeances.ItemsSource = new Seance().FindByClient(this.idClient);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Une erreur est survenue lors de la suppression dans la base de données.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erreur lors de la suppression : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un participant dans la liste à supprimer.",
+                                "Aucune sélection",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
         }
     }

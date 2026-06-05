@@ -172,7 +172,8 @@
 
                 <Button x:Name="btnVoirParticipants" Content="Voir participants"/>
                 <Button x:Name="btnNouvelleInscription" Content="Nouvelle Inscription" Click="btnNouvelleInscription_Click"/>
-                <Button x:Name="btnVoirStatistique" Content="Voir Statistique" Margin="0" Click="btnVoirStatistique_Click"/>
+                <Button x:Name="btnVoirStatistique" Content="Voir Statistique"  Click="btnVoirStatistique_Click"/>
+                <Button x:Name="btnSupprimerIns" Content="Supprimer inscription" Margin="0" Visibility="Collapsed" Click="btnSupprimerIns_Click"/>
 
             </StackPanel>
 
