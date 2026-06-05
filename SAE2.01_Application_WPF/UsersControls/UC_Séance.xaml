@@ -8,10 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="900" Background="#F8FAFC">
 
-    <!---<UserControl.DataContext>
+    <UserControl.DataContext>
         <model:ObservableCollections x:Name="Binding"/>
     </UserControl.DataContext>
-    -->
+
     <Grid Margin="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

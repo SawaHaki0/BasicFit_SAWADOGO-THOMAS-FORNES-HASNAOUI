@@ -219,13 +219,13 @@ namespace SAE2._01_Application_WPF.UsersControls
             }
         }
 
-        private void btnModifier_Click(object sender, RoutedEventArgs e)
+        /*private void btnModifier_Click(object sender, RoutedEventArgs e)
         {
             if (dgSeances.SelectedItem is Seance seance)
             {
                 MainWindow fenetre = (MainWindow)Window.GetWindow(this);
                 if (fenetre != null)
-                    fenetre.MainContainer.Content = new UCCategorieModifier(seance, this);
+                    fenetre.MainContainer.Content = new UCSeanceModifier(seance, this);
             }
             else
             {
@@ -233,8 +233,9 @@ namespace SAE2._01_Application_WPF.UsersControls
                                 "Aucune séance sélectionnée",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-        }
+        */
     }
+
 }
+
 

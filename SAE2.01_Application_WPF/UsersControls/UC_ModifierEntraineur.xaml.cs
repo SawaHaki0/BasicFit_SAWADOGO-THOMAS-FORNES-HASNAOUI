@@ -93,7 +93,7 @@ namespace SAE2._01_Application_WPF.UsersControls
                 NpgsqlCommand commande = new NpgsqlCommand(requete, connexion);
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@prenom", prenom);
-                //commande.Parameters.AddWithValue("@id", this.Trainer.IdEntraineur);
+                commande.Parameters.AddWithValue("@id", this.Trainer.IdEntraineur);
                 int lignesModifiees = commande.ExecuteNonQuery();
 
                 if (lignesModifiees > 0)

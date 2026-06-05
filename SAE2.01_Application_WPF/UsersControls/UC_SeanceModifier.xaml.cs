@@ -28,6 +28,9 @@ namespace SAE2._01_Application_WPF.UsersControls
             InitializeComponent();
             this.Seance = seance;
             this.PagePrec = pagePrec;
+            
+            
+
         }
 
         public Seance Seance
@@ -54,6 +57,20 @@ namespace SAE2._01_Application_WPF.UsersControls
             {
                 this.pagePrec = value;
             }
+        }
+
+        private void btnRetour_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow fenetre = (MainWindow)Window.GetWindow(this);
+            if (fenetre != null)
+            {
+                fenetre.MenuContainer.Content = new UCEntraineurs(); // Nom de votre UC liste
+            }
+        }
+
+        private void btnFinaliserModification_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

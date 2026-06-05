@@ -14,9 +14,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,0,0,30">
-            <Button x:Name="btnRetour" Content="&lt;" Click="btnRetour_Click"
+            <Button x:Name="btnRetour" Content="&lt;" 
                 HorizontalAlignment="Left" Background="Transparent" BorderThickness="0" 
-                Foreground="#C2410C" FontSize="28" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,10"/>
+                Foreground="#C2410C" FontSize="28" FontWeight="Bold" Cursor="Hand" Margin="0,0,0,10" Click="btnRetour_Click"/>
             <TextBlock Text="Modifier entraîneur" FontSize="32" FontWeight="Bold" Foreground="#0F172A"/>
         </StackPanel>
 
@@ -48,9 +48,9 @@
 
         </StackPanel>
 
-        <Button Grid.Row="2" x:Name="btnFinaliserModification" Content="Finaliser la modification" Click="btnFinaliserModification_Click"
+        <Button Grid.Row="2" x:Name="btnFinaliserModification" Content="Finaliser la modification"
             HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="200" Height="45"
-            Foreground="White" FontWeight="Bold" FontSize="15" Cursor="Hand">
+            Foreground="White" FontWeight="Bold" FontSize="15" Cursor="Hand" Click="btnFinaliserModification_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="12"/>
