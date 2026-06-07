@@ -71,7 +71,7 @@ namespace SAE2._01_Application_WPF.Classes
         static DataAccess()
         {
             hakim_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=Ncxkk3pxfd6@;Database=SAE201_BasiFit;Options='-c search_path=public'";
-            soren_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
+            soren_connectionString = "Host=srv-peda-new;Port=5433;Username=postgres;Password=rCupUg;Database=SAE201_thomasso;Options='-c search_path=thomasso'";
             vincent_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
             hasnaoui_connectionString = "Host=127.0.0.1;Port=5432;Username=postgres;Password=;Database=SAE201";
         }
@@ -85,7 +85,7 @@ namespace SAE2._01_Application_WPF.Classes
 
             try
             {
-                connection = new NpgsqlConnection(ConnectionStr);
+                connection = new NpgsqlConnection(soren_connectionString);
                 connection.Open();
 
                 using (var cmd = new NpgsqlCommand("SELECT role FROM users WHERE username = @login", connection))
